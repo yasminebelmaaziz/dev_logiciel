@@ -1,0 +1,18 @@
+@startuml
+skinparam usecase {
+BackgroundColor White
+BorderColor Black
+ArrowColor Black
+ActorBackgroundColor<< Human >> Gold
+}
+
+left to right direction
+
+actor RH as "Membre du SRH"
+
+rectangle "PGE" {
+:RH: -- (ajouter une famille)
+:RH: -- (retirer une famille)
+:RH: -- (lister les familles)
+}
+@enduml

@@ -1,0 +1,24 @@
+@startuml
+hide footbox
+skinparam sequenceParticipantBackgroundColor White
+skinparam sequenceActorBackgroundColor White
+
+actor "__:SRH__" as srh
+participant "__pge:PGE__" as pge
+
+activate srh
+srh -> pge ++ : ajouterUneFamille(id, description)
+opt id, description non null ∧ non vide
+  pge -> pge ++ : f=chercherFamille(id): Famille
+  return
+  create "__f:Famille__" as f
+  opt f == null
+    pge -> "__f:Famille__" as f ++ : f=<<create(id, description)>>
+    return
+    pge -> pge ++ : ajouterFamille(f)
+    return
+  end
+end
+return
+deactivate srh
+@enduml
