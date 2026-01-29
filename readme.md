@@ -69,7 +69,7 @@ priorité HAUTE.
 ∧ pas de famille avec cet identificateur
 
 - postcondition : \
-∧ famille avec cet identificateur existante
+∧ ajout de la famille effectué
 
 #### Autres cas d'utilisation et leur priorité respective
 
@@ -86,7 +86,7 @@ priorité HAUTE.
 | description bien formée  (non null ∧ non vide)  |   | F | T | T |
 | pas de famille avec cet identificateur          |   |   | F | T |
 |                                                 |   |   |   |   |
-| une famille avec cet identifacteur              | F | F | F | T |
+| ajout de la famille effectué                    | F | F | F | T |
 |                                                 |   |   |   |   |
 | nombre de tests dans le jeu de tests            | 2 | 2 | 1 | 1 |
 
