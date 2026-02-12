@@ -71,10 +71,102 @@ priorité HAUTE.
 - postcondition : \
 ∧ ajout de la famille effectué
 
+#### Retirer une famille (HAUTE)
+
+- en entrée : identificateur de la famille, description
+- en sortie : /
+
+- précondition : \
+∧ identificateur bien formé (non null ∧ non vide) \
+∧ description bien formé (non null ∧ non vide) \
+∧ il existe une famille avec cet identificateur
+
+- postcondition :
+∧ retrait de la famille effectué
+
+#### Ajouter un enfant (HAUTE)
+
+- en entrée : identificateur de la famille, description, identificateur de l'enfant
+- en sortie : /
+
+- précondition : \
+∧ identificateur famille bien formé (non null ∧ non vide) \
+∧ description bien formé (non null ∧ non vide) \
+∧ identificateur famille bien formé (non null ∧ non vide) \
+∧ il existe une famille avec cet identificateur
+∧ pas d'enfant dans cette famille avec cet identificateur
+
+- postcondition :
+∧ ajout de l'enfant dans la famille
+
+#### Retirer un enfant (HAUTE)
+
+- en entrée : 
+- en sortie :
+
+- précondition : \
+
+- postcondition :
+
+#### Ajouter un cadeau (HAUTE)
+
+- en entrée : 
+- en sortie :
+
+- précondition : \
+
+- postcondition :
+
+#### Retirer un cadeau (HAUTE)
+
+- en entrée : 
+- en sortie :
+
+- précondition : \
+
+- postcondition :
+
+#### Retirer un cadeau (HAUTE)
+
+- en entrée : 
+- en sortie :
+
+- précondition : \
+
+- postcondition :
+
+#### AJouter une réservation d'un cadeau (HAUTE)
+
+- en entrée : 
+- en sortie :
+
+- précondition : \
+
+- postcondition :
+
+#### Retirer une réservation d'un cadeau (HAUTE)
+
+- en entrée : 
+- en sortie :
+
+- précondition : \
+
+- postcondition :
+
+
+
 #### Autres cas d'utilisation et leur priorité respective
 
-- retirer une famille (Moyenne)
 - lister les familles (Moyenne)
+- lister les enfants d'une famille (Moyenne)
+- lister tous les enfants (Moyenne)
+
+- lister le nombre de cadeaux disponibles (Moyenne)
+- lister le nombre de points restants d'un enfant (Moyenne)
+- lister le nombre de réservations pour un cadeau (Moyenne)
+
+- lister les réservations réalisées (Moyenne)
+- lister les cadeaux disponibles (Moyenne)
 
 ## 2. Préparation des tests de validation des cas d'utilisation
 
