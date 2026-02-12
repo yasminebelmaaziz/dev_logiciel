@@ -9,10 +9,24 @@ ActorBackgroundColor<< Human >> Gold
 left to right direction
 
 actor RH as "Membre du SRH"
+actor CE as "Membre du CE"
+actor Famille as "Membre d'une famille"
 
 rectangle "PGE" {
 :RH: -- (ajouter une famille)
 :RH: -- (retirer une famille)
 :RH: -- (lister les familles)
+:RH: -- (ajouter un enfant à une famille)
+:RH: -- (retirer un enfant à une famille)
+:RH: -- (lister les enfants d'une famille)
+:RH: -- (lister tous les enfants)
+:CE: -- (ajouter un cadeau)
+:CE: -- (retirer un cadeau)
+:CE: -- (lister le nombre de points restants d'un enfant)
+:CE: -- (lister le nombre de cadeau disponible)
+:Famille: --(ajouter une réservation de cadeaux pour un enfant)
+:Famille: --(retirer une réservation)
+:Famille: --(lister le nombre de cadeau disponible)
+:Famille: --(lister les réservation de la famille)
 }
 @enduml
