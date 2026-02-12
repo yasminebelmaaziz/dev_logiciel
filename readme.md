@@ -81,78 +81,105 @@ priorité HAUTE.
 ∧ description bien formé (non null ∧ non vide) \
 ∧ il existe une famille avec cet identificateur
 
-- postcondition :
-∧ retrait de la famille effectué
+- postcondition : \
+∧ retrait de la famille effectué \
+∧ retrait des enfants de la famille effectué
 
 #### Ajouter un enfant (HAUTE)
 
-- en entrée : identificateur de la famille, description, identificateur de l'enfant
+- en entrée : identificateur de la famille, prénom de l'enfant, nom de l'enfant
 - en sortie : /
 
 - précondition : \
 ∧ identificateur famille bien formé (non null ∧ non vide) \
-∧ description bien formé (non null ∧ non vide) \
-∧ identificateur famille bien formé (non null ∧ non vide) \
-∧ il existe une famille avec cet identificateur
-∧ pas d'enfant dans cette famille avec cet identificateur
+∧ prénom enfant bien formé (non null ∧ non vide) \
+∧ nom enfant bien formé (non null ∧ non vide) \
+∧ il existe une famille avec cet identificateur \
+∧ pas d'enfant dans cette famille avec avec ce couple (prénom, nom)
 
 - postcondition :
-∧ ajout de l'enfant dans la famille
+∧ ajout de l'enfant dans la famille \
+∧ le solde de points de l'enfant est initialisé
 
 #### Retirer un enfant (HAUTE)
 
-- en entrée : 
-- en sortie :
+- en entrée : identificateur de la famille, prénom de l'enfant, nom de l'enfant
+- en sortie : /
 
 - précondition : \
+∧ identificateur famille bien formé (non null ∧ non vide) \
+∧ prénom enfant bien formé (non null ∧ non vide) \
+∧ nom enfant bien formé (non null ∧ non vide) \
+∧ il existe une famille avec cet identificateur \
+∧ il existe un enfant dans cette famille avec ce couple (prénom, nom)
 
-- postcondition :
+- postcondition :\
+∧ retrait de l'enfant dans la famille \
+∧ toutes les réservations de cadeaux associées à cet enfant sont retirées \
+∧ le stock des cadeaux concernés est ré-incrémenté
 
 #### Ajouter un cadeau (HAUTE)
 
-- en entrée : 
-- en sortie :
+- en entrée : description, nombre de points, stock initial
+- en sortie : /
 
 - précondition : \
+∧ description bien formée (non null ∧ non vide) \
+∧ pas de cadeau existant avec cette description \
+∧ nombre de points > 0 \
+∧ stock initial >= 0 \
 
-- postcondition :
+- postcondition : \
+∧ ajout du cadeau au catalogue effectué 
 
 #### Retirer un cadeau (HAUTE)
 
-- en entrée : 
-- en sortie :
+- en entrée : description
+- en sortie : /
 
 - précondition : \
+∧ description bien formée (non null ∧ non vide) \
+∧ le cadeau existe \
+∧ il n'existe aucune réservation en cours pour le cadeau \
 
-- postcondition :
+- postcondition :\
+∧ retrait du cadeau au catalogue effectué 
 
-#### Retirer un cadeau (HAUTE)
+#### Ajouter une réservation d'un cadeau (HAUTE)
 
-- en entrée : 
-- en sortie :
-
-- précondition : \
-
-- postcondition :
-
-#### AJouter une réservation d'un cadeau (HAUTE)
-
-- en entrée : 
-- en sortie :
+- en entrée : prénom de l'enfant, nom de l'enfant, cadeau, quantitée voulue
+- en sortie : /
 
 - précondition : \
+∧ nom et prénom enfant bien formé (non null ∧ non vide) \
+∧ il existe un enfant dans cette famille avec ce couple (prénom, nom)\
+∧ le cadeau existe\
+∧ le stock disponible pour ce cadeau est suffisant pour la quantitée voulue\
+∧ l'enfant possède un solde de points suffisant (quantité*coût en points du cadeau)
 
-- postcondition :
+- postcondition : \
+∧ le stock du cadeau est décrémenté par la quantité réservée \
+∧ le solde de points de l'enfant est décrémenté du nombre de points correspondant \
+∧ si réservation existante : quantité mise à jour \
+∧ si aucune réservation pour ce couple (enfant , cadeau) : création de la réservation
 
 #### Retirer une réservation d'un cadeau (HAUTE)
 
-- en entrée : 
-- en sortie :
+- en entrée : prénom de l'enfant, nom de l'enfant, cadeau, quantitée à retirer
+- en sortie : /
 
 - précondition : \
+∧ nom et prénom enfant bien formé (non null ∧ non vide) \
+∧ il existe un enfant dans cette famille avec ce couple (prénom, nom) \
+∧ le cadeau existe \
+∧ la réservation pour ce couple (enfant, cadeau) existe \
+∧ quantité déjà réservée >= quantité à retirer
 
-- postcondition :
-
+- postcondition : \
+∧ solde de points de l'enfant recrédité \
+∧ stock du cadeau incrémenté \
+∧ quantité réservée décrémentée \
+∧ si quantité réservée atteint 0 : suppression de la réservation
 
 
 #### Autres cas d'utilisation et leur priorité respective
@@ -163,10 +190,12 @@ priorité HAUTE.
 
 - lister le nombre de cadeaux disponibles (Moyenne)
 - lister le nombre de points restants d'un enfant (Moyenne)
-- lister le nombre de réservations pour un cadeau (Moyenne)
 
 - lister les réservations réalisées (Moyenne)
 - lister les cadeaux disponibles (Moyenne)
+
+- (plus tard) efectuer un réassort (Basse)
+- (plus tard) système de notifications 
 
 ## 2. Préparation des tests de validation des cas d'utilisation
 
