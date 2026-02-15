@@ -255,6 +255,70 @@ priorité HAUTE.
 | nombre de tests dans le jeu de tests                                    | 2 | 2 | 1 | 1 | 1 |
 
 
+#### Ajouter un cadeau (HAUTE)
+
+|                                                         | 1 | 2 | 3 | 4 | 5 |
+|---------------------------------------------------------|---|---|---|---|---|
+| description bien formée (non null ∧ non vide)           | F | T | T | T | T |
+| pas de cadeau avec cette description                    |   | F | T | T | T |
+| nombre de points bien formé (non null ∧ non vide ∧ >0 ) |   |   | F | T | T |
+| stock initial bien formé (non null ∧ non vide ∧ >=0)    |   |   |   | F | T |
+|                                                         |   |   |   |   |   |
+| ajout du cadeau effectué                                | F | F | F | F | T |
+|                                                         |   |   |   |   |   |
+| nombre de tests dans le jeu de tests                    | 2 | 1 | 3 | 3 | 1 |
+
+#### Retirer un cadeau (HAUTE)
+
+|                                                              | 1 | 2 | 3 | 4 |
+|--------------------------------------------------------------|---|---|---|---|
+| description bien formée (non null ∧ non vide)                | F | T | T | T |
+| le cadeau existe                                             |   | F | T | T |
+| il n'existe aucune réservation en cours pour le cadeau       |   |   | F | T |
+|                                                              |   |   |   |   |
+| retrait du cadeau au catalogue effectué                      | F | F | F | T |
+|                                                              |   |   |   |   |
+| nombre de tests dans le jeu de tests                         | 2 | 1 | 1 | 1 |
+
+
+#### Ajouter une réservation d'un cadeau (HAUTE)
+
+|                                                    | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
+|----------------------------------------------------|---|---|---|---|---|---|---|
+| id, prénom enfant bien formés (non null ∧ non vide)| F | T | T | T | T | T | T |
+| enfant existe (couple prénom, id)                  |   | F | T | T | T | T | T |
+| le cadeau existe                                   |   |   | F | T | T | T | T |
+| stock suffisant pour la quantité                   |   |   |   | F | T | T | T |
+| solde de points suffisant                          |   |   |   |   | F | T | T |
+| réservation déjà existante ? (condition scénario)  |   |   |   |   |   | F | T |
+|                                                    |   |   |   |   |   |   |   |
+| stock cadeau décrémenté                            | F | F | F | F | F | T | T |
+| solde points décrémenté                            | F | F | F | F | F | T | T |
+| création nouvelle réservation                      | F | F | F | F | F | T | F |
+| mise à jour réservation existante                  | F | F | F | F | F | F | T |
+|                                                    |   |   |   |   |   |   |   |
+| nombre de tests                                    | 4 | 1 | 1 | 1 | 1 | 1 | 1 |
+
+
+#### Retirer une réservation d'un cadeau (HAUTE)
+
+|                                                    | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
+|----------------------------------------------------|---|---|---|---|---|---|---|
+| id, prénom enfant bien formés (non null ∧ non vide)| F | T | T | T | T | T | T |
+| enfant existe (couple prénom, id)                  |   | F | T | T | T | T | T |
+| le cadeau existe                                   |   |   | F | T | T | T | T |
+| la réservation existe                              |   |   |   | F | T | T | T |
+| quantité déjà réservée >= quantité à retirer       |   |   |   |   | F | T | T |
+| quantité après retrait > 0 ? (condition scénario)  |   |   |   |   |   | T | F |
+|                                                    |   |   |   |   |   |   |   |
+| solde enfant recrédité                             | F | F | F | F | F | T | T |
+| stock cadeau incrémenté                            | F | F | F | F | F | T | T |
+| décrémentation de la quantité demandée             | F | F | F | F | F | T | F |
+| suppression de la réservation                      | F | F | F | F | F | F | T |
+|                                                    |   |   |   |   |   |   |   |
+| nombre de tests                                    | 4 | 1 | 1 | 1 | 1 | 1 | 1 |
+
+
 # 3. Conception
 
 ## 3.1. Listes des classes candidates et de leurs attributs
