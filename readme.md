@@ -73,12 +73,11 @@ priorité HAUTE.
 
 #### Retirer une famille (HAUTE)
 
-- en entrée : identificateur de la famille, description
+- en entrée : identificateur de la famille
 - en sortie : /
 
 - précondition : \
 ∧ identificateur bien formé (non null ∧ non vide) \
-∧ description bien formé (non null ∧ non vide) \
 ∧ il existe une famille avec cet identificateur
 
 - postcondition : \
@@ -103,15 +102,14 @@ priorité HAUTE.
 
 #### Retirer un enfant (HAUTE)
 
-- en entrée : identificateur de la famille, prénom de l'enfant, nom de l'enfant
+- en entrée : identificateur de la famille, prénom de l'enfant
 - en sortie : /
 
 - précondition : \
 ∧ identificateur famille bien formé (non null ∧ non vide) \
 ∧ prénom enfant bien formé (non null ∧ non vide) \
-∧ nom enfant bien formé (non null ∧ non vide) \
 ∧ il existe une famille avec cet identificateur \
-∧ il existe un enfant dans cette famille avec ce couple (prénom, nom)
+∧ il existe un enfant dans cette famille avec ce couple (prénom, id)
 
 - postcondition :\
 ∧ retrait de l'enfant dans la famille \
@@ -126,8 +124,8 @@ priorité HAUTE.
 - précondition : \
 ∧ description bien formée (non null ∧ non vide) \
 ∧ pas de cadeau existant avec cette description \
-∧ nombre de points > 0 \
-∧ stock initial >= 0 \
+∧ nombre de points bien formée (non null ∧ non vide ∧ > 0) \
+∧ stock initial bien formée (non null ∧ non vide ∧ >= 0) \
 
 - postcondition : \
 ∧ ajout du cadeau au catalogue effectué 
@@ -147,12 +145,12 @@ priorité HAUTE.
 
 #### Ajouter une réservation d'un cadeau (HAUTE)
 
-- en entrée : prénom de l'enfant, nom de l'enfant, cadeau, quantitée voulue
+- en entrée : prénom de l'enfant, identificateur de la famille, cadeau, quantitée voulue
 - en sortie : /
 
 - précondition : \
-∧ nom et prénom enfant bien formé (non null ∧ non vide) \
-∧ il existe un enfant dans cette famille avec ce couple (prénom, nom)\
+∧ identifacteur et prénom enfant bien formé (non null ∧ non vide) \
+∧ il existe un enfant dans cette famille avec ce couple (prénom, id)\
 ∧ le cadeau existe\
 ∧ le stock disponible pour ce cadeau est suffisant pour la quantitée voulue\
 ∧ l'enfant possède un solde de points suffisant (quantité*coût en points du cadeau)
@@ -165,12 +163,12 @@ priorité HAUTE.
 
 #### Retirer une réservation d'un cadeau (HAUTE)
 
-- en entrée : prénom de l'enfant, nom de l'enfant, cadeau, quantitée à retirer
+- en entrée : prénom de l'enfant, identificateur de la famille, cadeau, quantitée à retirer
 - en sortie : /
 
 - précondition : \
-∧ nom et prénom enfant bien formé (non null ∧ non vide) \
-∧ il existe un enfant dans cette famille avec ce couple (prénom, nom) \
+∧ identificateur et prénom enfant bien formé (non null ∧ non vide) \
+∧ il existe un enfant dans cette famille avec ce couple (prénom, id) \
 ∧ le cadeau existe \
 ∧ la réservation pour ce couple (enfant, cadeau) existe \
 ∧ quantité déjà réservée >= quantité à retirer
@@ -210,6 +208,52 @@ priorité HAUTE.
 | ajout de la famille effectué                    | F | F | F | T |
 |                                                 |   |   |   |   |
 | nombre de tests dans le jeu de tests            | 2 | 2 | 1 | 1 |
+
+
+#### Retirer une famille (HAUTE)
+
+|                                                 | 1 | 2 | 3 |
+|:------------------------------------------------|:--|:--|:--|
+| identificateur bien formé (non null ∧ non vide) | F | T | T |
+| il existe une famille avec cet identificateur   |   | F | T |
+|                                                 |   |   |   |
+| retrait de la famille effectué                  | F | F | T |
+| retrait des enfants de la famille effectué      |   |   | T |
+|                                                 |   |   |   |
+| nombre de tests dans le jeu de tests            | 2 | 2 | 1 |
+
+
+#### Ajouter un enfant (HAUTE)
+
+|                                                                   | 1 | 2 | 3 | 4 | 5 | 6 |
+|:------------------------------------------------------------------|:--|:--|:--|:--|:--|:--|
+| identificateur famille bien formé (non null ∧ non vide)           | F | T | T | T | T | T |
+| prénom enfant bien formé (non null ∧ non vide)                    |   | F | T | T | T | T |
+| nom enfant bien formé (non null ∧ non vide)                       |   |   | F | T | T | T |
+| il existe une famille avec cet identificateur                     |   |   |   | F | T | T |
+| pas d'enfant dans cette famille avec avec ce couple (prénom, nom) |   |   |   |   | F | T |
+|                                                                   |   |   |   |   |   |   |
+| ajout de l'enfant dans la famille                                 | F | F | F | F | F | T |
+| le solde de points de l'enfant est initialisé                     |   |   |   |   |   | T |
+|                                                                   |   |   |   |   |   |   |
+| nombre de tests dans le jeu de tests                              | 2 | 2 | 2 | 1 | 1 | 1 |
+
+
+#### Retirer un enfant (HAUTE)
+
+|                                                                         | 1 | 2 | 3 | 4 | 5 |
+|:------------------------------------------------------------------------|:--|:--|:--|:--|---|
+| identificateur famille bien formé (non null ∧ non vide)                 | F | T | T | T | T |
+| prénom enfant bien formé (non null ∧ non vide)                          |   | F | T | T | T |
+| il existe une famille avec cet identificateur                           |   |   | F | T | T |
+| il existe un enfant dans cette famille avec ce couple (prénom, id)      |   |   |   | F | T |
+|                                                                         |   |   |   |   |   |
+| retrait de l'enfant dans la famille                                     | F | F | F | F | T |
+| toutes les réservations de cadeaux associées à cet enfant sont retirées |   |   |   |   | T |
+| le stock des cadeaux concernés est ré-incrémenté                        |   |   |   |   | T |
+|                                                                         |   |   |   |   |   |
+| nombre de tests dans le jeu de tests                                    | 2 | 2 | 1 | 1 | 1 |
+
 
 # 3. Conception
 
