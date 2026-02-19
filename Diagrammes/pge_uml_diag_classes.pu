@@ -32,12 +32,18 @@ class Cadeau {
 }
 
 class Réservation {
-  - id: string
   - quantitee: int
 }
 
 
 
-PGE --> "*" Famille
+PGE *-- "*" Famille
+PGE *-- "*" Cadeau
+
+Enfant -- Cadeau
+(Enfant, Cadeau) .. Réservation
+
+Famille *-- "*" Enfant
+
 
 @enduml

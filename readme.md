@@ -123,10 +123,11 @@ priorité HAUTE.
 
 #### Ajouter un cadeau (HAUTE)
 
-- en entrée : description, nombre de points, stock initial
+- en entrée : id cadeau, description, nombre de points, stock initial
 - en sortie : /
 
 - précondition : \
+- ∧ id cadeau bien formé (non null ∧ non vide) \
 ∧ description bien formée (non null ∧ non vide) \
 ∧ pas de cadeau existant avec cette description \
 ∧ nombre de points bien formée (non null ∧ non vide ∧ > 0) \
