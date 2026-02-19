@@ -1,3 +1,7 @@
+Membres du projet : 
+- BELMAAZIZ Yasmine
+- TAS Ozgur
+
 
 # Petits cadeaux pour Grands Effets
 
@@ -30,6 +34,7 @@ d'utilisation avec des cas d'utilisation moins importants, et donc que
 nous ne développerons pas dans le cadre du temps imparti.
 
 ![diagrammecasutilisation](./Diagrammes/pge_uml_diag_cas_utilisation.svg)
+Figure 1 : Diagrammes des cas d'utilisation
 
 ### 1.2. Priorités, préconditions et postconditions des cas d'utilisation
 
@@ -150,7 +155,7 @@ priorité HAUTE.
 
 - précondition : \
 ∧ identifacteur et prénom enfant bien formé (non null ∧ non vide) \
-∧ il existe un enfant dans cette famille avec ce couple (prénom, id)\
+∧ il existe un enfant dans cette famille avec ce couple (prénom, id famille)\
 ∧ le cadeau existe\
 ∧ le stock disponible pour ce cadeau est suffisant pour la quantitée voulue\
 ∧ l'enfant possède un solde de points suffisant (quantité*coût en points du cadeau)
