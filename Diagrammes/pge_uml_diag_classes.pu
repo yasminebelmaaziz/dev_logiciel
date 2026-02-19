@@ -17,6 +17,27 @@ class Famille {
   - description: string
 }
 
+class Enfant {
+  - id: string
+  - nom: string
+  - prenom: string
+  - nbPointsRestants: int
+}
+
+class Cadeau {
+  - id: string
+  - nbStockDisponible: int
+  - cout: int
+  - description: string
+}
+
+class Réservation {
+  - id: string
+  - quantitee: int
+}
+
+
+
 PGE --> "*" Famille
 
 @enduml

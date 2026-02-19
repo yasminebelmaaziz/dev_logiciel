@@ -345,7 +345,12 @@ Donc, dans la classe `PGE`, voici les premières opérations (en
 ignorant celles de priorité « basse ») :
 - `ajouterUneFamille`
 - `retirerUneFamille`
-- `listerLesFamilles`
+- `ajouterUnEnfant`
+- `retirerUnEnfant`
+- `ajouterUnCadeau`
+- `retirerUnCadeau`
+- `ajouterUneReservation`
+- `retirerUneReservation`
 
 ## 3.3. Diagramme de classes (version conception détaillée)
 
