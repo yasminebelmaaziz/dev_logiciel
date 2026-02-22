@@ -375,17 +375,11 @@ Version sans les notifications :
 
 #### Ajouter une famille (HAUTE)
 
-Le premier diagramme a notre préférence.
 
 ![diagrammeséquenceajouterunefamille](./Diagrammes/pge_uml_diag_seq_ajouter_famille.svg)
 
-![diagrammeséquenceajouterunefamillealternative](./Diagrammes/pge_uml_diag_seq_ajouter_famille_alternative.svg)
-
-#### Ajouter un cadeau (HAUTE)
-![diagrammeséquenceajouteruncadeau](./Diagrammes/pge_uml_diag_seq_ajouter_un_cadeau.svg)
 
 #### Ajouter un enfant à une famille (HAUTE)
-<<<<<<< Updated upstream
 
 Description textuelle de la séquence :
 
@@ -405,12 +399,6 @@ Description textuelle de la séquence :
 3. Création d'une réservation
 
 ![diagrammeséquenceajouterunereservationdecadeauaunenfant](./Diagrammes/pge_uml_diag_seq_ajouter_une_reservation_de_cadeau_a_un_enfant.svg)
-=======
-![diagrammeséquenceajouterunenfant](./Diagrammes/pge_uml_diag_seq_ajouter_un_enfant.svg)
-
-#### Ajouter une réservation d'un cadeau (HAUTE)
-![diagrammeséquenceajouterreservation](./Diagrammes/pge_uml_diag_seq_ajouter_reservation.svg)
->>>>>>> Stashed changes
 
 # 7. Diagrammes de machine à états et invariants, et fiche des classes
 

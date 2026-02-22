@@ -1,0 +1,25 @@
+@startuml
+hide footbox
+skinparam sequenceParticipantBackgroundColor White
+skinparam sequenceActorBackgroundColor White
+
+actor "__:CE__" as ce
+participant "__pge:PGE__" as pge
+
+activate ce
+ce -> pge ++ : ajouterUnCadeau(id, description, points, stock)
+opt id, description, points, stock bien formés (non null, non vide, points > 0, stock >= 0)
+  pge -> pge ++ : c=chercherCadeau(id): Cadeau
+  return
+  
+  opt c == null
+    create "__c:Cadeau__" as c
+    pge -> c ++ : c=<<create(id, description, points, stock)>>
+    return
+    pge -> pge ++ : ajouterCadeau(c)
+    return
+  end
+end
+return
+deactivate ce
+@enduml
