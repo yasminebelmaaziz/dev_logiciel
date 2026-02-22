@@ -20,13 +20,18 @@ rectangle "PGE" {
 :RH: -- (retirer un enfant à une famille)
 :RH: -- (lister les enfants d'une famille)
 :RH: -- (lister tous les enfants)
+
+:CE: -- (lister tous les enfants)
+:CE: -- (lister les familles)
+:CE: -- (lister les enfants d'une famille)
+
 :CE: -- (ajouter un cadeau)
 :CE: -- (retirer un cadeau)
 :CE: -- (lister le nombre de points restants d'un enfant)
-:CE: -- (lister le nombre de cadeau disponible)
+:CE: -- (lister le nombre de cadeaux disponibles)
 :Famille: --(ajouter une réservation de cadeaux pour un enfant)
 :Famille: --(retirer une réservation)
-:Famille: --(lister le nombre de cadeau disponible)
+:Famille: --(lister le nombre de cadeaux disponibles)
 :Famille: --(lister les réservation de la famille)
 }
 @enduml
