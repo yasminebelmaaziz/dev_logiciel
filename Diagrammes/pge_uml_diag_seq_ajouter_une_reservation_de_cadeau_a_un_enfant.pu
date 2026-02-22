@@ -10,19 +10,21 @@ activate membrefamille
 membrefamille -> pge ++ : ajouterUneReservation(id, id_cadeau, nb)
 
 opt id, id_cadeau, nb non null ∧ non vide
-  pge -> pge ++ : e=chercherEnfant(id): Enfant
+  pge -> pge ++ : e = chercherEnfant(id) : Enfant
   return
 
-  pge -> pge ++ : c=chercherCadeau(id_cadeau): Cadeau
-  return
-
-  opt e != null and c != null
-    create "__r:Reservation__" as r
-    pge -> r ++ : r = <<create(id, id_cadeau, nb)>>
+  opt e != null
+    pge -> pge ++ : c = chercherCadeau(id_cadeau) : Cadeau
     return
 
+    opt c != null
+      create "__r:Reservation__" as r
+      pge -> r ++ : <<create(nb)>>
+      return
+      pge -> pge ++ : enregistrerReservation(e, c, r)
+      return
+    end
   end
-
 end
 
 return
