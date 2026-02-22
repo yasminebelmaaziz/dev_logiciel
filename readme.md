@@ -123,11 +123,10 @@ priorité HAUTE.
 
 #### Ajouter un cadeau (HAUTE)
 
-- en entrée : id cadeau, description, nombre de points, stock initial
+- en entrée : description, nombre de points, stock initial
 - en sortie : /
 
 - précondition : \
-- ∧ id cadeau bien formé (non null ∧ non vide) \
 ∧ description bien formée (non null ∧ non vide) \
 ∧ pas de cadeau existant avec cette description \
 ∧ nombre de points bien formée (non null ∧ non vide ∧ > 0) \
@@ -370,11 +369,30 @@ Version sans les notifications :
 
 #### Ajouter une famille (HAUTE)
 
-Le premier diagramme a notre préférence.
 
 ![diagrammeséquenceajouterunefamille](./Diagrammes/pge_uml_diag_seq_ajouter_famille.svg)
 
-![diagrammeséquenceajouterunefamillealternative](./Diagrammes/pge_uml_diag_seq_ajouter_famille_alternative.svg)
+
+#### Ajouter un enfant à une famille (HAUTE)
+
+Description textuelle de la séquence :
+
+1. Vérifier que la famille existe
+2. Vérifier que l'enfant n'existe pas
+3. Création de l'enfant
+4. Ajouter l'enfant à la famille
+
+![diagrammeséquenceajouterunenfant](./Diagrammes/pge_uml_diag_seq_ajouter_un_enfant.svg)
+
+#### Ajouter une réservation de cadeau pour un enfant (HAUTE)
+
+Description textuelle de la séquence :
+
+1. Vérifier que l'enfant existe
+2. Vérifier que le cadeau existe
+3. Création d'une réservation
+
+![diagrammeséquenceajouterunereservationdecadeauaunenfant](./Diagrammes/pge_uml_diag_seq_ajouter_une_reservation_de_cadeau_a_un_enfant.svg)
 
 # 7. Diagrammes de machine à états et invariants, et fiche des classes
 
