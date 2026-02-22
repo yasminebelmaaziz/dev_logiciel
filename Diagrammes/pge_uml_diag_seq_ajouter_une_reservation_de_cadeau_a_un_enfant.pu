@@ -1,0 +1,30 @@
+@startuml
+hide footbox
+skinparam sequenceParticipantBackgroundColor White
+skinparam sequenceActorBackgroundColor White
+
+actor "__:MembreFamille__" as membrefamille
+participant "__pge:PGE__" as pge
+
+activate membrefamille
+membrefamille -> pge ++ : ajouterUneReservation(id, id_cadeau, nb)
+
+opt id, id_cadeau, nb non null ∧ non vide
+  pge -> pge ++ : e=chercherEnfant(id): Enfant
+  return
+
+  pge -> pge ++ : c=chercherCadeau(id_cadeau): Cadeau
+  return
+
+  opt e != null and c != null
+    create "__r:Reservation__" as r
+    pge -> r ++ : r = <<create(id, id_cadeau, nb)>>
+    return
+
+  end
+
+end
+
+return
+deactivate membrefamille
+@enduml
