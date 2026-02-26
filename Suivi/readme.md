@@ -70,3 +70,71 @@ ok
 
 - [] TABLEDECTV-07-MAJ-précondition-postcondition
   Mettre en conformité avec les conditions.
+ 
+---
+# Suivi du jeu. 26 févr. 2026 23:22:48
+Elisabeth Brunet
+ 
+Bon travail! Néanmoins revoyez précisement le diagramme de séquence de UC3. 
+ 
+ 
+### Diagramme de classes
+
+- [] Vous pouvez encore affiner vos associations multiples en précisant s'il
+  s'agit d'agregation ou de composition.
+  
+- [] La navigabilité de Cadeau vers Réservation est-elle vraiment utile?
+
+
+### Diagrammes de séquence
+
+1. Cas d'utilisation « Ajouter un cadeau »
+
+- ok
+
+2. Cas d'utilisation « Ajouter un enfant à une famille »
+
+- [] D'après votre diagramme de classes, vous n'avez pas accès à
+Enfant depuis PGE. Vous devez chercher l'enfant depuis Famille, et non
+depuis PGE. Toute la suite se fait dans Famille. 
+
+3. Cas d'utilisation « Ajouter une réservation de cadeaux pour un enfant »
+
+- [] il faut d'abord chercher la famille, puis l'enfant dans la
+  famille. Ainsi, vous avez besoin de l'idFamille et idEnfant en
+  paramètre. Revoyez vos pré et post-conditions pour ce UC dans ce sens.
+  
+- [] la façade n'est qu'un point d'entrée dans le système et doit en
+  faire le moins possible. Il faut qu'elle délègue aux objets
+  concernés. Vous devriez "creer Résrevation", "incrementerQuantité",
+  ect depuis Enfant et non depuis PGE. Nous pouvons en rediscuter en
+  séance si cela n'est pas clair.  
+
+### Raffinement du diagramme de classes
+
+1. Fiche de la classe « Classe »
+
+- [] 
+
+### Diagramme de machine à états et invariant
+
+1. Diagramme de machine à états de la classe « Cadeau »
+
+- [] Suivant si vous modifier la navigabilité entre Reservation et
+  Cadeau, faites attention à comment savoir s'il existe des
+  réservation de ce cadeau qui bloquerait sa mise en destruction.
+
+2. Invariant de la classe « Cadeau »
+
+- [] 
+
+## 4. Préparation des tests unitaires
+
+1. Table de décision des tests unitaires de la méthode Cadeau::constructeur
+
+- [] à faire
+
+2. Table de décision des tests unitaires de la méthode Cadeau::réserver (ou équivalent)
+
+- [] à faire
+ 
