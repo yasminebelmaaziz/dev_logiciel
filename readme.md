@@ -378,7 +378,7 @@ Version sans les notifications :
 
 ![diagrammeséquenceajouterunefamille](./Diagrammes/pge_uml_diag_seq_ajouter_famille.svg)
 
-#### Ajouter une famille (HAUTE)
+#### Ajouter un cadeau (HAUTE)
 
 ![diagrammeséquenceajouteruncadeau](./Diagrammes/pge_uml_diag_seq_ajouter_un_cadeau.svg)
 
@@ -430,7 +430,6 @@ qu'étant déclenchés par un autre objet).
 
 ### 7.1.1. Diagramme de machine à états
 
-Trivial et non dessiné pour l'instant.
 
 ### 7.1.2. Fiche de la classe Famille
 
@@ -450,6 +449,37 @@ N.B. : la liste est à compléter.
 ```
 
 N.B. : l'invariant est à compléter
+
+
+## 7.2. Classe Cadeau
+
+### 7.2.1. Diagramme de machine à états
+
+![diagrammemachineàétats](./Diagrammes/pge_uml_diag_machine_test.svg)\
+Figure : Diagramme de machine à états correspondant à la classe Cadeau 
+
+
+### 7.2.2. Fiche de la classe Cadeau
+
+Voici tous les attributs de la classe :
+```
+— id : String
+— description : String
+— cout : int
+— nombreDispo : int
+```
+
+N.B. : la liste est à compléter.
+
+### 7.2.3. Invariant de la classe Cadeau
+
+```
+  id != null ∧ !id.isBlank()
+∧ description != null ∧ !description.isBlank()
+∧ cout > 0
+∧ nombreDispo >= 0
+```
+
 
 # 8 Préparation des tests unitaires
 
