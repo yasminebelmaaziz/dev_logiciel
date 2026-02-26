@@ -5,49 +5,31 @@ skinparam sequenceActorBackgroundColor White
 
 actor "__:SRH__" as srh
 participant "__pge:PGE__" as pge
+participant "__f:Famille__" as f
 
 activate srh
-<<<<<<< Updated upstream
-srh -> pge ++ : AjouterEnfant(id, nom, prenom, id_famille)
-
-opt id, nom, prenom, id_famille non null ∧ non vide
-  pge -> pge ++ : f = chercherFamille(id_famille) : Famille
-  return
-
-  pge -> pge ++ : e = chercherEnfant(id) : Enfant
-  return
-
-  opt e == null
-    create "__e:Enfant__" as e
-    pge -> e ++ : e = <<create(id, nom, prenom)>>
-    return
-
-    pge -> pge ++ : ajouterEnfant(f, e)
-    return
-=======
 srh -> pge ++ : ajouterUnEnfant(idFamille, prenom, nom, idEnfant)
 
 opt idFamille, idEnfant, prenom, nom non null ∧ non vide
-
-  pge -> pge ++ : f=chercherFamille(idFamille): Famille
+  pge -> pge ++ : f = chercherFamille(idFamille) : Famille
   return
 
   opt f != null
-
-    pge -> pge ++ : e=chercherEnfant(idEnfant): Enfant
+    pge -> f ++ : e = ajouterEnfant(prenom, nom, idEnfant) : Enfant
+    
+    f -> f ++ : e = chercherEnfant(idEnfant) : Enfant
     return
 
-    create "__e:Enfant__" as e
     opt e == null
-
-      pge -> e ++ : e=<<create(idEnfant, nom, prenom, nBPointsMaxParEnfant)>>
+      create "__e:Enfant__" as e
+      f -> e ++ : <<create(idEnfant, nom, prenom, nBPointsMaxParEnfant)>>
       return
 
-      pge -> pge ++ : ajouterEnfantDansFamille(f, e)
+      f -> f ++ : ajouterEnfant(e)
       return
-
     end
->>>>>>> Stashed changes
+
+    return
   end
 end
 
