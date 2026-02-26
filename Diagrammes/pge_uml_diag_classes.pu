@@ -40,8 +40,9 @@ class Réservation {
 PGE *-- "*" Famille
 PGE *-- "*" Cadeau
 
-Enfant -- Cadeau
-(Enfant, Cadeau) .. Réservation
+Enfant --"*" Réservation
+Réservation "*"-- Cadeau
+
 
 Famille *-- "*" Enfant
 
