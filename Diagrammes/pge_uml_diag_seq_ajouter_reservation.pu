@@ -5,51 +5,69 @@ skinparam sequenceActorBackgroundColor White
 
 actor "__:FAMILLE__" as famille
 participant "__pge:PGE__" as pge
+participant "__f:Famille__" as f
+participant "__e:Enfant__" as e
+participant "__c:Cadeau__" as c
+participant "__r:Réservation__" as r
 
 activate famille
-famille -> pge ++ : ajouterReservation(idEnfant, idCadeau, quantite)
+famille -> pge ++ : ajouterReservation(idFamille, idEnfant, idCadeau, quantite)
 
-opt idEnfant, idCadeau, quantite non null ∧ non vide ∧ quantite > 0
+opt idFamille, idEnfant, idCadeau, quantite non null ∧ non vide ∧ quantite > 0
 
-  pge -> pge ++ : e=chercherEnfant(idEnfant): Enfant
+  pge -> pge ++ : f = chercherFamille(idFamille) : Famille
   return
 
-  pge -> pge ++ : c=chercherCadeau(idCadeau): Cadeau
+  pge -> pge ++ : c = chercherCadeau(idCadeau) : Cadeau
   return
 
-  opt e != null ∧ c != null
+  opt f != null ∧ c != null
 
-    pge -> pge ++ : stockOK = verifierStock(c, quantite)
+    pge -> f ++ : ajouterReservation(idEnfant, c, quantite)
+    
+    f -> f ++ : e = chercherEnfant(idEnfant) : Enfant
     return
+    
+    opt e != null
 
-    pge -> pge ++ : pointsOK = verifierSolde(e, quantite * c.cout)
-    return
+      f -> e ++ : ajouterReservation(c, quantite)
 
-    opt stockOK ∧ pointsOK
-
-      pge -> pge ++ : r=chercherReservation(e,c): Reservation
+      e -> c ++ : cout = getCout() : int
+      return
+      
+      e -> c ++ : stock = getNbStockDisponible() : int
       return
 
-      alt r != null
-
-        pge -> pge ++ : r.incrementerQuantite(quantite)
+      opt stock >= quantite ∧ nbPointsRestants >= quantite *cout
+        
+        e -> e ++ : r = chercherReservation(c) : Réservation
         return
-
-      else r == null
-
-        create "__r:Reservation__" as r
-        pge -> r ++ : r=<<create(e,c,quantite)>>
+        
+        alt r != null
+          
+          e -> r ++ : incrementerQuantite(quantite)
+          return
+        else r == null
+          
+          create "__r:Réservation__" as r
+          e -> r ++ : <<create>>(quantite , c)
+          return
+          
+          e -> e ++ : ajouterReservation(r)
+          return
+        end
+        
+        
+        e -> e ++ : decrementerPoints(quantite* cout)
         return
-
+        
+        e -> c ++ : decrementerStock(quantite)
+        return
+        
       end
-
-      pge -> pge ++ : c.decrementerStock(quantite)
       return
-
-      pge -> pge ++ : e.decrementerPoints(quantite * c.cout)
-      return
-
     end
+    return
   end
 end
 
