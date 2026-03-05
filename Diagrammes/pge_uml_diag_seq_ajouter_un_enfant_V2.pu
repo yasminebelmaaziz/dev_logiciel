@@ -15,17 +15,21 @@ opt idFamille, idEnfant, prenom, nom non null ∧ non vide
   return
 
   opt f != null
-    pge -> f ++ : e = chercherEnfant(idEnfant) : Enfant
+    pge -> f ++ : ajouterUnEnfant(idEnfant, nom, prenom, nBPointsMaxParEnfant)
+    f -> f ++ : e = chercherEnfant(idEnfant) : Enfant
     return
 
     opt e == null
       create "__e:Enfant__" as e
-      pge -> e ++ : <<create(idEnfant, nom, prenom, nBPointsMaxParEnfant)>>
+      f -> e ++ : <<create(idEnfant, nom, prenom, nBPointsMaxParEnfant)>>
       return
 
-      pge -> f ++ : ajouterEnfant(e)
+      f -> f ++ : ajouterEnfant(e)
       return
     end
+    
+    return
+    
   end
 end
 
