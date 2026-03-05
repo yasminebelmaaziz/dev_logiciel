@@ -24,23 +24,23 @@ sont à l'adresse suivante :
 
 Remarque générale : très bon démarrage ; quelques remarques à prendre en compte mais continuez ainsi !
 
-- [] GEN-08-Noms-Prénoms
+- [x] GEN-08-Noms-Prénoms
   rajouter vos noms et prénoms au début du readme
   
 ## Spécification et préparation des tests de validation
 
 ### Diagrammes de cas d'utilisation
 
-- [] GEN-09-Titre-manquant-diagramme
+- [x] GEN-09-Titre-manquant-diagramme
   toujours donner un titre aux figures et aux tables
 
-- [] Plusieurs cas d'usage pour "lister" les éléments sont accessibles au moins par le SRH et les membres du CE
+- [x] Plusieurs cas d'usage pour "lister" les éléments sont accessibles au moins par le SRH et les membres du CE
 
 ### Préconditions et postconditions
 
 1. Cas d'utilisation « Ajouter un cadeau »
 
-- [] PREPOSTCOND-07-Pb-formulation-d-un-terme
+- [x] PREPOSTCOND-07-Pb-formulation-d-un-terme
   Vous considérez la description d'un cadeau comme étant unique, cela n'est pas nécessairement le cas. Il est préférable d'utiliser un attribut spécifique pour identifier un cadeau. 
 
 2. Cas d'utilisation « Ajouter un enfant »
@@ -50,17 +50,17 @@ Il faudra donc veiller à utiliser plusieurs attributs pour identifier un enfant
 
 3. Cas d'utilisation « Ajouter une réservation d'un cadeau »
 
-- [] PREPOSTCOND-01-Pré-post-condition-manquante
+- [x] PREPOSTCOND-01-Pré-post-condition-manquante
   Il faut également vérifier l'existence de la famille.
 
-- [] PREPOSTCOND-07-Pb-formulation-d-un-terme
+- [x] PREPOSTCOND-07-Pb-formulation-d-un-terme
   Certaines conditions concernent plusieurs attributs, ce qui rend difficile la vérification et la détermination du nombre de tests de validation nécessaires. 
   
 ### Tables de décision des tests de validation
 
 1. Cas d'utilisation « Ajouter un cadeau »
 
-- [] TABLEDECTV-07-MAJ-précondition-postcondition
+- [x] TABLEDECTV-07-MAJ-précondition-postcondition
   Mettre en conformité avec les conditions.
 
 2. Cas d'utilisation « Ajouter un enfant »
@@ -68,7 +68,7 @@ ok
 
 3. Cas d'utilisation « Ajouter une réservation d'un cadeau »
 
-- [] TABLEDECTV-07-MAJ-précondition-postcondition
+- [x] TABLEDECTV-07-MAJ-précondition-postcondition
   Mettre en conformité avec les conditions.
  
 ---
@@ -80,10 +80,12 @@ Bon travail! Néanmoins revoyez précisement le diagramme de séquence de UC3.
  
 ### Diagramme de classes
 
-- [] Vous pouvez encore affiner vos associations multiples en précisant s'il
+- [x] Vous pouvez encore affiner vos associations multiples en précisant s'il
   s'agit d'agregation ou de composition.
+    - ajout d'une composition
   
-- [] La navigabilité de Cadeau vers Réservation est-elle vraiment utile?
+- [x] La navigabilité de Cadeau vers Réservation est-elle vraiment utile?
+    - étant donné qu'elle n'est pas utile, la navigabilité a été restreinte
 
 
 ### Diagrammes de séquence
@@ -94,17 +96,18 @@ Bon travail! Néanmoins revoyez précisement le diagramme de séquence de UC3.
 
 2. Cas d'utilisation « Ajouter un enfant à une famille »
 
-- [] D'après votre diagramme de classes, vous n'avez pas accès à
+- [x] D'après votre diagramme de classes, vous n'avez pas accès à
 Enfant depuis PGE. Vous devez chercher l'enfant depuis Famille, et non
 depuis PGE. Toute la suite se fait dans Famille. 
 
 3. Cas d'utilisation « Ajouter une réservation de cadeaux pour un enfant »
 
-- [] il faut d'abord chercher la famille, puis l'enfant dans la
+- [x] il faut d'abord chercher la famille, puis l'enfant dans la
   famille. Ainsi, vous avez besoin de l'idFamille et idEnfant en
   paramètre. Revoyez vos pré et post-conditions pour ce UC dans ce sens.
+  - les pré/ post conditions ont été mises à jour en ce sens, et le diagramme de séquence aussi
   
-- [] la façade n'est qu'un point d'entrée dans le système et doit en
+- [x] la façade n'est qu'un point d'entrée dans le système et doit en
   faire le moins possible. Il faut qu'elle délègue aux objets
   concernés. Vous devriez "creer Résrevation", "incrementerQuantité",
   ect depuis Enfant et non depuis PGE. Nous pouvons en rediscuter en
@@ -120,9 +123,10 @@ depuis PGE. Toute la suite se fait dans Famille.
 
 1. Diagramme de machine à états de la classe « Cadeau »
 
-- [] Suivant si vous modifier la navigabilité entre Reservation et
+- [x] Suivant si vous modifier la navigabilité entre Reservation et
   Cadeau, faites attention à comment savoir s'il existe des
   réservation de ce cadeau qui bloquerait sa mise en destruction.
+  - ajout de l'attribut nbInitial en plus de l'attribut nbDisponible pour palier la restriction de la navigabilité Cadeau/Réservation
 
 2. Invariant de la classe « Cadeau »
 
