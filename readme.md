@@ -120,11 +120,11 @@ priorité HAUTE.
 - postcondition :\
 ∧ retrait de l'enfant dans la famille \
 ∧ toutes les réservations de cadeaux associées à cet enfant sont retirées \
-∧ le stock des cadeaux concernés est ré-incrémenté
+∧ le nombre disponibles des cadeaux concernés est ré-incrémenté
 
 #### Ajouter un cadeau (HAUTE)
 
-- en entrée : id cadeau, description, nombre de points, stock initial
+- en entrée : id cadeau, description, nombre de points, nombre initial
 - en sortie : /
 
 - précondition : \
@@ -132,10 +132,11 @@ priorité HAUTE.
 ∧ description bien formée (non null ∧ non vide) \
 ∧ le cadeau n'existe pas\
 ∧ nombre de points bien formée (non null ∧ non vide ∧ > 0) \
-∧ stock initial bien formée (non null ∧ non vide ∧ >= 0)
+∧ nombre initial bien formée (non null ∧ non vide ∧ >= 0)
 
 - postcondition : \
-∧ ajout du cadeau au catalogue effectué 
+∧ ajout du cadeau au catalogue effectué \
+∧ le nombre disponible est initialisé à la valeur du nombre initial
 
 #### Retirer un cadeau (HAUTE)
 
@@ -145,7 +146,7 @@ priorité HAUTE.
 - précondition : \
 ∧ id cadeau bien formé (non null ∧ non vide) \
 ∧ le cadeau existe \
-∧ il n'existe aucune réservation en cours pour le cadeau
+∧ aucune réservation en cours (nbDisponible = nbInitial)
 
 - postcondition :\
 ∧ retrait du cadeau au catalogue effectué 
@@ -163,11 +164,11 @@ priorité HAUTE.
 ∧ la famille existe\
 ∧ l'enfant existe\
 ∧ le cadeau existe\
-∧ le stock disponible pour ce cadeau >= la quantitée voulue\
+∧ le nombre disponible pour ce cadeau >= la quantitée voulue\
 ∧ l'enfant possède un solde de points suffisant >= quantité*coût en points du cadeau
 
 - postcondition : \
-∧ le stock du cadeau est décrémenté par la quantité réservée \
+∧ le nombre disponible du cadeau est décrémenté par la quantité réservée \
 ∧ le solde de points de l'enfant est décrémenté du nombre de points correspondant \
 ∧ si réservation existante : quantité mise à jour \
 ∧ si aucune réservation pour ce couple (enfant , cadeau) : création de la réservation
@@ -190,7 +191,7 @@ priorité HAUTE.
 
 - postcondition : \
 ∧ solde de points de l'enfant recrédité \
-∧ stock du cadeau incrémenté \
+∧ nombre disponible du cadeau incrémenté \
 ∧ quantité réservée décrémentée \
 ∧ si quantité réservée atteint 0 : suppression de la réservation
 
@@ -265,7 +266,7 @@ priorité HAUTE.
 |                                                                         |   |   |   |   |   |
 | retrait de l'enfant dans la famille                                     | F | F | F | F | T |
 | toutes les réservations de cadeaux associées à cet enfant sont retirées | F | F | F | F | T |
-| le stock des cadeaux concernés est ré-incrémenté                        | F | F | F | F | T |
+| le nombre dispo des cadeaux concernés est ré-incrémenté                        | F | F | F | F | T |
 |                                                                         |   |   |   |   |   |
 | nombre de tests dans le jeu de tests                                    | 2 | 2 | 1 | 1 | 1 |
 
@@ -278,9 +279,10 @@ priorité HAUTE.
 | description bien formée (non null ∧ non vide)           |   | F | T | T | T | T |
 | pas de cadeau avec cette description                    |   |   | F | T | T | T |
 | nombre de points bien formé (non null ∧ non vide ∧ >0 ) |   |   |   | F | T | T |
-| stock initial bien formé (non null ∧ non vide ∧ >=0)    |   |   |   |   | F | T |
+| nombre initial bien formé (non null ∧ non vide ∧ >=0)    |   |   |   |   | F | T |
 |                                                         |   |   |   |   |   |   |
 | ajout du cadeau effectué                                | F | F | F | F | F | T |
+| le nombre disponible est initialisé à la valeur du nombre initial                               | F | F | F | F | F | T |
 |                                                         |   |   |   |   |   |   |
 | nombre de tests dans le jeu de tests                    | 2 | 2 | 1 | 3 | 3 | 1 |
 
@@ -290,7 +292,7 @@ priorité HAUTE.
 |--------------------------------------------------------------|---|---|---|---|
 | id cadeau bien formé (non null ∧ non vide)                | F | T | T | T |
 | le cadeau existe                                             |   | F | T | T |
-| il n'existe aucune réservation en cours pour le cadeau       |   |   | F | T |
+| aucune réservation en cours (nbDisponible = nbInitial)       |   |   | F | T |
 |                                                              |   |   |   |   |
 | retrait du cadeau au catalogue effectué                      | F | F | F | T |
 |                                                              |   |   |   |   |
@@ -308,11 +310,11 @@ priorité HAUTE.
 | la famille existe                                            |   |   |   |   | F | T | T | T | T | T | T |
 | l'enfant existe                                              |   |   |   |   |   | F | T | T | T | T | T |
 | le cadeau existe                                             |   |   |   |   |   |   | F | T | T | T | T |
-| stock disponible >= quantité voulue                          |   |   |   |   |   |   |   | F | T | T | T |
+| nombre disponible >= quantité voulue                          |   |   |   |   |   |   |   | F | T | T | T |
 | solde de points suffisant                                    |   |   |   |   |   |   |   |   | F | T | T |
 | réservation déjà existante ? (condition scénario)            |   |   |   |   |   |   |   |   |   | F | T |
 |                                                              |   |   |   |   |   |   |   |   |   |   |   |
-| stock cadeau décrémenté                                      | F | F | F | F | F | F | F | F | F | T | T |
+| nombre disponible cadeau décrémenté                                      | F | F | F | F | F | F | F | F | F | T | T |
 | solde points décrémenté                                      | F | F | F | F | F | F | F | F | F | T | T |
 | création nouvelle réservation                                | F | F | F | F | F | F | F | F | F | T | F |
 | mise à jour réservation existante                            | F | F | F | F | F | F | F | F | F | F | T |
@@ -336,7 +338,7 @@ priorité HAUTE.
 | quantité restante > 0 ? (condition scénario)                 |   |   |   |   |   |   |   |   |   | T | F |
 |                                                              |   |   |   |   |   |   |   |   |   |   |   |
 | solde de points de l'enfant recrédité                        | F | F | F | F | F | F | F | F | F | T | T |
-| stock du cadeau incrémenté                                   | F | F | F | F | F | F | F | F | F | T | T |
+| nombre disponible du cadeau incrémenté                                   | F | F | F | F | F | F | F | F | F | T | T |
 | quantité réservée décrémentée                                | F | F | F | F | F | F | F | F | F | T | F |
 | suppression de la réservation                                | F | F | F | F | F | F | F | F | F | F | T |
 |                                                              |   |   |   |   |   |   |   |   |   |   |   |
@@ -479,6 +481,7 @@ Voici tous les attributs de la classe :
 — description : String
 — cout : int
 — nombreDispo : int
+— nombreInitial : int
 ```
 
 N.B. : la liste est à compléter.
@@ -489,7 +492,8 @@ N.B. : la liste est à compléter.
   id != null ∧ !id.isBlank()
 ∧ description != null ∧ !description.isBlank()
 ∧ cout > 0
-∧ nombreDispo >= 0
+∧ nbDisponible >= 0
+∧ nbInitial >= 0
 ```
 
 

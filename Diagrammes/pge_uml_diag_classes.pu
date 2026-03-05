@@ -26,7 +26,8 @@ class Enfant {
 
 class Cadeau {
   - id: string
-  - nbStockDisponible: int
+  - nbDisponible: int
+  - nbInitial: int
   - cout: int
   - description: string
 }

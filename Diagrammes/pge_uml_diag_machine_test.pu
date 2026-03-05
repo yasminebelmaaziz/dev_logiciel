@@ -14,12 +14,12 @@ Disponible : réassort: effectuerUnReassort()
 EnDestruction : entry: destructeur()
 
 [*] -right-> EnCréation
-EnCréation -right-> Disponible : [nombreDispo > 0]
-EnCréation -down-> Épuisé : [nombreDispo == 0]
+EnCréation -right-> Disponible : [nbInitial > 0]
+EnCréation -down-> Épuisé : [nbInitial == 0]
 Disponible -right-> Épuisé : [nombreDispo == 0]
 Épuisé --> Disponible : [nombreDispo > 0]
-Disponible -down-> EnDestruction : retrait [aucune réservation]
-Épuisé -down-> EnDestruction : retrait [aucune réservation]
+Disponible -down-> EnDestruction : retrait [aucune réservation : nbInitial == nombreDispo]
+Épuisé -down-> EnDestruction : retrait [aucune réservation : nbInitial == nombreDispo]
 EnDestruction -left-> [*]
 
 @enduml

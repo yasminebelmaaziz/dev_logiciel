@@ -35,10 +35,10 @@ opt idFamille, idEnfant, idCadeau, quantite non null ∧ non vide ∧ quantite >
       e -> c ++ : cout = getCout() : int
       return
       
-      e -> c ++ : stock = getNbStockDisponible() : int
+      e -> c ++ : nbDisponible = getNbDisponible() : int
       return
 
-      opt stock >= quantite ∧ nbPointsRestants >= quantite *cout
+      opt nbDisponible >= quantite ∧ nbPointsRestants >= quantite *cout
         
         e -> e ++ : r = chercherReservation(c) : Réservation
         return
@@ -61,7 +61,7 @@ opt idFamille, idEnfant, idCadeau, quantite non null ∧ non vide ∧ quantite >
         e -> e ++ : decrementerPoints(quantite* cout)
         return
         
-        e -> c ++ : decrementerStock(quantite)
+        e -> c ++ : decrementerNbDisponible(quantite)
         return
         
       end
