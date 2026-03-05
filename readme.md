@@ -56,9 +56,9 @@ règles de gestion, sans les retraits ou les listages ;
 * la possibilité de lister aide au déverminage de l'application
 pendant l'exécution des tests de validation ;
 
-Par conséquent, les cas d'utilisation d'ajout sont *a priori* de
-priorité « HAUTE », ceux de listage de priorité « Moyenne», et ceux de
-retrait de priorité « basse ».
+Par conséquent, les cas d'utilisation d'ajout et de retrait sont *a priori* de
+priorité « HAUTE », ceux de listage de priorité « Moyenne », et ceux de
+notification de priorité « basse ».
 
 Voici les précondition et postcondition des cas d'utilisation de
 priorité HAUTE.
@@ -108,11 +108,13 @@ priorité HAUTE.
 
 #### Retirer un enfant (HAUTE)
 
-- en entrée : id enfant
+- en entrée : id famille, id enfant
 - en sortie : /
 
 - précondition : \
+∧ id famille bien formé (non null ∧ non vide) \
 ∧ id enfant bien formé (non null ∧ non vide) \
+∧ la famille existe
 ∧ l'enfant existe
 
 - postcondition :\
@@ -154,9 +156,11 @@ priorité HAUTE.
 - en sortie : /
 
 - précondition : \
+∧ identificateur famille bien formé (non null ∧ non vide) \
 ∧ identifacteur enfant bien formé (non null ∧ non vide) \
 ∧ identifacteur cadeau bien formé (non null ∧ non vide)\
 ∧ quantitée bien formée (non null ∧ non vide ∧ >0)\
+∧ la famille existe\
 ∧ l'enfant existe\
 ∧ le cadeau existe\
 ∧ le stock disponible pour ce cadeau >= la quantitée voulue\
@@ -170,13 +174,15 @@ priorité HAUTE.
 
 #### Retirer une réservation d'un cadeau (HAUTE)
 
-- en entrée : id enfant, id cadeau, quantitée à retirer
+- en entrée : id famille, id enfant, id cadeau, quantitée à retirer
 - en sortie : /
 
 - précondition : \
+∧ identificateur famille bien formé (non null ∧ non vide) \
 ∧ identificateur enfant bien formé (non null ∧ non vide) \
 ∧ identificateur cadeau bien formé (non null ∧ non vide) \
 ∧ quantitée bien formée (non null ∧ non vide ∧ >0) \
+∧ la famille existe\
 ∧ l'enfant existe\
 ∧ le cadeau existe \
 ∧ la réservation pour ce couple (enfant, cadeau) existe \
@@ -250,17 +256,19 @@ priorité HAUTE.
 
 
 #### Retirer un enfant (HAUTE)
+|                                                                         | 1 | 2 | 3 | 4 | 5 |
+|-------------------------------------------------------------------------|---|---|---|---|---|
+| id famille bien formé (non null ∧ non vide)                             | F | T | T | T | T |
+| id enfant bien formé (non null ∧ non vide)                              |   | F | T | T | T |
+| la famille existe                                                       |   |   | F | T | T |
+| l'enfant existe                                                         |   |   |   | F | T |
+|                                                                         |   |   |   |   |   |
+| retrait de l'enfant dans la famille                                     | F | F | F | F | T |
+| toutes les réservations de cadeaux associées à cet enfant sont retirées | F | F | F | F | T |
+| le stock des cadeaux concernés est ré-incrémenté                        | F | F | F | F | T |
+|                                                                         |   |   |   |   |   |
+| nombre de tests dans le jeu de tests                                    | 2 | 2 | 1 | 1 | 1 |
 
-|                                                                         | 1 | 2 | 3 |
-|-------------------------------------------------------------------------|---|---|---|
-| id enfant bien formé (non null ∧ non vide)                              | F | T | T |
-| l'enfant existe                                                         |   | F | T |
-|                                                                         |   |   |   |
-| retrait de l'enfant dans la famille                                     | F | F | T |
-| toutes les réservations de cadeaux associées à cet enfant sont retirées | F | F | T |
-| le stock des cadeaux concernés est ré-incrémenté                        | F | F | T |
-|                                                                         |   |   |   |
-| nombre de tests dans le jeu de tests                                    | 2 | 1 | 1 |
 
 #### Ajouter un cadeau (HAUTE)
 
@@ -291,44 +299,48 @@ priorité HAUTE.
 
 #### Ajouter une réservation d'un cadeau (HAUTE)
 
-|                                                               | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |
-|---------------------------------------------------------------|---|---|---|---|---|---|---|---|---|
-| id enfant bien formé (non null ∧ non vide)                    | F | T | T | T | T | T | T | T | T |
-| id cadeau bien formé (non null ∧ non vide)                    |   | F | T | T | T | T | T | T | T |
-| quantité bien formée (non null ∧ non vide ∧ >0)               |   |   | F | T | T | T | T | T | T |
-| l'enfant existe                                               |   |   |   | F | T | T | T | T | T |
-| le cadeau existe                                              |   |   |   |   | F | T | T | T | T |
-| stock disponible >= quantité voulue                           |   |   |   |   |   | F | T | T | T |
-| solde de points suffisant                                     |   |   |   |   |   |   | F | T | T |
-| réservation déjà existante ? (condition scénario)             |   |   |   |   |   |   |   | F | T |
-|                                                               |   |   |   |   |   |   |   |   |   |
-| stock cadeau décrémenté                                       | F | F | F | F | F | F | F | T | T |
-| solde points décrémenté                                       | F | F | F | F | F | F | F | T | T |
-| création nouvelle réservation                                 | F | F | F | F | F | F | F | T | F |
-| mise à jour réservation existante                             | F | F | F | F | F | F | F | F | T |
-|                                                               |   |   |   |   |   |   |   |   |   |
-| nombre de tests dans le jeu de tests                          | 2 | 2 | 3 | 1 | 1 | 1 | 1 | 1 | 1 |
+|                                                              | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10| 11|
+|--------------------------------------------------------------|---|---|---|---|---|---|---|---|---|---|---|
+| identificateur famille bien formé (non null ∧ non vide)      | F | T | T | T | T | T | T | T | T | T | T |
+| identificateur enfant bien formé (non null ∧ non vide)       |   | F | T | T | T | T | T | T | T | T | T |
+| identificateur cadeau bien formé (non null ∧ non vide)       |   |   | F | T | T | T | T | T | T | T | T |
+| quantité bien formée (non null ∧ non vide ∧ >0)              |   |   |   | F | T | T | T | T | T | T | T |
+| la famille existe                                            |   |   |   |   | F | T | T | T | T | T | T |
+| l'enfant existe                                              |   |   |   |   |   | F | T | T | T | T | T |
+| le cadeau existe                                             |   |   |   |   |   |   | F | T | T | T | T |
+| stock disponible >= quantité voulue                          |   |   |   |   |   |   |   | F | T | T | T |
+| solde de points suffisant                                    |   |   |   |   |   |   |   |   | F | T | T |
+| réservation déjà existante ? (condition scénario)            |   |   |   |   |   |   |   |   |   | F | T |
+|                                                              |   |   |   |   |   |   |   |   |   |   |   |
+| stock cadeau décrémenté                                      | F | F | F | F | F | F | F | F | F | T | T |
+| solde points décrémenté                                      | F | F | F | F | F | F | F | F | F | T | T |
+| création nouvelle réservation                                | F | F | F | F | F | F | F | F | F | T | F |
+| mise à jour réservation existante                            | F | F | F | F | F | F | F | F | F | F | T |
+|                                                              |   |   |   |   |   |   |   |   |   |   |   |
+| nombre de tests dans le jeu de tests                         | 2 | 2 | 2 | 3 | 1 | 1 | 1 | 1 | 1 | 1 | 1 |
+
 
 #### Retirer une réservation d'un cadeau (HAUTE)
 
-|                                                               | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |
-|---------------------------------------------------------------|---|---|---|---|---|---|---|---|---|
-| id enfant bien formé (non null ∧ non vide)                    | F | T | T | T | T | T | T | T | T |
-| id cadeau bien formé (non null ∧ non vide)                    |   | F | T | T | T | T | T | T | T |
-| quantité bien formée (non null ∧ non vide ∧ >0)               |   |   | F | T | T | T | T | T | T |
-| l'enfant existe                                               |   |   |   | F | T | T | T | T | T |
-| le cadeau existe                                              |   |   |   |   | F | T | T | T | T |
-| la réservation pour ce couple existe                          |   |   |   |   |   | F | T | T | T |
-| quantité déjà réservée >= quantité à retirer                  |   |   |   |   |   |   | F | T | T |
-| quantité restante > 0 ? (condition scénario)                  |   |   |   |   |   |   |   | T | F |
-|                                                               |   |   |   |   |   |   |   |   |   |
-| solde de points de l'enfant recrédité                         | F | F | F | F | F | F | F | T | T |
-| stock du cadeau incrémenté                                    | F | F | F | F | F | F | F | T | T |
-| quantité réservée décrémentée                                 | F | F | F | F | F | F | F | T | F |
-| suppression de la réservation                                 | F | F | F | F | F | F | F | F | T |
-|                                                               |   |   |   |   |   |   |   |   |   |
-| nombre de tests dans le jeu de tests                          | 2 | 2 | 3 | 1 | 1 | 1 | 1 | 1 | 1 |
-
+|                                                              | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10| 11|
+|--------------------------------------------------------------|---|---|---|---|---|---|---|---|---|---|---|
+| identificateur famille bien formé (non null ∧ non vide)      | F | T | T | T | T | T | T | T | T | T | T |
+| identificateur enfant bien formé (non null ∧ non vide)       |   | F | T | T | T | T | T | T | T | T | T |
+| identificateur cadeau bien formé (non null ∧ non vide)       |   |   | F | T | T | T | T | T | T | T | T |
+| quantité bien formée (non null ∧ non vide ∧ >0)              |   |   |   | F | T | T | T | T | T | T | T |
+| la famille existe                                            |   |   |   |   | F | T | T | T | T | T | T |
+| l'enfant existe                                              |   |   |   |   |   | F | T | T | T | T | T |
+| le cadeau existe                                             |   |   |   |   |   |   | F | T | T | T | T |
+| la réservation pour ce couple existe                         |   |   |   |   |   |   |   | F | T | T | T |
+| quantité déjà réservée >= quantité à retirer                 |   |   |   |   |   |   |   |   | F | T | T |
+| quantité restante > 0 ? (condition scénario)                 |   |   |   |   |   |   |   |   |   | T | F |
+|                                                              |   |   |   |   |   |   |   |   |   |   |   |
+| solde de points de l'enfant recrédité                        | F | F | F | F | F | F | F | F | F | T | T |
+| stock du cadeau incrémenté                                   | F | F | F | F | F | F | F | F | F | T | T |
+| quantité réservée décrémentée                                | F | F | F | F | F | F | F | F | F | T | F |
+| suppression de la réservation                                | F | F | F | F | F | F | F | F | F | F | T |
+|                                                              |   |   |   |   |   |   |   |   |   |   |   |
+| nombre de tests dans le jeu de tests                         | 2 | 2 | 2 | 3 | 1 | 1 | 1 | 1 | 1 | 1 | 1 |
 
 # 3. Conception
 
@@ -348,7 +360,7 @@ conception Façade, toutes les opérations des cas d'utilisation sont
 dans la Façade.
 
 Donc, dans la classe `PGE`, voici les premières opérations (en
-ignorant celles de priorité « basse ») :
+ignorant celles de priorité « moyenne et basse ») :
 - `ajouterUneFamille`
 - `retirerUneFamille`
 - `ajouterUnEnfant`
