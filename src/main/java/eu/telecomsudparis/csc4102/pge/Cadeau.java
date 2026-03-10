@@ -9,7 +9,7 @@ public class Cadeau {
 	private int nbDisponible;
 	private int cout;
 	
-	public Cadeau(final String id, final String description, int nbInitial, int nbDisponible, int cout) {
+	public Cadeau(final String id, final String description, int nbInitial, int cout) {
 		if (id == null || id.isBlank()) {
 			throw new IllegalArgumentException("description ne peut pas être null ou vide");
 		}
@@ -18,9 +18,7 @@ public class Cadeau {
 		}
 		if (nbInitial < 0 ) {
 			throw new IllegalArgumentException("nbInitial ne peut pas être négatif");
-		}
-		if (nbDisponible < 0) {
-			throw new IllegalArgumentException("nbDisponible ne peut pas être négatif");
+		
 		}
 		if (cout <= 0) {
 			throw new IllegalArgumentException("cout ne peut pas être négatif ou nul");
@@ -32,5 +30,14 @@ public class Cadeau {
 		this.nbDisponible = nbInitial;
 		this.cout = cout;
 		
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+	
+	public boolean invariant() {
+		return id != null && !id.isBlank() && description != null && !description.isBlank() && nbInitial >= 0  &&  nbDisponible >= 0  && cout > 0 ;
 	}
 }
