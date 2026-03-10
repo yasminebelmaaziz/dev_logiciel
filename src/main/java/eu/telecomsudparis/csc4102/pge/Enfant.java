@@ -1,11 +1,15 @@
 package eu.telecomsudparis.csc4102.pge;
 
+import java.util.ArrayList;
+import java.util.Objects;
+
 public class Enfant {
 	
 	private final String id;
 	private String nom;
 	private String prenom;
 	private int nbPointsRestants;
+	private ArrayList<Reservation> reservations;
 	
 	public Enfant(final String id, final String nom, final String prenom, int nbPointsRestants) {
 		if (id == null || id.isBlank()) {
@@ -17,11 +21,18 @@ public class Enfant {
 		if (prenom == null || prenom.isBlank()) {
 			throw new IllegalArgumentException("prenom ne peut pas être null ou vide");
 		}
+		
 		this.id = id;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.nbPointsRestants = nbPointsRestants;
-		assert invariant();
+		this.reservations = new ArrayList<>();
+
+	}
+	
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
 	}
 	
 	public String getId() {
@@ -32,4 +43,8 @@ public class Enfant {
 		return id != null && !id.isBlank() && nom != null && !nom.isBlank() && prenom != null && !prenom.isBlank();
 	}
 
+	public boolean invariant() {
+		return id != null && !id.isBlank() && nom != null && !nom.isBlank() && prenom != null && !prenom.isBlank() && nbPointsRestants>=0;
+	}
+	
 }

@@ -104,4 +104,7 @@ public class Famille {
 	public String toString() {
 		return "Famille [id=" + id + ", description=" + description + "]";
 	}
+	
+	public void ajouterReservation() {}
+	
 }

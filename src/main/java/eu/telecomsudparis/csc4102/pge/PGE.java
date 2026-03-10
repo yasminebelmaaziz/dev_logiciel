@@ -23,10 +23,6 @@ public class PGE {
 	private Map<String, Famille> familles;
 	private Map<String, Cadeau> cadeaux;
 
-	public Map<String, Famille> getFamilles() {
-		return familles;
-	}
-
 	/**
 	 * construit la facade.
 	 * 
@@ -122,6 +118,12 @@ public class PGE {
 		return familles.values().stream().map(Famille::toString).toList();
 	}
 	
+	/**
+	 * ajoute un cadeau système.
+	 * 
+	 * UC1
+	 */
+	
 	public void ajouterUnCadeau(final String idCadeau, String description, int cout, int nbInitial) throws OperationImpossible {
 		if (cadeaux.get(idCadeau) != null) {
 			throw new OperationImpossible("cadeau déjà existant avec id=" + idCadeau);
@@ -129,6 +131,16 @@ public class PGE {
 		if (description == null || description.isBlank()) {
 			throw new OperationImpossible("description ne peut pas être null ou vide");
 		}
-		
+		if (cout <= 0) {
+			throw new OperationImpossible("le coût du cadeau ne peut pas être négatif ou nul");
+		}
+		if (nbInitial < 0) {
+			throw new OperationImpossible("le coût du cadeau ne peut pas être négatif");
+		}
+		if (cadeaux.get(idCadeau) != null) {
+			throw new OperationImpossible("cadeau déjà existant avec id=" + idCadeau);
+		}
+		var cadeau = new Cadeau(idCadeau, description, nbInitial, cout);
+		cadeaux.put(idCadeau, cadeau);	
 	}
 }
