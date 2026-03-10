@@ -21,6 +21,7 @@ public class PGE {
 	 * la collection des familles. Les enfants sont organisés par famille.
 	 */
 	private Map<String, Famille> familles;
+	private Enfant[] enfants;
 	private Map<String, Cadeau> cadeaux;
 
 	/**
@@ -83,6 +84,10 @@ public class PGE {
 		}
 		var famille = new Famille(idFamille, description);
 		familles.put(idFamille, famille);
+	}
+	
+	public void ajouterUnEnfantAUneFamille(final String idFamille, final String nom, final String prenom, final String IdEnfant) {
+		
 	}
 
 	/**

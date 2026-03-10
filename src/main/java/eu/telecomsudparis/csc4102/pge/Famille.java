@@ -1,5 +1,6 @@
 package eu.telecomsudparis.csc4102.pge;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -18,6 +19,8 @@ public class Famille {
 	 * [description] ».
 	 */
 	private String description;
+	
+	private List enfants;
 
 	/**
 	 * construit une famille.
