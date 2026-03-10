@@ -14,7 +14,7 @@ opt id, description, points, nbInitial bien formés (non null, non vide, points 
   
   opt c == null
     create "__c:Cadeau__" as c
-    pge -> c ++ : c=<<create(id, description, points, nbDisponible, nbInitial)>>
+    pge -> c ++ : c=<<create(id, description, points, nbInitial)>>
     return
     pge -> pge ++ : ajouterCadeau(c)
     return

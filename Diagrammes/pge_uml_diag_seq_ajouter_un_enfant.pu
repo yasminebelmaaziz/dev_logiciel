@@ -15,7 +15,7 @@ opt idFamille, idEnfant, prenom, nom non null ∧ non vide
   return
 
   opt f != null
-    pge -> f ++ : e = ajouterEnfant(prenom, nom, idEnfant) : Enfant
+    pge -> f ++ : e = ajouterEnfant(prenom, nom, idEnfant, nBPointsMaxParEnfant) : Enfant
     
     f -> f ++ : e = chercherEnfant(idEnfant) : Enfant
     return
