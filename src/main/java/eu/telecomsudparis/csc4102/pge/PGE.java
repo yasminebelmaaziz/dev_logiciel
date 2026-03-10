@@ -21,6 +21,7 @@ public class PGE {
 	 * la collection des familles. Les enfants sont organisés par famille.
 	 */
 	private Map<String, Famille> familles;
+	private Map<String, Cadeau> cadeaux;
 
 	public Map<String, Famille> getFamilles() {
 		return familles;
