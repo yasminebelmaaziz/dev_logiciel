@@ -32,10 +32,31 @@ public class Cadeau {
 		
 	}
 	
+	public int getNbDisponible() {
+		return nbDisponible;
+	}
+
+	public int getCout() {
+		return cout;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
 	}
+	
+	@Override
+	public boolean equals(final Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (!(obj instanceof Cadeau)) {
+			return false;
+		}
+		Cadeau other = (Cadeau) obj;
+		return id.equals(other.id);
+	}
+	
 	
 	public boolean invariant() {
 		return id != null && !id.isBlank() && description != null && !description.isBlank() && nbInitial >= 0  &&  nbDisponible >= 0  && cout > 0 ;

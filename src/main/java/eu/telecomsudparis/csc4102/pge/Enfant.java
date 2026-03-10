@@ -3,6 +3,8 @@ package eu.telecomsudparis.csc4102.pge;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import eu.telecomsudparis.csc4102.util.OperationImpossible;
+
 public class Enfant {
 	
 	private final String id;
@@ -42,9 +44,19 @@ public class Enfant {
 	public boolean invariant() {
 		return id != null && !id.isBlank() && nom != null && !nom.isBlank() && prenom != null && !prenom.isBlank();
 	}
-
-	public boolean invariant() {
-		return id != null && !id.isBlank() && nom != null && !nom.isBlank() && prenom != null && !prenom.isBlank() && nbPointsRestants>=0;
+	
+	public void ajouterReservation(Cadeau cadeau, int quantitee ) throws OperationImpossible{
+		int cout = cadeau.getCout();
+		int nbDisponible = cadeau.getNbDisponible();
+		
+		if (nbDisponible < quantitee) {
+			throw new OperationImpossible("nombre disponible insuffisant");
+		}
+		if (nbPointsRestants < quantitee*cout) {
+			throw new OperationImpossible("nombre insuffisant de points");
+		}
+		
 	}
+
 	
 }

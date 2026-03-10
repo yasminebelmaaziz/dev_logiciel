@@ -9,4 +9,8 @@ public class Reservation {
 		this.quantitee = quantitee;
 		this.cadeau = cadeau;
 	}
+	
+	public boolean invariant() {
+		return quantitee >0 ;
+	}
 }

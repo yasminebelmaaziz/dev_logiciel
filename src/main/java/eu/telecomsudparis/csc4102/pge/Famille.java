@@ -105,6 +105,11 @@ public class Famille {
 		return "Famille [id=" + id + ", description=" + description + "]";
 	}
 	
-	public void ajouterReservation() {}
+	public void ajouterReservation(final String idEnfant, Cadeau cadeau, int quantitee ) throws OperationImpossible{
+		if (chercherEnfant(idEnfant) != null) {
+			throw new OperationImpossible("enfant existant avec id=" + idEnfant);
+		}
+		//là il faut ajouter le ajouterReservation de la classe Enfant
+	}
 	
 }
