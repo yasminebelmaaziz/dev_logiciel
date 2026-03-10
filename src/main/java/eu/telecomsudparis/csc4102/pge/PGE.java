@@ -21,6 +21,7 @@ public class PGE {
 	 * la collection des familles. Les enfants sont organisés par famille.
 	 */
 	private Map<String, Famille> familles;
+	private Map<String, Cadeau> cadeaux;
 
 	/**
 	 * construit la facade.
@@ -33,6 +34,7 @@ public class PGE {
 		}
 		setNBPointsMaxParEnfant(nbPtsMaxParEnfant);
 		familles = new HashMap<>();
+		cadeaux = new HashMap<>();
 	}
 
 	/**
@@ -90,5 +92,15 @@ public class PGE {
 	 */
 	public List<String> listerLesFamilles() {
 		return familles.values().stream().map(Famille::toString).toList();
+	}
+	
+	public void ajouterUnCadeau(final String idCadeau, String description, int cout, int nbInitial) throws OperationImpossible {
+		if (cadeaux.get(idCadeau) != null) {
+			throw new OperationImpossible("cadeau déjà existant avec id=" + idCadeau);
+		}
+		if (description == null || description.isBlank()) {
+			throw new OperationImpossible("description ne peut pas être null ou vide");
+		}
+		
 	}
 }
