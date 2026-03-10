@@ -1,7 +1,10 @@
 package eu.telecomsudparis.csc4102.pge;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import eu.telecomsudparis.csc4102.util.OperationImpossible;
 
 /**
  * Cette classe modélise le concept métier de famille.
@@ -20,7 +23,7 @@ public class Famille {
 	 */
 	private String description;
 	
-	private List enfants;
+	private ArrayList<Enfant> enfants;
 
 	/**
 	 * construit une famille.
@@ -37,8 +40,30 @@ public class Famille {
 		}
 		this.id = id;
 		this.description = description;
+		this.enfants = new ArrayList<>();
 		assert invariant();
 	}
+
+	public void ajouterUnEnfant(String idEnfant, String nom, String prenom, int nBPointsMaxParEnfant) throws OperationImpossible {
+		if (chercherEnfant(idEnfant) != null) {
+			throw new OperationImpossible("enfant existant avec id=" + idEnfant);
+		}
+		
+		Enfant enfant = new Enfant(idEnfant, nom, prenom, nBPointsMaxParEnfant);
+		enfants.add(enfant);
+	}
+	
+	public Enfant chercherEnfant(String idEnfant) {
+		int cpt = 0;
+		for (int i=0; i<enfants.size(); i++) {
+			if(idEnfant == enfants.get(i).getId() ) {
+				return enfants.get(cpt);
+			}
+			cpt++;
+		}
+		return null;
+	}
+	
 
 	/**
 	 * l'invariant de la classe.

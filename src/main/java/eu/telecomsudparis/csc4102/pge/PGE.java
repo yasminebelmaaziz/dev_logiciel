@@ -85,8 +85,28 @@ public class PGE {
 		familles.put(idFamille, famille);
 	}
 	
-	public void ajouterUnEnfantAUneFamille(final String idFamille, final String nom, final String prenom, final String IdEnfant) {
+	public void ajouterUnEnfantAUneFamille(final String idFamille, final String nom, final String prenom, final String idEnfant) throws OperationImpossible {
+		if (idFamille == null || idFamille.isBlank()) {
+			throw new OperationImpossible("id famille ne peut pas être null ou vide");
+		}
+		if (nom == null || nom.isBlank()) {
+			throw new OperationImpossible("nom ne peut pas être null ou vide");
+		}
+		if (prenom == null || prenom.isBlank()) {
+			throw new OperationImpossible("prenom ne peut pas être null ou vide");
+		}
+		if (idEnfant == null || idEnfant.isBlank()) {
+			throw new OperationImpossible("id enfant ne peut pas être null ou vide");
+		}
+		if (familles.get(idFamille) == null) {
+			throw new OperationImpossible("famille n'existe pas avec id=" + idFamille);
+		}
 		
+		Famille famille = familles.get(idFamille);
+		
+		int nBPoints = PGE.nBPointsMaxParEnfant;
+		
+		famille.ajouterUnEnfant(idEnfant, nom, prenom, nBPoints);
 	}
 
 	/**
@@ -123,6 +143,4 @@ public class PGE {
 		var cadeau = new Cadeau(idCadeau, description, nbInitial, cout);
 		cadeaux.put(idCadeau, cadeau);	
 	}
-	
-	
 }
