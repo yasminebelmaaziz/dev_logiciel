@@ -278,13 +278,13 @@ priorité HAUTE.
 | id cadeau bien formé (non null ∧ non vide)              | F | T | T | T | T | T |
 | description bien formée (non null ∧ non vide)           |   | F | T | T | T | T |
 | pas de cadeau avec cette description                    |   |   | F | T | T | T |
-| nombre de points bien formé ( >0 ) |   |   |   | F | T | T |
-| nombre initial bien formé (>=0)    |   |   |   |   | F | T |
+| nombre de points bien formé (non null ∧ non vide ∧ >0 ) |   |   |   | F | T | T |
+| nombre initial bien formé (non null ∧ non vide ∧ >=0)    |   |   |   |   | F | T |
 |                                                         |   |   |   |   |   |   |
 | ajout du cadeau effectué                                | F | F | F | F | F | T |
 | le nombre disponible est initialisé à la valeur du nombre initial                               | F | F | F | F | F | T |
 |                                                         |   |   |   |   |   |   |
-| nombre de tests dans le jeu de tests                    | 2 | 2 | 1 | 1 | 1 | 1 |
+| nombre de tests dans le jeu de tests                    | 2 | 2 | 1 | 3 | 3 | 1 |
 
 #### Retirer un cadeau (HAUTE)
 
@@ -306,7 +306,7 @@ priorité HAUTE.
 | identificateur famille bien formé (non null ∧ non vide)      | F | T | T | T | T | T | T | T | T | T | T |
 | identificateur enfant bien formé (non null ∧ non vide)       |   | F | T | T | T | T | T | T | T | T | T |
 | identificateur cadeau bien formé (non null ∧ non vide)       |   |   | F | T | T | T | T | T | T | T | T |
-| quantité bien formée ( >0)              |   |   |   | F | T | T | T | T | T | T | T |
+| quantité bien formée (non null ∧ non vide ∧ >0)              |   |   |   | F | T | T | T | T | T | T | T |
 | la famille existe                                            |   |   |   |   | F | T | T | T | T | T | T |
 | l'enfant existe                                              |   |   |   |   |   | F | T | T | T | T | T |
 | le cadeau existe                                             |   |   |   |   |   |   | F | T | T | T | T |
@@ -319,7 +319,7 @@ priorité HAUTE.
 | création nouvelle réservation                                | F | F | F | F | F | F | F | F | F | T | F |
 | mise à jour réservation existante                            | F | F | F | F | F | F | F | F | F | F | T |
 |                                                              |   |   |   |   |   |   |   |   |   |   |   |
-| nombre de tests dans le jeu de tests                         | 2 | 2 | 2 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 |
+| nombre de tests dans le jeu de tests                         | 2 | 2 | 2 | 3 | 1 | 1 | 1 | 1 | 1 | 1 | 1 |
 
 
 #### Retirer une réservation d'un cadeau (HAUTE)
@@ -329,7 +329,7 @@ priorité HAUTE.
 | identificateur famille bien formé (non null ∧ non vide)      | F | T | T | T | T | T | T | T | T | T | T |
 | identificateur enfant bien formé (non null ∧ non vide)       |   | F | T | T | T | T | T | T | T | T | T |
 | identificateur cadeau bien formé (non null ∧ non vide)       |   |   | F | T | T | T | T | T | T | T | T |
-| quantité bien formée (>0)              |   |   |   | F | T | T | T | T | T | T | T |
+| quantité bien formée (non null ∧ non vide ∧ >0)              |   |   |   | F | T | T | T | T | T | T | T |
 | la famille existe                                            |   |   |   |   | F | T | T | T | T | T | T |
 | l'enfant existe                                              |   |   |   |   |   | F | T | T | T | T | T |
 | le cadeau existe                                             |   |   |   |   |   |   | F | T | T | T | T |
@@ -342,7 +342,7 @@ priorité HAUTE.
 | quantité réservée décrémentée                                | F | F | F | F | F | F | F | F | F | T | F |
 | suppression de la réservation                                | F | F | F | F | F | F | F | F | F | F | T |
 |                                                              |   |   |   |   |   |   |   |   |   |   |   |
-| nombre de tests dans le jeu de tests                         | 2 | 2 | 2 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 |
+| nombre de tests dans le jeu de tests                         | 2 | 2 | 2 | 3 | 1 | 1 | 1 | 1 | 1 | 1 | 1 |
 
 # 3. Conception
 
@@ -602,6 +602,28 @@ nbDisponible ≥ 0
 | levée d’une exception                      | oui | oui | non |
 |                                            |     |     |     |
 | nombre de tests dans le jeu de tests       | 2   | 1   | 1   |
+
+
+## 8.3. Opérations de la classe Enfant
+
+### Opération constructeur
+
+|                                                 | 1   | 2   | 3   | 4   |
+|:------------------------------------------------|:----|:----|:----|:----|
+| identificateur bien formé (non null ∧ non vide) | F   | T   | T   | T   |
+| nom bien formé (non null ∧ non vide)            |     | F   | T   | T   |
+| prénom bien formé (non null ∧ non vide)         |     |     | F   | T   |
+|                                                 |     |     |     |     |
+| identificateur' = identificateur                | F   | F   | F   | T   |
+| nom' = nom                                      | F   | F   | F   | T   |
+| prénom' = prénom                                | F   | F   | F   | T   |
+| nbPointsRestants' = nbPointsRestants            | F   | F   | F   | T   |
+|                                                 |     |     |     |     |
+| levée d’une exception                           | oui | oui | oui | non |
+|                                                 |     |     |     |     |
+| nombre de tests dans le jeu de tests            | 2   | 2   | 2   | 1    |
+
+
 
 
 FIN DU DOCUMENT
