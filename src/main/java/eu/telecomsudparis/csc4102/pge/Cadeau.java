@@ -41,6 +41,18 @@ public class Cadeau {
 	}
 
 	@Override
+	public boolean equals(final Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (!(obj instanceof Famille)) {
+			return false;
+		}
+		Cadeau other = (Cadeau) obj;
+		return id.equals(other.id);
+	}
+	
+	@Override
 	public int hashCode() {
 		return Objects.hash(id);
 	}

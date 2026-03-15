@@ -37,6 +37,18 @@ public class Enfant {
 		return Objects.hash(id);
 	}
 	
+	@Override
+	public boolean equals(final Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (!(obj instanceof Famille)) {
+			return false;
+		}
+		Enfant other = (Enfant) obj;
+		return id.equals(other.id);
+	}
+	
 	public String getId() {
 		return id;
 	}
