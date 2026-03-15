@@ -266,83 +266,83 @@ priorité HAUTE.
 |                                                                         |   |   |   |   |   |
 | retrait de l'enfant dans la famille                                     | F | F | F | F | T |
 | toutes les réservations de cadeaux associées à cet enfant sont retirées | F | F | F | F | T |
-| le nombre dispo des cadeaux concernés est ré-incrémenté                        | F | F | F | F | T |
+| le nombre dispo des cadeaux concernés est ré-incrémenté                 | F | F | F | F | T |
 |                                                                         |   |   |   |   |   |
 | nombre de tests dans le jeu de tests                                    | 2 | 2 | 1 | 1 | 1 |
 
 
 #### Ajouter un cadeau (HAUTE)
 
-|                                                         | 1 | 2 | 3 | 4 | 5 | 6 |
-|---------------------------------------------------------|---|---|---|---|---|---|
-| id cadeau bien formé (non null ∧ non vide)              | F | T | T | T | T | T |
-| description bien formée (non null ∧ non vide)           |   | F | T | T | T | T |
-| pas de cadeau avec cette description                    |   |   | F | T | T | T |
-| nombre de points bien formé (non null ∧ non vide ∧ >0 ) |   |   |   | F | T | T |
-| nombre initial bien formé (non null ∧ non vide ∧ >=0)    |   |   |   |   | F | T |
-|                                                         |   |   |   |   |   |   |
-| ajout du cadeau effectué                                | F | F | F | F | F | T |
-| le nombre disponible est initialisé à la valeur du nombre initial                               | F | F | F | F | F | T |
-|                                                         |   |   |   |   |   |   |
-| nombre de tests dans le jeu de tests                    | 2 | 2 | 1 | 3 | 3 | 1 |
+|                                                                   | 1 | 2 | 3 | 4 | 5 | 6 |
+|-------------------------------------------------------------------|---|---|---|---|---|---|
+| id cadeau bien formé (non null ∧ non vide)                        | F | T | T | T | T | T |
+| description bien formée (non null ∧ non vide)                     |   | F | T | T | T | T |
+| pas de cadeau avec cette description                              |   |   | F | T | T | T |
+| nombre de points bien formé ( >0 )                                |   |   |   | F | T | T |
+| nombre initial bien formé (>=0)                                   |   |   |   |   | F | T |
+|                                                                   |   |   |   |   |   |   |
+| ajout du cadeau effectué                                          | F | F | F | F | F | T |
+| le nombre disponible est initialisé à la valeur du nombre initial | F | F | F | F | F | T |
+|                                                                   |   |   |   |   |   |   |
+| nombre de tests dans le jeu de tests                              | 2 | 2 | 1 | 1 | 1 | 1 |
 
 #### Retirer un cadeau (HAUTE)
 
-|                                                              | 1 | 2 | 3 | 4 |
-|--------------------------------------------------------------|---|---|---|---|
-| id cadeau bien formé (non null ∧ non vide)                | F | T | T | T |
-| le cadeau existe                                             |   | F | T | T |
-| aucune réservation en cours (nbDisponible = nbInitial)       |   |   | F | T |
-|                                                              |   |   |   |   |
-| retrait du cadeau au catalogue effectué                      | F | F | F | T |
-|                                                              |   |   |   |   |
-| nombre de tests dans le jeu de tests                         | 2 | 1 | 1 | 1 |
+|                                                        | 1 | 2 | 3 | 4 |
+|--------------------------------------------------------|---|---|---|---|
+| id cadeau bien formé (non null ∧ non vide)             | F | T | T | T |
+| le cadeau existe                                       |   | F | T | T |
+| aucune réservation en cours (nbDisponible = nbInitial) |   |   | F | T |
+|                                                        |   |   |   |   |
+| retrait du cadeau au catalogue effectué                | F | F | F | T |
+|                                                        |   |   |   |   |
+| nombre de tests dans le jeu de tests                   | 2 | 1 | 1 | 1 |
 
 
 #### Ajouter une réservation d'un cadeau (HAUTE)
 
-|                                                              | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10| 11|
-|--------------------------------------------------------------|---|---|---|---|---|---|---|---|---|---|---|
-| identificateur famille bien formé (non null ∧ non vide)      | F | T | T | T | T | T | T | T | T | T | T |
-| identificateur enfant bien formé (non null ∧ non vide)       |   | F | T | T | T | T | T | T | T | T | T |
-| identificateur cadeau bien formé (non null ∧ non vide)       |   |   | F | T | T | T | T | T | T | T | T |
-| quantité bien formée (non null ∧ non vide ∧ >0)              |   |   |   | F | T | T | T | T | T | T | T |
-| la famille existe                                            |   |   |   |   | F | T | T | T | T | T | T |
-| l'enfant existe                                              |   |   |   |   |   | F | T | T | T | T | T |
-| le cadeau existe                                             |   |   |   |   |   |   | F | T | T | T | T |
-| nombre disponible >= quantité voulue                          |   |   |   |   |   |   |   | F | T | T | T |
-| solde de points suffisant                                    |   |   |   |   |   |   |   |   | F | T | T |
-| réservation déjà existante ? (condition scénario)            |   |   |   |   |   |   |   |   |   | F | T |
-|                                                              |   |   |   |   |   |   |   |   |   |   |   |
-| nombre disponible cadeau décrémenté                                      | F | F | F | F | F | F | F | F | F | T | T |
-| solde points décrémenté                                      | F | F | F | F | F | F | F | F | F | T | T |
-| création nouvelle réservation                                | F | F | F | F | F | F | F | F | F | T | F |
-| mise à jour réservation existante                            | F | F | F | F | F | F | F | F | F | F | T |
-|                                                              |   |   |   |   |   |   |   |   |   |   |   |
-| nombre de tests dans le jeu de tests                         | 2 | 2 | 2 | 3 | 1 | 1 | 1 | 1 | 1 | 1 | 1 |
+|                                                         | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 |
+|---------------------------------------------------------|---|---|---|---|---|---|---|---|---|----|----|
+| identificateur famille bien formé (non null ∧ non vide) | F | T | T | T | T | T | T | T | T | T  | T  |
+| identificateur enfant bien formé (non null ∧ non vide)  |   | F | T | T | T | T | T | T | T | T  | T  |
+| identificateur cadeau bien formé (non null ∧ non vide)  |   |   | F | T | T | T | T | T | T | T  | T  |
+| quantité bien formée ( >0)                              |   |   |   | F | T | T | T | T | T | T  | T  |
+| la famille existe                                       |   |   |   |   | F | T | T | T | T | T  | T  |
+| l'enfant existe                                         |   |   |   |   |   | F | T | T | T | T  | T  |
+| le cadeau existe                                        |   |   |   |   |   |   | F | T | T | T  | T  |
+| nombre disponible >= quantité voulue                    |   |   |   |   |   |   |   | F | T | T  | T  |
+| solde de points suffisant                               |   |   |   |   |   |   |   |   | F | T  | T  |
+| réservation déjà existante ? (condition scénario)       |   |   |   |   |   |   |   |   |   | F  | T  |
+|                                                         |   |   |   |   |   |   |   |   |   |    |    |
+| nombre disponible cadeau décrémenté                     | F | F | F | F | F | F | F | F | F | T  | T  |
+| solde points décrémenté                                 | F | F | F | F | F | F | F | F | F | T  | T  |
+| création nouvelle réservation                           | F | F | F | F | F | F | F | F | F | T  | F  |
+| mise à jour réservation existante                       | F | F | F | F | F | F | F | F | F | F  | T  |
+|                                                         |   |   |   |   |   |   |   |   |   |    |    |
+| nombre de tests dans le jeu de tests                    | 2 | 2 | 2 | 1 | 1 | 1 | 1 | 1 | 1 | 1  | 1  |
 
 
 #### Retirer une réservation d'un cadeau (HAUTE)
 
-|                                                              | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10| 11|
-|--------------------------------------------------------------|---|---|---|---|---|---|---|---|---|---|---|
-| identificateur famille bien formé (non null ∧ non vide)      | F | T | T | T | T | T | T | T | T | T | T |
-| identificateur enfant bien formé (non null ∧ non vide)       |   | F | T | T | T | T | T | T | T | T | T |
-| identificateur cadeau bien formé (non null ∧ non vide)       |   |   | F | T | T | T | T | T | T | T | T |
-| quantité bien formée (non null ∧ non vide ∧ >0)              |   |   |   | F | T | T | T | T | T | T | T |
-| la famille existe                                            |   |   |   |   | F | T | T | T | T | T | T |
-| l'enfant existe                                              |   |   |   |   |   | F | T | T | T | T | T |
-| le cadeau existe                                             |   |   |   |   |   |   | F | T | T | T | T |
-| la réservation pour ce couple existe                         |   |   |   |   |   |   |   | F | T | T | T |
-| quantité déjà réservée >= quantité à retirer                 |   |   |   |   |   |   |   |   | F | T | T |
-| quantité restante > 0 ? (condition scénario)                 |   |   |   |   |   |   |   |   |   | T | F |
-|                                                              |   |   |   |   |   |   |   |   |   |   |   |
-| solde de points de l'enfant recrédité                        | F | F | F | F | F | F | F | F | F | T | T |
-| nombre disponible du cadeau incrémenté                                   | F | F | F | F | F | F | F | F | F | T | T |
-| quantité réservée décrémentée                                | F | F | F | F | F | F | F | F | F | T | F |
-| suppression de la réservation                                | F | F | F | F | F | F | F | F | F | F | T |
-|                                                              |   |   |   |   |   |   |   |   |   |   |   |
-| nombre de tests dans le jeu de tests                         | 2 | 2 | 2 | 3 | 1 | 1 | 1 | 1 | 1 | 1 | 1 |
+|                                                         | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 |
+|---------------------------------------------------------|---|---|---|---|---|---|---|---|---|----|----|
+| identificateur famille bien formé (non null ∧ non vide) | F | T | T | T | T | T | T | T | T | T  | T  |
+| identificateur enfant bien formé (non null ∧ non vide)  |   | F | T | T | T | T | T | T | T | T  | T  |
+| identificateur cadeau bien formé (non null ∧ non vide)  |   |   | F | T | T | T | T | T | T | T  | T  |
+| quantité bien formée (>0)                               |   |   |   | F | T | T | T | T | T | T  | T  |
+| la famille existe                                       |   |   |   |   | F | T | T | T | T | T  | T  |
+| l'enfant existe                                         |   |   |   |   |   | F | T | T | T | T  | T  |
+| le cadeau existe                                        |   |   |   |   |   |   | F | T | T | T  | T  |
+| la réservation pour ce couple existe                    |   |   |   |   |   |   |   | F | T | T  | T  |
+| quantité déjà réservée >= quantité à retirer            |   |   |   |   |   |   |   |   | F | T  | T  |
+| quantité restante > 0 ? (condition scénario)            |   |   |   |   |   |   |   |   |   | T  | F  |
+|                                                         |   |   |   |   |   |   |   |   |   |    |    |
+| solde de points de l'enfant recrédité                   | F | F | F | F | F | F | F | F | F | T  | T  |
+| nombre disponible du cadeau incrémenté                  | F | F | F | F | F | F | F | F | F | T  | T  |
+| quantité réservée décrémentée                           | F | F | F | F | F | F | F | F | F | T  | F  |
+| suppression de la réservation                           | F | F | F | F | F | F | F | F | F | F  | T  |
+|                                                         |   |   |   |   |   |   |   |   |   |    |    |
+| nombre de tests dans le jeu de tests                    | 2 | 2 | 2 | 1 | 1 | 1 | 1 | 1 | 1 | 1  | 1  |
 
 # 3. Conception
 
