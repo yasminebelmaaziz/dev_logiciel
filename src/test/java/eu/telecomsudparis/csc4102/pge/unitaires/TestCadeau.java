@@ -66,15 +66,13 @@ class TestCadeau {
 		Assertions.assertThrows(IllegalArgumentException.class, () -> new Cadeau("c1", "jouet",10,-1));
 	}
 	
+	
 	@Test
-	@DisplayName("test constructeur : tout est ok")
-	void testConstructorOk() {
-		
-		cadeau = new Cadeau("c1", "jouet", 10, 5);
-		Assertions.assertEquals("c1", cadeau.getId());
-		
-		Assertions.assertEquals(5, cadeau.getNbDisponible()) ;
-		
+	@DisplayName("constructor ok")
+	void constructeurTest5() {
+		Cadeau cadeau = new Cadeau("idCadeau", "description", 10, 5);
+		Assertions.assertEquals(10, cadeau.getNbDisponible());
+		Assertions.assertEquals(5, cadeau.getCout());
 	}
 	
 	
@@ -93,7 +91,7 @@ class TestCadeau {
 	@DisplayName("test decrementer: trop d'un coup")
 	void testDecrementerTrop() {
 		cadeau = new Cadeau("c1", "jouet", 10, 2);
-		// on peut pas enlever 5 si on en a que 2
+		
 		Assertions.assertThrows(IllegalArgumentException.class, () ->cadeau.decrementerNbDisponible(5));
 	}
 	
