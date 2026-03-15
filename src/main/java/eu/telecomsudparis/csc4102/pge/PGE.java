@@ -43,7 +43,7 @@ public class PGE {
 	 * @return vrai lorsqu'il est vérifié.
 	 */
 	public boolean invariant() {
-		return nBPointsMaxParEnfant >= 0 && familles != null;
+		return nBPointsMaxParEnfant >= 0 && familles != null && cadeaux != null;
 	}
 
 	/**
@@ -83,6 +83,7 @@ public class PGE {
 		}
 		var famille = new Famille(idFamille, description);
 		familles.put(idFamille, famille);
+		assert invariant();
 	}
 	
 	public void ajouterUnEnfantAUneFamille(final String idFamille, final String nom, final String prenom, final String idEnfant) throws OperationImpossible {
@@ -107,6 +108,8 @@ public class PGE {
 		int nBPoints = PGE.nBPointsMaxParEnfant;
 		
 		famille.ajouterUnEnfant(idEnfant, nom, prenom, nBPoints);
+		
+		assert invariant();
 	}
 
 	/**
@@ -128,6 +131,9 @@ public class PGE {
 		if (cadeaux.get(idCadeau) != null) {
 			throw new OperationImpossible("cadeau déjà existant avec id=" + idCadeau);
 		}
+		if (idCadeau == null || idCadeau.isBlank()) {
+			throw new OperationImpossible("description ne peut pas être null ou vide");
+		}
 		if (description == null || description.isBlank()) {
 			throw new OperationImpossible("description ne peut pas être null ou vide");
 		}
@@ -142,5 +148,38 @@ public class PGE {
 		}
 		var cadeau = new Cadeau(idCadeau, description, nbInitial, cout);
 		cadeaux.put(idCadeau, cadeau);	
+		
+		assert invariant();
+	}
+	
+	
+	public void ajouterUneReservation(final String idFamille, final String idEnfant, final String idCadeau, int quantite) throws OperationImpossible {
+		if (idFamille == null || idFamille.isBlank()) {
+			throw new OperationImpossible("idFamille ne peut pas être null ou vide");}
+		
+		if (idEnfant == null || idEnfant.isBlank()) {
+			throw new OperationImpossible("idEnfant ne peut pas être null ou vide");}
+		
+		if (idCadeau == null || idCadeau.isBlank()) {
+			throw new OperationImpossible("idCadeau ne peut pas être null ou vide"); }
+		
+		if (quantite <= 0) {
+			throw new OperationImpossible("la quantité doit être strictement positive");
+		}
+		
+		
+		Famille famille = familles.get(idFamille);
+		if (famille == null) {
+			throw new OperationImpossible("la famille n'existe pas avec id=" + idFamille);
+		}
+
+		Cadeau cadeau = cadeaux.get(idCadeau);
+		if (cadeau == null) {
+			throw new OperationImpossible("le cadeau n'existe pas avec id=" + idCadeau);
+		}
+		
+		famille.ajouterReservation(idEnfant, cadeau, quantite);
+		
+		assert invariant();
 	}
 }
