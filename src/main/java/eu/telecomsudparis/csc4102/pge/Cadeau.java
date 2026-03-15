@@ -11,7 +11,7 @@ public class Cadeau {
 	
 	public Cadeau(final String id, final String description, int nbInitial, int cout) {
 		if (id == null || id.isBlank()) {
-			throw new IllegalArgumentException("description ne peut pas être null ou vide");
+			throw new IllegalArgumentException("id ne peut pas être null ou vide");
 		}
 		if (description == null || description.isBlank()) {
 			throw new IllegalArgumentException("description ne peut pas être null ou vide");
@@ -29,28 +29,11 @@ public class Cadeau {
 		this.nbInitial = nbInitial;
 		this.nbDisponible = nbInitial;
 		this.cout = cout;
+		assert invariant();
 		
 	}
 	
-	public int getNbDisponible() {
-		return nbDisponible;
-	}
 
-	public int getCout() {
-		return cout;
-	}
-
-	@Override
-	public boolean equals(final Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (!(obj instanceof Famille)) {
-			return false;
-		}
-		Cadeau other = (Cadeau) obj;
-		return id.equals(other.id);
-	}
 	
 	@Override
 	public int hashCode() {
@@ -72,5 +55,34 @@ public class Cadeau {
 	
 	public boolean invariant() {
 		return id != null && !id.isBlank() && description != null && !description.isBlank() && nbInitial >= 0  &&  nbDisponible >= 0  && cout > 0 ;
+	}
+	
+	
+	public int getNbDisponible() {
+		return nbDisponible;
+	}
+
+	public int getCout() {
+		return cout;
+	}
+	
+	public void decrementerNbDisponible(int quantite) {
+		if (quantite <= 0) {
+			throw new IllegalArgumentException("la quantité à réserver doit être strictement positive");
+		}
+		if (quantite > this.nbDisponible) {
+			throw new IllegalArgumentException("quantité réservable insuffisante");
+		}
+		this.nbDisponible -= quantite;
+		assert invariant();
+	}
+	
+	
+	public void incrementerNbDisponible(int quantite) {
+		if (quantite <= 0) {
+			throw new IllegalArgumentException("la quantité à ajouter doit être strictement positive");
+		}
+		this.nbDisponible += quantite;
+		assert invariant();
 	}
 }

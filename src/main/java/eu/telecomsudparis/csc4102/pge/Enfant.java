@@ -29,6 +29,7 @@ public class Enfant {
 		this.prenom = prenom;
 		this.nbPointsRestants = nbPointsRestants;
 		this.reservations = new ArrayList<>();
+		assert invariant();
 
 	}
 	
@@ -42,7 +43,7 @@ public class Enfant {
 		if (this == obj) {
 			return true;
 		}
-		if (!(obj instanceof Famille)) {
+		if (!(obj instanceof Enfant)) {
 			return false;
 		}
 		Enfant other = (Enfant) obj;
@@ -57,18 +58,56 @@ public class Enfant {
 		return id != null && !id.isBlank() && nom != null && !nom.isBlank() && prenom != null && !prenom.isBlank();
 	}
 	
-	public void ajouterReservation(Cadeau cadeau, int quantitee ) throws OperationImpossible{
+	public void ajouterReservation(Cadeau cadeau, int quantite ) throws OperationImpossible{
 		int cout = cadeau.getCout();
 		int nbDisponible = cadeau.getNbDisponible();
 		
-		if (nbDisponible < quantitee) {
+		if (nbDisponible < quantite) {
 			throw new OperationImpossible("nombre disponible insuffisant");
 		}
-		if (nbPointsRestants < quantitee*cout) {
+		if (nbPointsRestants < quantite*cout) {
 			throw new OperationImpossible("nombre insuffisant de points");
 		}
 		
+		Reservation res = chercherReservation(cadeau);
+		
+		if (res != null) {
+			res.incrementerQuantite(quantite);
+		}else {
+			res = new Reservation(quantite, cadeau);
+			this.reservations.add(res);
+		}
+		
+		decrementerPoints(quantite * cout);
+		cadeau.decrementerNbDisponible(quantite);
+		
+		assert invariant();
 	}
+	
+	
+	
+	private Reservation chercherReservation(Cadeau cadeau) {
+		for (Reservation res : reservations) {
+			if (res.getCadeau().equals(cadeau)) {
+				return res;
+			}
+		}
+		return null;
+	}
+	
+	
+	private void decrementerPoints(int points) {
+		this.nbPointsRestants -= points;
+		assert invariant();
+	}
+	
+	private void incrementerPoints(int points) {
+		this.nbPointsRestants += points;
+		assert invariant();
+	}
+	
+	
+	
 
 	
 }

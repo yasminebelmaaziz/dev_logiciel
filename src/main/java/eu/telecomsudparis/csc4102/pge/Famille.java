@@ -54,12 +54,10 @@ public class Famille {
 	}
 	
 	public Enfant chercherEnfant(String idEnfant) {
-		int cpt = 0;
-		for (int i=0; i<enfants.size(); i++) {
-			if(idEnfant == enfants.get(i).getId() ) {
-				return enfants.get(cpt);
+		for ( Enfant enfant : enfants) {
+			if (idEnfant.equals(enfant.getId())) {
+				return enfant;
 			}
-			cpt++;
 		}
 		return null;
 	}
@@ -106,10 +104,13 @@ public class Famille {
 	}
 	
 	public void ajouterReservation(final String idEnfant, Cadeau cadeau, int quantitee ) throws OperationImpossible{
-		if (chercherEnfant(idEnfant) != null) {
-			throw new OperationImpossible("enfant existant avec id=" + idEnfant);
+		Enfant enfant = chercherEnfant(idEnfant);
+		
+		if (enfant == null) {
+			throw new OperationImpossible("l'enfant n'existe pas dans la famille");
 		}
-		//là il faut ajouter le ajouterReservation de la classe Enfant
+		
+		enfant.ajouterReservation(cadeau, quantitee);
 	}
 	
 }

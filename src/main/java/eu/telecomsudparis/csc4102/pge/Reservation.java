@@ -1,16 +1,34 @@
 package eu.telecomsudparis.csc4102.pge;
 
 public class Reservation {
-	private int quantitee;
+	private int quantite;
 	private Cadeau cadeau;
 	
 	
-	public Reservation(int quantitee, Cadeau cadeau) {
-		this.quantitee = quantitee;
+	public Reservation(int quantite, Cadeau cadeau) {
+		this.quantite = quantite;
 		this.cadeau = cadeau;
+		assert invariant();
 	}
 	
 	public boolean invariant() {
-		return quantitee >0 ;
+		return quantite>0 ;
 	}
+	
+	
+	public Cadeau getCadeau() {
+		return cadeau;
+	}
+	
+	public void incrementerQuantite(int quantite){
+		this.quantite += quantite;
+		assert invariant();
+	}
+	
+	public void decrementerQuantite(int quantite){
+		this.quantite -= quantite;
+		assert invariant();
+	}
+	
+	
 }
