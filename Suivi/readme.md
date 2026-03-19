@@ -142,3 +142,75 @@ depuis PGE. Toute la suite se fait dans Famille.
 
 - [] à faire
  
+ 
+---
+# Suivi du mer. 18 mars 2026 08:48:23
+Elisabeth Brunet
+ 
+
+Très bon travail!! Quelques petits retours pour encore améliorer votre
+code ! Bravo!
+
+
+### Programmation de la solution
+
+#### Classes du diagramme de classes avec leurs attributs
+
+- [] Raffinez la navigabilité de vos associations dans votre diagramme
+  de classes. D'après ce dernier vous devriez avoir une navigabilité
+  de Enfant vers Famille que vous n'avez pas dans votre code (version
+  à conserver).
+
+
+#### Méthodes des cas d'utilisation de base
+
+1. Cas d'utilisation « Ajouter un cadeau »
+
+- [] Le bloc 
+if (cadeaux.get(idCadeau) != null) {
+			throw new OperationImpossible("cadeau déjà existant avec id=" + idCadeau);
+		}
+		 doit être mis après avoir vérifier que idCadeau est non non
+		 vide.
+		 
+		 
+		 
+
+2. Cas d'utilisation « Ajouter un enfant à une famille »
+
+- [] Comme vous avez un identifiant unique en paramètre, la recherche
+  de l'Enfant dans la collection peut être faire avec un get plutôt
+  qu'avec un boucle d'itération comme vous le faites dans chercherEnfant.
+
+3. Cas d'utilisation « Ajouter une réservation de cadeaux pour un enfant »
+
+- [] Nickel!
+
+
+## Programmation et exécution des tests
+
+### Tests de validation des cas d'utilisation
+
+1. Cas d'utilisation « Ajouter un cadeau »
+
+- [] ok
+
+2. Cas d'utilisation « Ajouter un enfant à une famille »
+
+- [] ok
+
+3. Cas d'utilisation « Ajouter une réservation de cadeaux pour un enfant »
+
+- [] ok
+
+### Tests unitaires des méthodes d'une classe
+
+1. Constructeur de la classe `Enfant`
+
+- [] ok
+
+2. Méthode `réserver` (ou équivalent) de la classe `Enfant`
+
+- [] à faire
+
+
