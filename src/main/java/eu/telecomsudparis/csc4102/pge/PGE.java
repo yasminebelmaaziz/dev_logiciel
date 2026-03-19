@@ -128,11 +128,11 @@ public class PGE {
 	 */
 	
 	public void ajouterUnCadeau(final String idCadeau, String description, int cout, int nbInitial) throws OperationImpossible {
+		if (idCadeau == null || idCadeau.isBlank()) {
+			throw new OperationImpossible("idCadeau ne peut pas être null ou vide");
+		}
 		if (cadeaux.get(idCadeau) != null) {
 			throw new OperationImpossible("cadeau déjà existant avec id=" + idCadeau);
-		}
-		if (idCadeau == null || idCadeau.isBlank()) {
-			throw new OperationImpossible("description ne peut pas être null ou vide");
 		}
 		if (description == null || description.isBlank()) {
 			throw new OperationImpossible("description ne peut pas être null ou vide");
@@ -142,9 +142,6 @@ public class PGE {
 		}
 		if (nbInitial < 0) {
 			throw new OperationImpossible("le coût du cadeau ne peut pas être négatif");
-		}
-		if (cadeaux.get(idCadeau) != null) {
-			throw new OperationImpossible("cadeau déjà existant avec id=" + idCadeau);
 		}
 		var cadeau = new Cadeau(idCadeau, description, nbInitial, cout);
 		cadeaux.put(idCadeau, cadeau);	
