@@ -38,14 +38,14 @@ class Réservation {
 
 
 
-PGE *-- "*" Famille
-PGE *-- "*" Cadeau
+PGE *--> "*" Famille
+PGE *--> "*" Cadeau
 
-Enfant *--"*" Réservation
+Enfant *-->"*" Réservation
 Réservation "*"--> "1  " Cadeau
 
 
-Famille *-- "*" Enfant
+Famille *--> "*" Enfant
 
 
 @enduml
