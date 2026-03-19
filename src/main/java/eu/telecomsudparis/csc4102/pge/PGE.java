@@ -163,7 +163,7 @@ public class PGE {
 		if (idCadeau == null || idCadeau.isBlank()) {
 			throw new OperationImpossible("idCadeau ne peut pas être null ou vide"); }
 		
-		if (quantite <= 0) {
+		if (quantite<= 0) {
 			throw new OperationImpossible("la quantité doit être strictement positive");
 		}
 		
@@ -174,12 +174,32 @@ public class PGE {
 		}
 
 		Cadeau cadeau = cadeaux.get(idCadeau);
-		if (cadeau == null) {
+		if (cadeau == null){
 			throw new OperationImpossible("le cadeau n'existe pas avec id=" + idCadeau);
 		}
 		
-		famille.ajouterReservation(idEnfant, cadeau, quantite);
+		famille.ajouterReservation(idEnfant, cadeau , quantite);
 		
 		assert invariant();
+	}
+	
+	
+	
+	
+	
+	public void retirerUnEnfant(final String idFamille, final String idEnfant) throws OperationImpossible {
+		if (idFamille == null || idFamille.isBlank()) {
+			throw new OperationImpossible("idFamille ne peut pas être null ou vide");}
+		
+		if (idEnfant == null || idEnfant.isBlank()) {
+			throw new OperationImpossible("idEnfant ne peut pas être null ou vide");}
+		
+		Famille famille = familles.get(idFamille);
+		if (famille == null) {
+			throw new OperationImpossible("la famille n'existe pas avec id=" + idFamille);
+		}
+		
+		famille.retirerUnEnfant(idEnfant);
+		
 	}
 }

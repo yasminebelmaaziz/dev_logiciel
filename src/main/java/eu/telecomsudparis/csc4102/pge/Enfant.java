@@ -107,6 +107,17 @@ public class Enfant {
 	}
 	
 	
+	public void retirerReservations(String idEnfant) {
+		
+		for ( Reservation res : reservations) {
+			int quantite = res.getQuantite();
+			Cadeau cadeau  = res.getCadeau();
+			
+			cadeau.incrementerNbDisponible(quantite);
+			
+		}
+		this.reservations.clear();
+	}
 	
 
 	

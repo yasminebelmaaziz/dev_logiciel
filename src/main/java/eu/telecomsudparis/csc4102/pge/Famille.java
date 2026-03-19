@@ -62,6 +62,20 @@ public class Famille {
 		return null;
 	}
 	
+	public void retirerUnEnfant(String idEnfant) throws OperationImpossible {
+		if (chercherEnfant(idEnfant) == null) {
+			throw new OperationImpossible("aucun enfant existant avec id=" + idEnfant);
+		}
+		Enfant enfant = chercherEnfant(idEnfant);
+		
+		enfant.retirerReservations(idEnfant);
+		
+		this.enfants.remove(enfant);
+		
+	
+	}
+	
+	
 
 	/**
 	 * l'invariant de la classe.
