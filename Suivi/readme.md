@@ -130,17 +130,17 @@ depuis PGE. Toute la suite se fait dans Famille.
 
 2. Invariant de la classe « Cadeau »
 
-- [] 
+- [X] 
 
 ## 4. Préparation des tests unitaires
 
 1. Table de décision des tests unitaires de la méthode Cadeau::constructeur
 
-- [] à faire
+- [X] à faire
 
 2. Table de décision des tests unitaires de la méthode Cadeau::réserver (ou équivalent)
 
-- [] à faire
+- [X] à faire
  
  
 ---
@@ -156,7 +156,7 @@ code ! Bravo!
 
 #### Classes du diagramme de classes avec leurs attributs
 
-- [] Raffinez la navigabilité de vos associations dans votre diagramme
+- [X] Raffinez la navigabilité de vos associations dans votre diagramme
   de classes. D'après ce dernier vous devriez avoir une navigabilité
   de Enfant vers Famille que vous n'avez pas dans votre code (version
   à conserver).
@@ -166,7 +166,7 @@ code ! Bravo!
 
 1. Cas d'utilisation « Ajouter un cadeau »
 
-- [] Le bloc 
+- [X] Le bloc 
 if (cadeaux.get(idCadeau) != null) {
 			throw new OperationImpossible("cadeau déjà existant avec id=" + idCadeau);
 		}
@@ -178,13 +178,15 @@ if (cadeaux.get(idCadeau) != null) {
 
 2. Cas d'utilisation « Ajouter un enfant à une famille »
 
-- [] Comme vous avez un identifiant unique en paramètre, la recherche
+- [X] Comme vous avez un identifiant unique en paramètre, la recherche
   de l'Enfant dans la collection peut être faire avec un get plutôt
   qu'avec un boucle d'itération comme vous le faites dans chercherEnfant.
 
+Remarque : Nous utilisons une ArrayList pour lister les enfants d'une Famille et non une HashMap car on suppose qu'une famille ne contient pas un nombre trop élévé d'enfant. Ceci explique l'utilisation d'une boucle plutôt qu'une méthode get().
+
 3. Cas d'utilisation « Ajouter une réservation de cadeaux pour un enfant »
 
-- [] Nickel!
+- [X] Nickel!
 
 
 ## Programmation et exécution des tests
@@ -193,17 +195,21 @@ if (cadeaux.get(idCadeau) != null) {
 
 1. Cas d'utilisation « Ajouter un cadeau »
 
-- [] ok
+- [X] ok
 
 2. Cas d'utilisation « Ajouter un enfant à une famille »
 
-- [] ok
+- [X] ok
 
 3. Cas d'utilisation « Ajouter une réservation de cadeaux pour un enfant »
 
-- [] ok
+- [X] ok
 
 ### Tests unitaires des méthodes d'une classe
+
+Remarque : La méthode réserver est associé dans l'énoncé à la classe 'Cadeau'. Néanmoins, nous avons ajouter en plus de la classe 'Cadeau' (sans que cela ne soit demandé) des tests unitaires pour le constructeur de la classe 'Enfant'. Si cet ajout est améné à poser des problèmes nous la retireront pour nous contenter uniquement des attentdus. 
+
+Pour l'instant sommes en attente de la validation de cette partie.
 
 1. Constructeur de la classe `Enfant`
 
