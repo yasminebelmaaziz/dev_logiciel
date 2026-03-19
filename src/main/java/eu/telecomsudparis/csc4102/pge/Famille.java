@@ -24,6 +24,7 @@ public class Famille {
 	private String description;
 	
 	private ArrayList<Enfant> enfants;
+	// Nous faisons le choix d'utiliser une ArrayList plutôt qu'une HashMap car on suppose qu'il n'y pas beaucoup d'enfants
 
 	/**
 	 * construit une famille.
