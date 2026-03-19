@@ -20,6 +20,10 @@ public class Reservation {
 		return cadeau;
 	}
 	
+	public int getQuantite() {
+		return quantite;
+	}
+	
 	public void incrementerQuantite(int quantite){
 		this.quantite += quantite;
 		assert invariant();
