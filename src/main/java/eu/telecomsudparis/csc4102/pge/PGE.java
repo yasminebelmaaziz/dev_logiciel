@@ -21,6 +21,9 @@ public class PGE {
 	 * la collection des familles. Les enfants sont organisés par famille.
 	 */
 	private Map<String, Famille> familles;
+	/**
+	 * la collection des cadeaux.
+	 */
 	private Map<String, Cadeau> cadeaux;
 
 	/**
@@ -86,6 +89,16 @@ public class PGE {
 		assert invariant();
 	}
 	
+	
+	/**
+	 * ajoute un enfant à une famille.
+	 * 
+	 * @param idFamille         l'identifiant de la famille.
+	 * @param nom               nom de l'enfant
+	 * @param prenom            prénom de l'enfant
+	 * @param idEnfant          l'identifiant de l'enfant
+	 * @throws OperationImpossible problème détecté par la logique métier.
+	 */
 	public void ajouterUnEnfantAUneFamille(final String idFamille, final String nom, final String prenom, final String idEnfant) throws OperationImpossible {
 		if (idFamille == null || idFamille.isBlank()) {
 			throw new OperationImpossible("id famille ne peut pas être null ou vide");
@@ -124,10 +137,14 @@ public class PGE {
 	/**
 	 * ajoute un cadeau système.
 	 * 
-	 * UC1
+	 * @param idCadeau          l'identifiant du cadeau.
+	 * @param description       description du cadeau.
+	 * @param cout              coût en points du cadeau.
+	 * @param nbInitial         nombre initial du cadeau.
+	 * @throws OperationImpossible problème détecté par la logique métier.
 	 */
 	
-	public void ajouterUnCadeau(final String idCadeau, String description, int cout, int nbInitial) throws OperationImpossible {
+	public void ajouterUnCadeau(final String idCadeau, final String description, final int cout, final int nbInitial) throws OperationImpossible {
 		if (idCadeau == null || idCadeau.isBlank()) {
 			throw new OperationImpossible("idCadeau ne peut pas être null ou vide");
 		}
@@ -150,17 +167,30 @@ public class PGE {
 	}
 	
 	
-	public void ajouterUneReservation(final String idFamille, final String idEnfant, final String idCadeau, int quantite) throws OperationImpossible {
+	/**
+	 * ajoute une réservation pour un enfant d'une famille au système.
+	 * 
+	 * @param idFamille         l'identifiant de la famille.
+	 * @param idEnfant          l'identifiant de l'enfant.
+	 * @param idCadeau          l'identifiant du cadeau.
+	 * @param quantite          quantité voulue du cadeau
+	 * @throws OperationImpossible problème détecté par la logique métier.
+	 */
+	
+	public void ajouterUneReservation(final String idFamille, final String idEnfant, final String idCadeau, final int quantite) throws OperationImpossible {
 		if (idFamille == null || idFamille.isBlank()) {
-			throw new OperationImpossible("idFamille ne peut pas être null ou vide");}
+			throw new OperationImpossible("idFamille ne peut pas être null ou vide");
+		}
 		
 		if (idEnfant == null || idEnfant.isBlank()) {
-			throw new OperationImpossible("idEnfant ne peut pas être null ou vide");}
+			throw new OperationImpossible("idEnfant ne peut pas être null ou vide"); 
+		}
 		
 		if (idCadeau == null || idCadeau.isBlank()) {
-			throw new OperationImpossible("idCadeau ne peut pas être null ou vide"); }
+			throw new OperationImpossible("idCadeau ne peut pas être null ou vide"); 
+		}
 		
-		if (quantite<= 0) {
+		if (quantite <= 0) {
 			throw new OperationImpossible("la quantité doit être strictement positive");
 		}
 		
@@ -171,25 +201,33 @@ public class PGE {
 		}
 
 		Cadeau cadeau = cadeaux.get(idCadeau);
-		if (cadeau == null){
+		if (cadeau == null) {
 			throw new OperationImpossible("le cadeau n'existe pas avec id=" + idCadeau);
 		}
 		
-		famille.ajouterReservation(idEnfant, cadeau , quantite);
+		famille.ajouterReservation(idEnfant, cadeau, quantite);
 		
 		assert invariant();
 	}
 	
 	
-	
+	/**
+	 * retire un enfant d'une famille.
+	 * 
+	 * @param idFamille         l'identifiant de la famille.
+	 * @param idEnfant          l'identifiant de l'enfant.
+	 * @throws OperationImpossible problème détecté par la logique métier.
+	 */
 	
 	
 	public void retirerUnEnfant(final String idFamille, final String idEnfant) throws OperationImpossible {
 		if (idFamille == null || idFamille.isBlank()) {
-			throw new OperationImpossible("idFamille ne peut pas être null ou vide");}
+			throw new OperationImpossible("idFamille ne peut pas être null ou vide");
+		}
 		
 		if (idEnfant == null || idEnfant.isBlank()) {
-			throw new OperationImpossible("idEnfant ne peut pas être null ou vide");}
+			throw new OperationImpossible("idEnfant ne peut pas être null ou vide");
+		}
 		
 		Famille famille = familles.get(idFamille);
 		if (famille == null) {
@@ -200,11 +238,17 @@ public class PGE {
 		
 	}
 	
-	
+	/**
+	 * retire une famille du système.
+	 * 
+	 * @param idFamille         l'identifiant de la famille.
+	 * @throws OperationImpossible problème détecté par la logique métier.
+	 */
 	
 	public void retirerUneFamille(final String idFamille) throws OperationImpossible {
 		if (idFamille == null || idFamille.isBlank()) {
-			throw new OperationImpossible("idFamille ne peut pas être null ou vide");}
+			throw new OperationImpossible("idFamille ne peut pas être null ou vide");
+		}
 		
 		
 		Famille famille = familles.get(idFamille);

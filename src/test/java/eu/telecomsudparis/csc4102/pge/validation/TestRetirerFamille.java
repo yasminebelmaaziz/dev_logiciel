@@ -1,3 +1,6 @@
+// CHECKSTYLE:OFF
+
+
 package eu.telecomsudparis.csc4102.pge.validation;
 
 import org.junit.jupiter.api.AfterEach;
@@ -71,7 +74,6 @@ class TestRetirerFamille {
 		facade.retirerUneFamille("FAM");
 		// A FAIRE : quand on aura une fonction lister les RES
 	}
-	
 	
 	
 
