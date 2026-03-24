@@ -16,7 +16,7 @@ public class Cadeau {
 		if (description == null || description.isBlank()) {
 			throw new IllegalArgumentException("description ne peut pas être null ou vide");
 		}
-		if (nbInitial < 0 ) {
+		if (nbInitial < 0) {
 			throw new IllegalArgumentException("nbInitial ne peut pas être négatif");
 		
 		}

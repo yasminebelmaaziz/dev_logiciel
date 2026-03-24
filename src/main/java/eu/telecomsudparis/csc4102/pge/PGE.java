@@ -199,4 +199,22 @@ public class PGE {
 		famille.retirerUnEnfant(idEnfant);
 		
 	}
+	
+	
+	
+	public void retirerUneFamille(final String idFamille) throws OperationImpossible {
+		if (idFamille == null || idFamille.isBlank()) {
+			throw new OperationImpossible("idFamille ne peut pas être null ou vide");}
+		
+		
+		Famille famille = familles.get(idFamille);
+		if (famille == null) {
+			throw new OperationImpossible("la famille n'existe pas avec id=" + idFamille);
+		}
+		
+		famille.nettoyageAvantSupr();
+		
+		familles.remove(idFamille);
+		
+	}
 }

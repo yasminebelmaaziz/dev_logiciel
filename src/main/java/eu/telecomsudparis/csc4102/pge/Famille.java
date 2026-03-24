@@ -1,7 +1,6 @@
 package eu.telecomsudparis.csc4102.pge;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import eu.telecomsudparis.csc4102.util.OperationImpossible;
@@ -55,7 +54,7 @@ public class Famille {
 	}
 	
 	public Enfant chercherEnfant(String idEnfant) {
-		for ( Enfant enfant : enfants) {
+		for (Enfant enfant : enfants) {
 			if (idEnfant.equals(enfant.getId())) {
 				return enfant;
 			}
@@ -96,10 +95,12 @@ public class Famille {
 		return id;
 	}
 
+	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
 	}
+	
 
 	@Override
 	public boolean equals(final Object obj) {
@@ -126,6 +127,16 @@ public class Famille {
 		}
 		
 		enfant.ajouterReservation(cadeau, quantitee);
+	}
+	
+	
+	public void nettoyageAvantSupr() {
+		for (Enfant enfant : enfants) {
+			String idEnfant = enfant.getId();
+			enfant.retirerReservations(idEnfant);
+			}
+		
+		this.enfants.clear();
 	}
 	
 }
