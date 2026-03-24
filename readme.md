@@ -119,6 +119,7 @@ priorité HAUTE.
 
 - postcondition :\
 ∧ retrait de l'enfant dans la famille \
+∧ toutes les réservations de cadeaux associées à cet enfant sont retirées \
 ∧ le nombre disponibles des cadeaux concernés est ré-incrémenté
 
 #### Ajouter un cadeau (HAUTE)
@@ -264,6 +265,7 @@ priorité HAUTE.
 | l'enfant existe                                                         |   |   |   | F | T |
 |                                                                         |   |   |   |   |   |
 | retrait de l'enfant dans la famille                                     | F | F | F | F | T |
+| toutes les réservations de cadeaux associées à cet enfant sont retirées | F | F | F | F | T |
 | le nombre dispo des cadeaux concernés est ré-incrémenté                 | F | F | F | F | T |
 |                                                                         |   |   |   |   |   |
 | nombre de tests dans le jeu de tests                                    | 2 | 2 | 1 | 1 | 1 |
