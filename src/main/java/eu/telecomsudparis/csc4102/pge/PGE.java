@@ -135,6 +135,15 @@ public class PGE {
 	}
 	
 	/**
+	 * liste les cadeaux du système.
+	 * 
+	 * @return une collection de chaînes de caractères, une par cadeau.
+	 */
+	public List<String> listerLesCadeaux() {
+		return cadeaux.values().stream().map(Cadeau::toString).toList();
+	}
+	
+	/**
 	 * ajoute un cadeau système.
 	 * 
 	 * @param idCadeau          l'identifiant du cadeau.
