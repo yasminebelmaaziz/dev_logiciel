@@ -22,15 +22,16 @@ public class Famille {
 	 * [description] ».
 	 */
 	private String description;
-	
+
 	private ArrayList<Enfant> enfants;
-	// Nous faisons le choix d'utiliser une ArrayList plutôt qu'une HashMap car on suppose qu'il n'y pas beaucoup d'enfants
+	// Nous faisons le choix d'utiliser une ArrayList plutôt qu'une HashMap car on
+	// suppose qu'il n'y pas beaucoup d'enfants
 
 	/**
 	 * construit une famille.
 	 * 
-	 * @param id                l'identifiant.
-	 * @param description       la description.
+	 * @param id          l'identifiant.
+	 * @param description la description.
 	 */
 	public Famille(final String id, final String description) {
 		if (id == null || id.isBlank()) {
@@ -45,15 +46,16 @@ public class Famille {
 		assert invariant();
 	}
 
-	public void ajouterUnEnfant(String idEnfant, String nom, String prenom, int nBPointsMaxParEnfant) throws OperationImpossible {
+	public void ajouterUnEnfant(String idEnfant, String nom, String prenom, int nBPointsMaxParEnfant)
+			throws OperationImpossible {
 		if (chercherEnfant(idEnfant) != null) {
 			throw new OperationImpossible("enfant existant avec id=" + idEnfant);
 		}
-		
+
 		Enfant enfant = new Enfant(idEnfant, nom, prenom, nBPointsMaxParEnfant);
 		enfants.add(enfant);
 	}
-	
+
 	public Enfant chercherEnfant(String idEnfant) {
 		for (Enfant enfant : enfants) {
 			if (idEnfant.equals(enfant.getId())) {
@@ -62,21 +64,18 @@ public class Famille {
 		}
 		return null;
 	}
-	
+
 	public void retirerUnEnfant(String idEnfant) throws OperationImpossible {
 		if (chercherEnfant(idEnfant) == null) {
 			throw new OperationImpossible("aucun enfant existant avec id=" + idEnfant);
 		}
 		Enfant enfant = chercherEnfant(idEnfant);
-		
+
 		enfant.retirerReservations(idEnfant);
-		
+
 		this.enfants.remove(enfant);
-		
-	
+
 	}
-	
-	
 
 	/**
 	 * l'invariant de la classe.
@@ -96,12 +95,10 @@ public class Famille {
 		return id;
 	}
 
-	
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
 	}
-	
 
 	@Override
 	public boolean equals(final Object obj) {
@@ -119,25 +116,24 @@ public class Famille {
 	public String toString() {
 		return "Famille [id=" + id + ", description=" + description + "]";
 	}
-	
-	public void ajouterReservation(final String idEnfant, Cadeau cadeau, int quantitee ) throws OperationImpossible{
+
+	public void ajouterReservation(final String idEnfant, Cadeau cadeau, int quantitee) throws OperationImpossible {
 		Enfant enfant = chercherEnfant(idEnfant);
-		
+
 		if (enfant == null) {
 			throw new OperationImpossible("l'enfant n'existe pas dans la famille");
 		}
-		
+
 		enfant.ajouterReservation(cadeau, quantitee);
 	}
-	
-	
+
 	public void nettoyageAvantSupr() {
 		for (Enfant enfant : enfants) {
 			String idEnfant = enfant.getId();
 			enfant.retirerReservations(idEnfant);
-			}
-		
+		}
+
 		this.enfants.clear();
 	}
-	
+
 }
