@@ -299,4 +299,37 @@ public class PGE {
 
 	}
 	
+	public void retirerUneReservation(final String idFamille, final String idEnfant, final String idCadeau,
+			final int quantite) throws OperationImpossible {
+		if (idFamille == null || idFamille.isBlank()) {
+			throw new OperationImpossible("idFamille ne peut pas être null ou vide");
+		}
+
+		if (idEnfant == null || idEnfant.isBlank()) {
+			throw new OperationImpossible("idEnfant ne peut pas être null ou vide");
+		}
+
+		if (idCadeau == null || idCadeau.isBlank()) {
+			throw new OperationImpossible("idCadeau ne peut pas être null ou vide");
+		}
+
+		if (quantite <= 0) {
+			throw new OperationImpossible("la quantité doit être strictement positive");
+		}
+
+		Famille famille = familles.get(idFamille);
+		if (famille == null) {
+			throw new OperationImpossible("la famille n'existe pas avec id=" + idFamille);
+		}
+
+		Cadeau cadeau = cadeaux.get(idCadeau);
+		if (cadeau == null) {
+			throw new OperationImpossible("le cadeau n'existe pas avec id=" + idCadeau);
+		}
+
+		famille.retirerReservation(idEnfant, cadeau, quantite);
+
+		assert invariant();
+	}
+	
 }

@@ -90,6 +90,33 @@ public class Enfant {
 
 		assert invariant();
 	}
+	
+	public void retirerReservation(Cadeau cadeau, int quantite) throws OperationImpossible {
+		int cout = cadeau.getCout();
+		Reservation res = chercherReservation(cadeau);
+		
+		if (res == null) {
+			throw new OperationImpossible("l'enfant n'a pas de reservation pour ce cadeau");
+		}
+		
+		int quantiteDejaReservee = res.getQuantite();
+		
+		if (quantiteDejaReservee == quantite) {
+			incrementerPoints(quantite * cout);
+			cadeau.incrementerNbDisponible(quantite);
+			this.reservations.remove(res);
+		}
+		if (quantiteDejaReservee > quantite) {
+			incrementerPoints(quantite * cout);
+			cadeau.incrementerNbDisponible(quantite);
+			res.decrementerQuantite(quantite);
+		}
+		if (quantiteDejaReservee < quantite) {
+			throw new OperationImpossible("la quantite retirer doit être inférieur ou égale à la quantite déjà réservée");
+		}
+
+		assert invariant();
+	}
 
 	private Reservation chercherReservation(Cadeau cadeau) {
 		for (Reservation res : reservations) {

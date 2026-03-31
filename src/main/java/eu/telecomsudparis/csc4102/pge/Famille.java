@@ -126,6 +126,17 @@ public class Famille {
 
 		enfant.ajouterReservation(cadeau, quantitee);
 	}
+	
+	
+	public void retirerReservation(final String idEnfant, Cadeau cadeau, int quantitee) throws OperationImpossible {
+		Enfant enfant = chercherEnfant(idEnfant);
+
+		if (enfant == null) {
+			throw new OperationImpossible("l'enfant n'existe pas dans la famille");
+		}
+
+		enfant.retirerReservation(cadeau, quantitee);
+	}
 
 	public void nettoyageAvantSupr() {
 		for (Enfant enfant : enfants) {
