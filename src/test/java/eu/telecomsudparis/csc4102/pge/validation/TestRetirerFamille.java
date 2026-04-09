@@ -10,6 +10,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
+import eu.telecomsudparis.csc4102.pge.ConsommateurNotification;
 import eu.telecomsudparis.csc4102.pge.PGE;
 import eu.telecomsudparis.csc4102.util.OperationImpossible;
 
@@ -21,7 +22,7 @@ class TestRetirerFamille {
 	void setUp() throws OperationImpossible {
 		facade = new PGE(10000);
 		
-		facade.ajouterUneFamille("FAM", "famille test"); 
+		facade.ajouterUneFamille("FAM", "famille test", new ConsommateurNotification("FAM")); 
 		facade.ajouterUnEnfantAUneFamille("FAM", "nom", "prenom", "enf1");
 		facade.ajouterUnCadeau("c1", "Jeu de billes", 5, 10);
 		facade.ajouterUnCadeau("c2", "Jeu de billes", 5, 10);

@@ -9,6 +9,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
+import eu.telecomsudparis.csc4102.pge.ConsommateurNotification;
 import eu.telecomsudparis.csc4102.pge.PGE;
 import eu.telecomsudparis.csc4102.util.OperationImpossible;
 
@@ -20,7 +21,7 @@ class TestAjouterEnfant {
 	void setUp() throws OperationImpossible {
 		facade = new PGE(20);
 		
-		facade.ajouterUneFamille("FAM", "famille test"); //besoin d'une famille pour ajouter un enfant dedans..
+		facade.ajouterUneFamille("FAM", "famille test", new ConsommateurNotification("FAM")); //besoin d'une famille pour ajouter un enfant dedans..
 	}
 	
 	@AfterEach

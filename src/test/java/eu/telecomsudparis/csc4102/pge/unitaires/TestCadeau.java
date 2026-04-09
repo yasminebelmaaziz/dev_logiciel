@@ -57,7 +57,7 @@ class TestCadeau {
 	@ValueSource(ints = {0,-5})
 	@DisplayName("test constructeur : cout invalide ")
 	void testConstructorCout(int input) {
-		Assertions.assertThrows(IllegalArgumentException.class, () -> new Cadeau("c1", "jouet",input, 5));
+		Assertions.assertThrows(IllegalArgumentException.class, () -> new Cadeau("c1", "jouet", 5, input));
 	}
 	
 	
@@ -87,15 +87,15 @@ class TestCadeau {
 	void testDecrementerOk() {
 		cadeau = new Cadeau("c1", "jouet", 10, 5);
 		cadeau.decrementerNbDisponible(2);
-		Assertions.assertEquals(3, cadeau.getNbDisponible()) ;
+		Assertions.assertEquals(8, cadeau.getNbDisponible()) ;
 	}
 	
 	@Test
 	@DisplayName("test decrementer: trop d'un coup")
 	void testDecrementerTrop() {
 		cadeau = new Cadeau("c1", "jouet", 10, 2);
-		
-		Assertions.assertThrows(IllegalArgumentException.class, () ->cadeau.decrementerNbDisponible(5));
+
+		Assertions.assertThrows(IllegalArgumentException.class, () ->cadeau.decrementerNbDisponible(15));
 	}
 	
 	@ParameterizedTest

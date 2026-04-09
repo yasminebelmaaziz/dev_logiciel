@@ -10,11 +10,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 
+import eu.telecomsudparis.csc4102.pge.ConsommateurNotification;
 import eu.telecomsudparis.csc4102.pge.PGE;
 import eu.telecomsudparis.csc4102.util.OperationImpossible;
 
 class TestAjouterFamille {
-	
+
 	private PGE facade;
 
 	@BeforeEach
@@ -31,21 +32,31 @@ class TestAjouterFamille {
 	@NullAndEmptySource
 	@DisplayName("ajouter une famille erreur id null or vide")
 	void ajouterUneFamilleTest1(String input) {
-		Assertions.assertThrows(OperationImpossible.class, () -> facade.ajouterUneFamille(input, "description"));
+		Assertions.assertThrows(OperationImpossible.class,
+				() -> facade.ajouterUneFamille(input, "description", new ConsommateurNotification("test")));
 	}
 
 	@ParameterizedTest
 	@NullAndEmptySource
 	@DisplayName("ajouter une famille erreur description null or vide")
 	void ajouterUneFamilleTest2(String input) {
-		Assertions.assertThrows(OperationImpossible.class, () -> facade.ajouterUneFamille("idFamille", input));
+		Assertions.assertThrows(OperationImpossible.class,
+				() -> facade.ajouterUneFamille("idFamille", input, new ConsommateurNotification("test")));
+	}
+
+	@Test
+	@DisplayName("ajouter une famille erreur consommateur null")
+	void ajouterUneFamilleTestConsommateurNull() {
+		Assertions.assertThrows(OperationImpossible.class,
+				() -> facade.ajouterUneFamille("idFamille", "description", null));
 	}
 
 	@Test
 	@DisplayName("add a family ok puis erreur existe déjà")
 	void ajouterUneFamilleTest4Puis3() throws OperationImpossible {
-		facade.ajouterUneFamille("idFamille", "description");
+		facade.ajouterUneFamille("idFamille", "description", new ConsommateurNotification("idFamille"));
 		Assertions.assertEquals(1, facade.listerLesFamilles().size());
-		Assertions.assertThrows(OperationImpossible.class, () -> facade.ajouterUneFamille("idFamille", "description"));
+		Assertions.assertThrows(OperationImpossible.class,
+				() -> facade.ajouterUneFamille("idFamille", "description", new ConsommateurNotification("idFamille")));
 	}
 }

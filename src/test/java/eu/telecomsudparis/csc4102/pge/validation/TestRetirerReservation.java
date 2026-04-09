@@ -10,6 +10,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.NullAndEmptySource;
 import org.junit.jupiter.params.provider.ValueSource;
 
+import eu.telecomsudparis.csc4102.pge.ConsommateurNotification;
 import eu.telecomsudparis.csc4102.pge.PGE;
 import eu.telecomsudparis.csc4102.util.OperationImpossible;
 
@@ -22,7 +23,7 @@ public class TestRetirerReservation {
 		
 		facade = new PGE(20);
 		
-		facade.ajouterUneFamille("f1", "Famille Dupont");
+		facade.ajouterUneFamille("f1", "Famille Dupont", new ConsommateurNotification("f1"));
 		facade.ajouterUnEnfantAUneFamille("f1", "Dupont", "OuiOui", "e1");
 		facade.ajouterUnCadeau("c1", "Jeu de billes", 5, 10);
 		facade.ajouterUnCadeau("c2", "Sac de billes", 4, 3);

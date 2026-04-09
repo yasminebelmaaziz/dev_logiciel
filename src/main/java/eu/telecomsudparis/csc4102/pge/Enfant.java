@@ -2,6 +2,7 @@
 package eu.telecomsudparis.csc4102.pge;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import eu.telecomsudparis.csc4102.util.OperationImpossible;
@@ -135,6 +136,11 @@ public class Enfant {
 	private void incrementerPoints(int points) {
 		this.nbPointsRestants += points;
 		assert invariant();
+	}
+
+
+	public List<String> listerLesReservations() {
+		return reservations.stream().map(Reservation::toString).toList();
 	}
 
 	public void retirerReservations(String idEnfant) {

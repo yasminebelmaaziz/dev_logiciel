@@ -82,8 +82,14 @@ public class Cadeau {
 	 * @return vrai lorsqu'il est vérifié.
 	 */
 	public boolean invariant() {
-		return id != null && !id.isBlank() && description != null && !description.isBlank() && nbInitial >= 0
-				&& nbDisponible >= 0 && cout > 0;
+		return id != null 
+				&& !id.isBlank() 
+				&& description != null
+				&& !description.isBlank() 
+				&& nbInitial >= 0
+				&& nbDisponible >= 0
+				&& cout > 0
+				&& nbDisponible <= nbInitial;
 	}
 
 	/**
