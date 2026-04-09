@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import eu.telecomsudparis.csc4102.pge.ConsommateurNotification;
 import eu.telecomsudparis.csc4102.pge.PGE;
 import eu.telecomsudparis.csc4102.util.OperationImpossible;
 
@@ -38,7 +39,7 @@ class TestListerEnfants {
 	@Test
 	@DisplayName("test 2 : un enfant dans une famille donc liste de taille 1")
 	void listerLesEnfantsTest2() throws OperationImpossible {
-		facade.ajouterUneFamille("FAM1" , "famille test");
+		facade.ajouterUneFamille("FAM1", "famille test", new ConsommateurNotification("FAM1"));
 		facade.ajouterUnEnfantAUneFamille("FAM1", "Dupont", "Alice", "enf1");
 
 		List<String> enfants = facade.listerLesEnfants();
@@ -50,8 +51,8 @@ class TestListerEnfants {
 	@Test
 	@DisplayName("test 3 : plusieurs enfants dans plusieurs familles")
 	void listerLesEnfantsTest3() throws OperationImpossible {
-		facade.ajouterUneFamille("FAM1" , "famille un");
-		facade.ajouterUneFamille("FAM2" , "famille deux");
+		facade.ajouterUneFamille("FAM1", "famille un", new ConsommateurNotification("FAM1"));
+		facade.ajouterUneFamille("FAM2", "famille deux", new ConsommateurNotification("FAM2"));
 		
 		facade.ajouterUnEnfantAUneFamille("FAM1", "Dupont", "Alice", "enf1");
 		facade.ajouterUnEnfantAUneFamille("FAM1", "Dupont", "Bob", "enf2");
