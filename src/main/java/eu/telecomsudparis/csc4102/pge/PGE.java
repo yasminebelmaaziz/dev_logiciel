@@ -72,19 +72,23 @@ public class PGE {
 	 * 
 	 * @param idFamille   l'identifiant de la famille.
 	 * @param description la description de la famille.
+	 * @param consommateur
 	 * @throws OperationImpossible problème détecté par la logique métier.
 	 */
-	public void ajouterUneFamille(final String idFamille, final String description) throws OperationImpossible {
+	public void ajouterUneFamille(final String idFamille, final String description, final ConsommateurNotification consommateur) throws OperationImpossible {
 		if (idFamille == null || idFamille.isBlank()) {
 			throw new OperationImpossible("id famille ne peut pas être null ou vide");
 		}
 		if (description == null || description.isBlank()) {
 			throw new OperationImpossible("description ne peut pas être null ou vide");
 		}
+		if (consommateur == null) {
+			throw new OperationImpossible("consommateur ne peut pas être null");
+		}
 		if (familles.get(idFamille) != null) {
 			throw new OperationImpossible("famille déjà existante avec id=" + idFamille);
 		}
-		var famille = new Famille(idFamille, description);
+		var famille = new Famille(idFamille, description, consommateur);
 		familles.put(idFamille, famille);
 		assert invariant();
 	}
@@ -361,8 +365,7 @@ public class PGE {
 	 * @throws OperationImpossible problème détecté par la logique métier.
 	 */
 	
-	public void retirerUneReservation(final String idFamille, final String idEnfant, final String idCadeau,
-			final int quantite) throws OperationImpossible {
+	public void retirerUneReservation(final String idFamille, final String idEnfant, final String idCadeau, final int quantite) throws OperationImpossible {
 		if (idFamille == null || idFamille.isBlank()) {
 			throw new OperationImpossible("idFamille ne peut pas être null ou vide");
 		}
@@ -393,6 +396,66 @@ public class PGE {
 
 		assert invariant();
 	}
-
 	
+	/**
+	 * eneregistre qu'une famille veut être notifiée de la disponibilité d'un cadeau.
+	 * 
+	 * @param idFamille l'identifiant de la famille.
+	 * @param idCadeau l'identifiant du cadeau.
+	 * @throws OperationImpossible problème détecté par la logique métier.
+	 */
+
+	public void demanderUneNotificationDisponibilite(final String idFamille, final String idCadeau) throws OperationImpossible  {
+		if (idFamille == null || idFamille.isBlank()) {
+			throw new OperationImpossible("idFamille ne peut pas être null ou vide");
+		}
+		if (idCadeau == null || idCadeau.isBlank()) {
+			throw new OperationImpossible("idCadeau ne peut pas être null ou vide");
+		}
+		Famille famille = familles.get(idFamille);
+		if (famille == null) {
+			throw new OperationImpossible("la famille n'existe pas avec id=" + idFamille);
+		}
+		Cadeau cadeau = cadeaux.get(idCadeau);
+		if (cadeau == null) {
+			throw new OperationImpossible("le cadeau n'existe pas avec id=" + idCadeau);
+		}
+		famille.ajouterCadeauSuivi(idCadeau);
+		assert invariant();
+	}
+
+	/**
+	 * réassortit un cadeau et notifie les familles qui attendaient sa disponibilité.
+	 *
+	 * @param idCadeau l'identifiant du cadeau
+	 * @param quantite  la quantité à ajouter
+	 * 
+	 * @throws OperationImpossible problème détecté par la logique métier.
+	 */
+	public void reassortir(final String idCadeau, final int quantite) throws OperationImpossible {
+		if (idCadeau == null || idCadeau.isBlank()) {
+			throw new OperationImpossible("idCadeau ne peut pas être null ou vide");
+		}
+		if (quantite <= 0) {
+			throw new OperationImpossible("la quantité doit être strictement positive");
+		}
+		Cadeau cadeau = cadeaux.get(idCadeau);
+		if (cadeau == null) {
+			throw new OperationImpossible("le cadeau n'existe pas avec id=" + idCadeau);
+		}
+		boolean estEpuise = cadeau.getNbDisponible() == 0;
+		
+		cadeau.incrementerNbDisponible(quantite);
+		
+		if (estEpuise) {
+			
+			for (Famille famille : familles.values()) {
+				if (famille.suitCeCadeau(idCadeau)) {
+					famille.notifierDisponibilite(cadeau);
+				}
+			}
+		}
+		assert invariant();
+	}
+
 }
