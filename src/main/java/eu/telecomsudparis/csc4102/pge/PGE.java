@@ -124,6 +124,8 @@ public class PGE {
 
 		assert invariant();
 	}
+	
+	
 
 	/**
 	 * liste les familles du système.
@@ -133,14 +135,64 @@ public class PGE {
 	public List<String> listerLesFamilles() {
 		return familles.values().stream().map(Famille::toString).toList();
 	}
+	
+	
 
 	/**
 	 * liste les cadeaux du système.
-	 * 
+	 *
 	 * @return une collection de chaînes de caractères, une par cadeau.
 	 */
 	public List<String> listerLesCadeaux() {
 		return cadeaux.values().stream().map(Cadeau::toString).toList();
+	}
+
+		
+	/**
+	 * liste tous les enfants du système, toutes familles confondues.
+	 *
+	 * @return une collection de chaînes de caractères, une par enfant.
+	 */
+	public List<String> listerLesEnfants() {
+		return familles.values().stream().flatMap(f -> f.listerLesEnfants().stream()).toList();
+	}
+
+	
+	/**
+	 * liste les enfants d'une famille.
+	 *
+	 * @param idFamille l'identifiant de la famille
+	 * 
+	 * @return une collection de chaînes de caractères, une par enfant.
+	 * @throws OperationImpossible problème détecté par la logique métier.
+	 */
+	public List<String> listerLesEnfantsDUneFamille(final String idFamille) throws OperationImpossible {
+		if (idFamille == null || idFamille.isBlank()) {
+			throw new OperationImpossible("idFamille ne peut pas être null ou vide");
+		}
+		Famille famille = familles.get(idFamille);
+		if (famille == null) {
+			throw new OperationImpossible("la famille n'existe pas avec id=" + idFamille);
+		}
+		return famille.listerLesEnfants();
+	}
+
+	/**
+	 * liste les réservations de tous les enfants d'une famille.
+	 *
+	 * @param idFamille l'identifiant de la famille.
+	 * @return une collection de chaînes de caractères, une par réservation.
+	 * @throws OperationImpossible problème détecté par la logique métier.
+	 */
+	public List<String> listerLesReservationsDUneFamille(final String idFamille) throws OperationImpossible {
+		if (idFamille == null || idFamille.isBlank()) {
+			throw new OperationImpossible("idFamille ne peut pas être null ou vide");
+		}
+		Famille famille = familles.get(idFamille);
+		if (famille == null) {
+			throw new OperationImpossible("la famille n'existe pas avec id=" + idFamille);
+		}
+		return famille.listerLesReservations();
 	}
 
 	@Override
@@ -299,6 +351,16 @@ public class PGE {
 
 	}
 	
+	/**
+	 * retire une réservation du système.
+	 * 
+	 * @param idFamille l'identifiant de la famille.
+	 * @param idEnfant l'identifiant de l'enfant.
+	 * @param idCadeau l'identifiant du cadeau.
+	 * @param quantite la quantité à retirer.
+	 * @throws OperationImpossible problème détecté par la logique métier.
+	 */
+	
 	public void retirerUneReservation(final String idFamille, final String idEnfant, final String idCadeau,
 			final int quantite) throws OperationImpossible {
 		if (idFamille == null || idFamille.isBlank()) {
@@ -331,5 +393,6 @@ public class PGE {
 
 		assert invariant();
 	}
+
 	
 }

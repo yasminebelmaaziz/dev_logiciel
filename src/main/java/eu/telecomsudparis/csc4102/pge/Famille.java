@@ -2,6 +2,7 @@
 package eu.telecomsudparis.csc4102.pge;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import eu.telecomsudparis.csc4102.util.OperationImpossible;
@@ -146,5 +147,19 @@ public class Famille {
 
 		this.enfants.clear();
 	}
+	
+	
+
+	public List<String> listerLesEnfants() {
+		return enfants.stream().map(Enfant::toString).toList();
+	}
+
+
+	public List<String> listerLesReservations() {
+		return enfants.stream()
+				.flatMap(e -> e.listerLesReservations().stream())
+				.toList();
+	}
+	
 
 }
