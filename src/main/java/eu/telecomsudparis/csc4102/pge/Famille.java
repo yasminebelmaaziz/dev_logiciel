@@ -4,6 +4,7 @@ package eu.telecomsudparis.csc4102.pge;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.SubmissionPublisher;
 
 import eu.telecomsudparis.csc4102.util.OperationImpossible;
 
@@ -27,6 +28,8 @@ public class Famille {
 	private ArrayList<Enfant> enfants;
 	// Nous faisons le choix d'utiliser une ArrayList plutôt qu'une HashMap car on
 	// suppose qu'il n'y pas beaucoup d'enfants
+	private SubmissionPublisher<String> producteur;
+	private List<String> cadeauxSuivis;
 
 	/**
 	 * construit une famille.
@@ -34,16 +37,23 @@ public class Famille {
 	 * @param id          l'identifiant.
 	 * @param description la description.
 	 */
-	public Famille(final String id, final String description) {
+	public Famille(final String id, final String description,final ConsommateurNotification consommateur) {
 		if (id == null || id.isBlank()) {
-			throw new IllegalArgumentException("description ne peut pas être null ou vide");
+			throw new IllegalArgumentException("id ne peut pas être null ou vide");
 		}
 		if (description == null || description.isBlank()) {
 			throw new IllegalArgumentException("description ne peut pas être null ou vide");
 		}
+		if (consommateur == null) {
+			throw new IllegalArgumentException("consommateur ne peut pas être null");
+		}
+		
 		this.id = id;
 		this.description = description;
 		this.enfants = new ArrayList<>();
+		this.producteur = new SubmissionPublisher<>();
+		this.cadeauxSuivis = new ArrayList<>();
+		producteur.subscribe(consommateur);
 		assert invariant();
 	}
 
@@ -160,6 +170,19 @@ public class Famille {
 				.flatMap(e -> e.listerLesReservations().stream())
 				.toList();
 	}
-	
+
+	public void ajouterCadeauSuivi(final String idCadeau) {
+		if (!cadeauxSuivis.contains(idCadeau)) {
+			cadeauxSuivis.add(idCadeau);
+		}
+	}
+
+	public boolean suitCeCadeau(final String idCadeau) {
+		return cadeauxSuivis.contains(idCadeau);
+	}
+
+	public void notifierDisponibilite(final Cadeau cadeau) {
+		producteur.submit("Cadeau disponible : " + cadeau.toString());
+	}
 
 }
