@@ -220,3 +220,9 @@ Pour l'instant sommes en attente de la validation de cette partie.
 - [] à faire
 
 
+Questions partie Notification (séance 9): 
+
+- Dans le diagramme de classes, faut-il faire implémenter une interface à              ConsommateurNotification ou bien cela n'est pas nécessaire ?
+
+
+- Comment représenter dans le diagramme de classes le fait que le                      ConsommateurNotification est un objet utilisé par l'acteur «Membre d'une famille », faut-il une association ou une note (ou rien) ?
