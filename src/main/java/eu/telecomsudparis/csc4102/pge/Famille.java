@@ -1,4 +1,3 @@
-// CHECKSTYLE:OFF 
 package eu.telecomsudparis.csc4102.pge;
 
 import java.util.ArrayList;
@@ -67,6 +66,8 @@ public class Famille {
 	}
 
 	/**
+	 * ajoute un enfant.
+	 * 
 	 * @param idEnfant					l'identifiant de l'enfant.
 	 * @param nom						le nom de l'enfant.
 	 * @param prenom					le prenom de l'enfant.
@@ -84,6 +85,8 @@ public class Famille {
 	}
 
 	/**
+	 * cherche un enfant.
+	 * 
 	 * @param idEnfant	l'identifiant de l'enfant.
 	 * @return			renvoie l'enfant avec l'identifiant idEnfant.
 	 */
@@ -97,6 +100,8 @@ public class Famille {
 	}
 
 	/**
+	 * retire un enfant.
+	 * 
 	 * @param idEnfant					l'identfifiant de l'enfant.
 	 * @throws OperationImpossible		le problème détecté par la logique métier.
 	 */
@@ -153,6 +158,8 @@ public class Famille {
 	}
 
 	/**
+	 * ajoute une reservation.
+	 * 
 	 * @param idEnfant				l'identifiant enfant.
 	 * @param cadeau				le cadeau.
 	 * @param quantitee				la quantitee de cadeaux qu'on souhaite réserver.
@@ -169,7 +176,15 @@ public class Famille {
 	}
 	
 	
-	public void retirerReservation(final String idEnfant, Cadeau cadeau, int quantitee) throws OperationImpossible {
+	/**
+	 * retire une quantitee de cadeau d'une reservation d'un enfant.
+	 * 
+	 * @param idEnfant				l'identifiant de l'enfant.
+	 * @param cadeau				cadeau.
+	 * @param quantitee				quantitee.
+	 * @throws OperationImpossible	le problème détecté par la logique métier.
+	 */
+	public void retirerReservation(final String idEnfant, final Cadeau cadeau, final int quantitee) throws OperationImpossible {
 		Enfant enfant = chercherEnfant(idEnfant);
 
 		if (enfant == null) {
@@ -179,6 +194,9 @@ public class Famille {
 		enfant.retirerReservation(cadeau, quantitee);
 	}
 
+	/**
+	 * retire les reservations d'un enfant avant de supprimer l'enfant.
+	 */
 	public void nettoyageAvantSupr() {
 		for (Enfant enfant : enfants) {
 			String idEnfant = enfant.getId();
@@ -190,10 +208,18 @@ public class Famille {
 	
 	
 
+	/**
+	 * @return renvoie une liste d'enfant.
+	 */
 	public List<String> listerLesEnfants() {
 		return enfants.stream().map(Enfant::toString).toList();
 	}
 
+	/**
+	 * @param idEnfant				l'identifiant de l'enfant.
+	 * @return						recupère le nombre de points restants de l'enfant.
+	 * @throws OperationImpossible	le problème détecté par la logique métier.
+	 */
 	public int getNbPointsRestantsEnfant(final String idEnfant) throws OperationImpossible {
 		Enfant enfant = chercherEnfant(idEnfant);
 		if (enfant == null) {
@@ -203,26 +229,53 @@ public class Famille {
 	}
 
 
+	/**
+	 * 	liste les reservations.
+	 * 
+	 * @return	renvoie les reservations des enfants.
+	 */
 	public List<String> listerLesReservations() {
 		return enfants.stream()
 				.flatMap(e -> e.listerLesReservations().stream())
 				.toList();
 	}
 
+	/**
+	 * ajoute un cadeau à surveiller.
+	 * 
+	 * @param idCadeau	l'identifiant du cadeau.
+	 */
 	public void ajouterCadeauSuivi(final String idCadeau) {
 		if (!cadeauxSuivis.contains(idCadeau)) {
 			cadeauxSuivis.add(idCadeau);
 		}
 	}
 
+	/**
+	 *
+	 *	supprime le cadeau de la liste après la notification.
+	 *
+	 * @param idCadeau		
+	 */
 	public void retirerCadeauSuivi(final String idCadeau) {
 		cadeauxSuivis.remove(idCadeau);
 	}
 
+	/**
+	 * vérifie que la famille suit le cadeau.
+	 * 
+	 * @param idCadeau		l'identifiant du cadeau.
+	 * @return				renvoie true si le cadeau considéré est suivi.
+	 */
 	public boolean suitCeCadeau(final String idCadeau) {
 		return cadeauxSuivis.contains(idCadeau);
 	}
 
+	/**
+	 * 	notifier de la disponibilité d'un cadeau.
+	 * 
+	 * @param cadeau	le cadeau.
+	 */
 	public void notifierDisponibilite(final Cadeau cadeau) {
 		producteur.submit("Cadeau disponible : " + cadeau.toString());
 	}
