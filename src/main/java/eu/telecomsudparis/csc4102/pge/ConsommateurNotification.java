@@ -11,7 +11,7 @@ public class ConsommateurNotification implements Flow.Subscriber<String> {
 
 	private String id;
 	private Subscription souscription;
-	private List<String> messagesRecus = new ArrayList<>();
+	private List<String> messagesRecus = new ArrayList<>(); //on a décidé d'ajouter cette liste nous sert uniquement pour les test puissent faire des assertions dessus
 
 	public ConsommateurNotification(final String id) {
 		this.id = id;

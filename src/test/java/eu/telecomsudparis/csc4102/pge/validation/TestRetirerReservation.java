@@ -122,10 +122,55 @@ public class TestRetirerReservation {
 
 		facade.retirerUneReservation("f1", "e1", "c1", 1);
 
-		// postconditions aussi: 
+		// postconditions aussi:
 		Assertions.assertEquals(9, facade.getNbDisponibleCadeau("c1"));
 		Assertions.assertEquals(15, facade.getNbPointsRestantsEnfant("f1", "e1"));
 		Assertions.assertEquals(1, facade.listerLesReservationsDUneFamille("f1").size());
+	}
+
+	@Test
+	@DisplayName("test 12 : notification famille envoyée quand cadeau repasse de 0 à disponible")
+	void retirerReservationTest12() throws OperationImpossible, InterruptedException {
+		// cadeau épuisable : coût=1, stock=3 — e1 a encore 10 points après setUp (20 - 2*5)
+		facade.ajouterUnCadeau("cNotif", "cadeau notification", 1, 3);
+		facade.ajouterUneReservation("f1", "e1", "cNotif", 3);
+		Assertions.assertEquals(0, facade.getNbDisponibleCadeau("cNotif"));
+
+		// f2 s'abonne aux notifications de disponibilité pour cNotif
+		ConsommateurNotification consommateurF2 = new ConsommateurNotification("f2");
+		facade.ajouterUneFamille("f2", "Famille Martin", consommateurF2);
+		facade.demanderUneNotificationDisponibilite("f2", "cNotif");
+
+		// retrait partiel : cNotif repasse de 0 à 1 → notification déclenchée
+		facade.retirerUneReservation("f1", "e1", "cNotif", 1);
+		Thread.sleep(100);
+
+		// postcondition : f2 a reçu exactement 1 notification mentionnant cNotif
+		Assertions.assertEquals(1, consommateurF2.getMessagesRecus().size());
+		Assertions.assertTrue(consommateurF2.getMessagesRecus().get(0).contains("cNotif"));
+
+		// postcondition : la demande de notification a été retirée (pas de 2e notification si cadeau repasse à 0 puis revient)
+		facade.ajouterUneReservation("f1", "e1", "cNotif", 1); // remet à 0
+		facade.retirerUneReservation("f1", "e1", "cNotif", 1); // repasse à 1
+		Thread.sleep(100);
+		Assertions.assertEquals(1, consommateurF2.getMessagesRecus().size()); // toujours 1, pas 2
+	}
+
+	@Test
+	@DisplayName("test 13 : pas de notification famille si cadeau ne repasse pas par 0")
+	void retirerReservationTest13() throws OperationImpossible, InterruptedException {
+		// c1 a nbDisponible=8 après setUp, donc ne passe jamais par 0 lors du retrait
+		ConsommateurNotification consommateurF2 = new ConsommateurNotification("f2");
+		facade.ajouterUneFamille("f2", "Famille Martin", consommateurF2);
+		facade.ajouterUnCadeau("cSuivi", "cadeau suivi", 1, 5);
+		facade.demanderUneNotificationDisponibilite("f2", "cSuivi");
+
+		// retrait qui ne fait pas repasser de 0 (c1 était à 8, jamais à 0)
+		facade.retirerUneReservation("f1", "e1", "c1", 1);
+		Thread.sleep(100);
+
+		// aucune notification envoyée
+		Assertions.assertTrue(consommateurF2.getMessagesRecus().isEmpty());
 	}
 
 }

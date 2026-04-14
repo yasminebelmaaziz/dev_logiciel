@@ -215,6 +215,10 @@ public class Famille {
 		}
 	}
 
+	public void retirerCadeauSuivi(final String idCadeau) {
+		cadeauxSuivis.remove(idCadeau);
+	}
+
 	public boolean suitCeCadeau(final String idCadeau) {
 		return cadeauxSuivis.contains(idCadeau);
 	}
