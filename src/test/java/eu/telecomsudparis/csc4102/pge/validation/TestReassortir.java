@@ -1,3 +1,4 @@
+// CHECKSTYLE:OFF 
 package eu.telecomsudparis.csc4102.pge.validation;
 
 import org.junit.jupiter.api.AfterEach;
@@ -14,25 +15,26 @@ import eu.telecomsudparis.csc4102.pge.PGE;
 import eu.telecomsudparis.csc4102.util.OperationImpossible;
 
 public class TestReassortir {
-	
-private PGE facade;
-	
+
+	private PGE facade;
+	private ConsommateurNotification consommateurFAM;
+
 	@BeforeEach
 	void setUp() throws OperationImpossible {
 		facade = new PGE(10000);
-		
-		facade.ajouterUneFamille("FAM", "famille test", new ConsommateurNotification("FAM")); 
+		consommateurFAM = new ConsommateurNotification("FAM");
+		facade.ajouterUneFamille("FAM", "famille test", consommateurFAM);
 		facade.ajouterUnEnfantAUneFamille("FAM", "nom", "prenom", "enf1");
+
 		facade.ajouterUnCadeau("c1", "Jeu de billes", 5, 10);
 		facade.ajouterUnCadeau("c2", "Jeu de billes", 5, 10);
 		facade.ajouterUneReservation("FAM", "enf1", "c1", 1);
-		
-		
 	}
 	
 	@AfterEach
 	void tearDown() {
 		facade = null;
+		consommateurFAM = null;
 	}
 	
 	@ParameterizedTest
@@ -54,6 +56,21 @@ private PGE facade;
 	void TestReassortir3(int input) {
 		Assertions.assertThrows(OperationImpossible.class, () -> facade.reassortir("c1", input));
 	}
+	
+	@Test
+	@DisplayName("test 4 : nbDisponible incrémenté, nbInitial inchangé (cadeau non épuisé)")
+	void TestReassortir4() throws OperationImpossible {
+		
+		facade.reassortir("c1", 1);
+		
+		// postconditions
+		
+		//nbDispo doit être ré incrémenté
+		Assertions.assertEquals(10, facade.getNbDisponibleCadeau("c1"));
+		//nbInitial mis à j aussi
+		Assertions.assertEquals(11, facade.getNbInitialCadeau("c1"));
+	}
+	
 	
 
 	
