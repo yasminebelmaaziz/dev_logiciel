@@ -25,10 +25,18 @@ public class Famille {
 	 */
 	private String description;
 
+	/**
+	 * liste d'enfants.
+	 * Nous faisons le choix d'utiliser une ArrayList plutôt qu'une HashMap car on suppose qu'il n'y pas beaucoup d'enfants
+	 */
 	private ArrayList<Enfant> enfants;
-	// Nous faisons le choix d'utiliser une ArrayList plutôt qu'une HashMap car on
-	// suppose qu'il n'y pas beaucoup d'enfants
+	/**
+	 * producteur.
+	 */
 	private SubmissionPublisher<String> producteur;
+	/**
+	 * liste des cadeaux suivis.
+	 */
 	private List<String> cadeauxSuivis;
 
 	/**
@@ -36,8 +44,9 @@ public class Famille {
 	 * 
 	 * @param id          l'identifiant.
 	 * @param description la description.
+	 * @param consommateur le consommateur.
 	 */
-	public Famille(final String id, final String description,final ConsommateurNotification consommateur) {
+	public Famille(final String id, final String description, final ConsommateurNotification consommateur) {
 		if (id == null || id.isBlank()) {
 			throw new IllegalArgumentException("id ne peut pas être null ou vide");
 		}
@@ -57,7 +66,14 @@ public class Famille {
 		assert invariant();
 	}
 
-	public void ajouterUnEnfant(String idEnfant, String nom, String prenom, int nBPointsMaxParEnfant)
+	/**
+	 * @param idEnfant					l'identifiant de l'enfant.
+	 * @param nom						le nom de l'enfant.
+	 * @param prenom					le prenom de l'enfant.
+	 * @param nBPointsMaxParEnfant		le nombre de points maximum de chaque enfant.
+	 * @throws OperationImpossible		le problème détecté par la logique métier.
+	 */
+	public void ajouterUnEnfant(final String idEnfant, final String nom, final String prenom, final int nBPointsMaxParEnfant)
 			throws OperationImpossible {
 		if (chercherEnfant(idEnfant) != null) {
 			throw new OperationImpossible("enfant existant avec id=" + idEnfant);
@@ -67,7 +83,11 @@ public class Famille {
 		enfants.add(enfant);
 	}
 
-	public Enfant chercherEnfant(String idEnfant) {
+	/**
+	 * @param idEnfant	l'identifiant de l'enfant.
+	 * @return			renvoie l'enfant avec l'identifiant idEnfant.
+	 */
+	public Enfant chercherEnfant(final String idEnfant) {
 		for (Enfant enfant : enfants) {
 			if (idEnfant.equals(enfant.getId())) {
 				return enfant;
@@ -76,7 +96,11 @@ public class Famille {
 		return null;
 	}
 
-	public void retirerUnEnfant(String idEnfant) throws OperationImpossible {
+	/**
+	 * @param idEnfant					l'identfifiant de l'enfant.
+	 * @throws OperationImpossible		le problème détecté par la logique métier.
+	 */
+	public void retirerUnEnfant(final String idEnfant) throws OperationImpossible {
 		if (chercherEnfant(idEnfant) == null) {
 			throw new OperationImpossible("aucun enfant existant avec id=" + idEnfant);
 		}
@@ -128,7 +152,13 @@ public class Famille {
 		return "Famille [id=" + id + ", description=" + description + "]";
 	}
 
-	public void ajouterReservation(final String idEnfant, Cadeau cadeau, int quantitee) throws OperationImpossible {
+	/**
+	 * @param idEnfant				l'identifiant enfant.
+	 * @param cadeau				le cadeau.
+	 * @param quantitee				la quantitee de cadeaux qu'on souhaite réserver.
+	 * @throws OperationImpossible	le problème détecté par la logique métier.
+	 */
+	public void ajouterReservation(final String idEnfant, final Cadeau cadeau, final int quantitee) throws OperationImpossible {
 		Enfant enfant = chercherEnfant(idEnfant);
 
 		if (enfant == null) {
