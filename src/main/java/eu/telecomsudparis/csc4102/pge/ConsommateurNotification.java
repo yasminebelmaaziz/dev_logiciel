@@ -1,5 +1,3 @@
-// CHECKSTYLE:OFF
-
 package eu.telecomsudparis.csc4102.pge;
 
 import java.util.ArrayList;
@@ -9,10 +7,24 @@ import java.util.concurrent.Flow.Subscription;
 
 public class ConsommateurNotification implements Flow.Subscriber<String> {
 
+	/**
+	 * l'identitifiant.
+	 */
 	private String id;
+	/**
+	 * la souscription.
+	 */
 	private Subscription souscription;
+	/**
+	 * la liste des messages reçu.
+	 */
 	private List<String> messagesRecus = new ArrayList<>(); //on a décidé d'ajouter cette liste nous sert uniquement pour les test puissent faire des assertions dessus
 
+	/**
+	 * construit un consommateur de notification.
+	 * 
+	 * @param id	l'identifiant.
+	 */
 	public ConsommateurNotification(final String id) {
 		this.id = id;
 	}
@@ -30,6 +42,11 @@ public class ConsommateurNotification implements Flow.Subscriber<String> {
 		souscription.request(1);
 	}
 
+	/**
+	 * getter des messages reçus.
+	 * 
+	 * @return renvoie les messages reçus.
+	 */
 	public List<String> getMessagesRecus() {
 		return messagesRecus;
 	}

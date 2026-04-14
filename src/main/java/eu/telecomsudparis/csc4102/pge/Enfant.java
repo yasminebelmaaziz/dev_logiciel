@@ -1,4 +1,3 @@
-// CHECKSTYLE:OFF 
 package eu.telecomsudparis.csc4102.pge;
 
 import java.util.ArrayList;
@@ -15,13 +14,36 @@ public class Enfant {
 				+ ", reservations=" + reservations + "]";
 	}
 
+	/**
+	 * l'identifiant de l'enfant.
+	 */
 	private final String id;
+	/**
+	 * nom de l'enfant.
+	 */
 	private String nom;
+	/**
+	 * prenom.
+	 */
 	private String prenom;
+	/**
+	 * nombre de points restants.
+	 */
 	private int nbPointsRestants;
+	/**
+	 * reservations de l'enfant.
+	 */
 	private ArrayList<Reservation> reservations;
 
-	public Enfant(final String id, final String nom, final String prenom, int nbPointsRestants) {
+	/**
+	 * constructeur un enfant.
+	 * 
+	 * @param id				l'identifiant de l'enfant.
+	 * @param nom				nom.
+	 * @param prenom			prenom.
+	 * @param nbPointsRestants	nombre de points restants.
+	 */
+	public Enfant(final String id, final String nom, final String prenom, final int nbPointsRestants) {
 		if (id == null || id.isBlank()) {
 			throw new IllegalArgumentException("id ne peut pas être null ou vide");
 		}
@@ -58,19 +80,40 @@ public class Enfant {
 		return id.equals(other.id);
 	}
 
+	/**
+	 * getter identifiant.
+	 * 
+	 * @return	renvoie l'identifiant.
+	 */
 	public String getId() {
 		return id;
 	}
 
+	/**
+	 * recupère le nombre de points restants de l'enfant.
+	 * @return	renvoie le nombre de points restants de l'enfant.
+	 */
 	public int getNbPointsRestants() {
 		return nbPointsRestants;
 	}
 
+	/**
+	 * invariant de la class.
+	 * 
+	 * @return	vrai lorsqu'il est vérifié.
+	 */
 	public boolean invariant() {
 		return id != null && !id.isBlank() && nom != null && !nom.isBlank() && prenom != null && !prenom.isBlank();
 	}
 
-	public void ajouterReservation(Cadeau cadeau, int quantite) throws OperationImpossible {
+	/**
+	 * ajoute une reservation.
+	 * 
+	 * @param cadeau				le cadeau.
+	 * @param quantite				la quantite.
+	 * @throws OperationImpossible	le problème détecté par la logique métier.
+	 */
+	public void ajouterReservation(final Cadeau cadeau, final int quantite) throws OperationImpossible {
 		int cout = cadeau.getCout();
 		int nbDisponible = cadeau.getNbDisponible();
 
@@ -96,7 +139,14 @@ public class Enfant {
 		assert invariant();
 	}
 	
-	public void retirerReservation(Cadeau cadeau, int quantite) throws OperationImpossible {
+	/**
+	 * retire quantite de cadeau de la reservation de l'enfant.
+	 * 
+	 * @param cadeau				le cadeau.
+	 * @param quantite				la quantite.
+	 * @throws OperationImpossible	le problème détecté par la logique métier.
+	 */
+	public void retirerReservation(final Cadeau cadeau, final int quantite) throws OperationImpossible {
 		int cout = cadeau.getCout();
 		Reservation res = chercherReservation(cadeau);
 		
@@ -123,7 +173,13 @@ public class Enfant {
 		assert invariant();
 	}
 
-	private Reservation chercherReservation(Cadeau cadeau) {
+	/**
+	 * cherche la reservation associé au cadeau considéré.
+	 * 
+	 * @param cadeau	le cadeau.
+	 * @return			renvoie la reservation du cadeau.
+	 */
+	private Reservation chercherReservation(final Cadeau cadeau) {
 		for (Reservation res : reservations) {
 			if (res.getCadeau().equals(cadeau)) {
 				return res;
@@ -132,22 +188,42 @@ public class Enfant {
 		return null;
 	}
 
-	private void decrementerPoints(int points) {
+	/**
+	 * decremente le nombre de points de l'enfant.
+	 * 
+	 * @param points	nombre de points.
+	 */
+	private void decrementerPoints(final int points) {
 		this.nbPointsRestants -= points;
 		assert invariant();
 	}
 
-	private void incrementerPoints(int points) {
+	/**
+	 * incremente le nombre de points de l'enfant.
+	 * 
+	 * @param points	nombre de points.
+	 */
+	private void incrementerPoints(final int points) {
 		this.nbPointsRestants += points;
 		assert invariant();
 	}
 
 
+	/**
+	 * liste les reservations.
+	 * 
+	 * @return renvoie les reservations.
+	 */
 	public List<String> listerLesReservations() {
 		return reservations.stream().map(Reservation::toString).toList();
 	}
 
-	public void retirerReservations(String idEnfant) {
+	/**
+	 * retire toutes les reservations.
+	 * 
+	 * @param idEnfant	l'identifiant de l'enfant.
+	 */
+	public void retirerReservations(final String idEnfant) {
 
 		for (Reservation res : reservations) {
 			int quantite = res.getQuantite();
