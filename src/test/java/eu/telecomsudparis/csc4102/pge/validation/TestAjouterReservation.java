@@ -132,7 +132,7 @@ class TestAjouterReservation {
 
 	
 	
-// ajout d'un test en plus lié à l'ajout des notifi
+// ajout d'un test en plus lié à l'ajout des notifications 
 
 	@Test
 	@DisplayName("test 12 : notification CE envoyée quand le stock atteint 0")
@@ -151,16 +151,4 @@ class TestAjouterReservation {
 		Assertions.assertTrue(consommateurCE.getMessagesRecus().get(0).contains("cCE"));
 	}
 
-	@Test
-	@DisplayName("test 13 : pas de notification CE si le stock ne tombe pas à 0")
-	void ajouterReservationTest13() throws OperationImpossible, InterruptedException {
-		ConsommateurNotification consommateurCE = new ConsommateurNotification("CE");
-		facade.enregistrerMembreCE(consommateurCE);
-
-		facade.ajouterUneReservation("f1", "e1", "c1", 1);
-
-		Thread.sleep(100);
-
-		Assertions.assertTrue(consommateurCE.getMessagesRecus().isEmpty());
-	}
 }

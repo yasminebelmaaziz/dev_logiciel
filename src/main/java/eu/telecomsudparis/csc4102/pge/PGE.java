@@ -456,11 +456,32 @@ public class PGE {
 			throw new OperationImpossible("le cadeau n'existe pas avec id=" + idCadeau);
 		}
 
+		int nbDisponibleAvant = cadeau.getNbDisponible();
+
 		famille.retirerReservation(idEnfant, cadeau, quantite);
+
+		if (nbDisponibleAvant == 0 && cadeau.getNbDisponible() > 0) {
+			notifierFamillesDisponibilite(cadeau, idCadeau);
+		}
 
 		assert invariant();
 	}
-	
+
+	/**
+	 * notifie toutes les familles qui suivent ce cadeau et retire leur demande de notification.
+	 *
+	 * @param cadeau   le cadeau redevenu disponible.
+	 * @param idCadeau l'identifiant du cadeau.
+	 */
+	private void notifierFamillesDisponibilite(final Cadeau cadeau, final String idCadeau) {
+		for (Famille f : familles.values()) {
+			if (f.suitCeCadeau(idCadeau)) {
+				f.notifierDisponibilite(cadeau);
+				f.retirerCadeauSuivi(idCadeau);
+			}
+		}
+	}
+
 	/**
 	 * eneregistre qu'une famille veut être notifiée de la disponibilité d'un cadeau.
 	 * 
@@ -507,17 +528,13 @@ public class PGE {
 		if (cadeau == null) {
 			throw new OperationImpossible("le cadeau n'existe pas avec id=" + idCadeau);
 		}
+		
 		boolean estEpuise = cadeau.getNbDisponible() == 0;
-		
+
 		cadeau.incrementerNbDisponible(quantite);
-		
+
 		if (estEpuise) {
-			
-			for (Famille famille : familles.values()) {
-				if (famille.suitCeCadeau(idCadeau)) {
-					famille.notifierDisponibilite(cadeau);
-				}
-			}
+			notifierFamillesDisponibilite(cadeau, idCadeau);
 		}
 		assert invariant();
 	}
