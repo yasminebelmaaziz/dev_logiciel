@@ -69,8 +69,12 @@ private PGE facade;
 	
 	@Test
 	@DisplayName("test 6: cas nominal ok")
-	void ajouterUnCadeauTest6() throws OperationImpossible{
+	void ajouterUnCadeauTest6() throws OperationImpossible {
 		facade.ajouterUnCadeau("c1", "cadeau ok", 5, 10);
+		// postconditions : le cadeau est présent dans le catalogue et le nbDisponible est initialisé à nbInitial (10)
+		Assertions.assertEquals(1, facade.listerLesCadeaux().size());
+		
+		Assertions.assertEquals(10, facade.getNbDisponibleCadeau("c1"));
 	}
 
 }

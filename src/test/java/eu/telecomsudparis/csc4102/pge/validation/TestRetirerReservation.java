@@ -97,19 +97,35 @@ public class TestRetirerReservation {
 		Assertions.assertThrows(OperationImpossible.class, () -> facade.retirerUneReservation("f1", "e1", "c1", 15));	
 	}
 	
-	// test des 2 scénarios (soit la supprésion ou la mise à jour d'une reservation
+	// test des 2 scénarios (soit la suppression ou la mise à jour d'une reservation)
 
-		@Test
-		@DisplayName("test 10 : succès supprésion d'une réservation")
-		void ajouterReservationTest10() throws OperationImpossible {
-			facade.retirerUneReservation("f1", "e1", "c1", 2);
-		}
+	@Test
+	@DisplayName("test 10 : succès suppression réservation ")
+	void ajouterReservationTest10() throws OperationImpossible {
+	
+		Assertions.assertEquals(8, facade.getNbDisponibleCadeau("c1"));
+		Assertions.assertEquals(10, facade.getNbPointsRestantsEnfant("f1", "e1"));
 
-		@Test
-		@DisplayName("test 11 : succès mise à jour d'une réservation existante ")
-		void ajouterReservationTest11() throws OperationImpossible {
-			
-			facade.retirerUneReservation("f1", "e1", "c1", 1);
-		}
+		facade.retirerUneReservation("f1", "e1", "c1", 2);
+
+		// postconditions : nbDisponible re incrémenté, + solde de points recrédité + réservation supprimée
+		Assertions.assertEquals(10, facade.getNbDisponibleCadeau("c1"));
+
+		Assertions.assertEquals(20, facade.getNbPointsRestantsEnfant("f1", "e1"));
+
+		Assertions.assertEquals(0, facade.listerLesReservationsDUneFamille("f1").size()) ;
+	}
+
+	@Test
+	@DisplayName("test 11 : màj réservation ok")
+	void ajouterReservationTest11() throws OperationImpossible {
+
+		facade.retirerUneReservation("f1", "e1", "c1", 1);
+
+		// postconditions aussi: 
+		Assertions.assertEquals(9, facade.getNbDisponibleCadeau("c1"));
+		Assertions.assertEquals(15, facade.getNbPointsRestantsEnfant("f1", "e1"));
+		Assertions.assertEquals(1, facade.listerLesReservationsDUneFamille("f1").size());
+	}
 
 }

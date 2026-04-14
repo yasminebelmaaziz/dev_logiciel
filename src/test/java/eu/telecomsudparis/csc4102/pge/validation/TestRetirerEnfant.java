@@ -66,14 +66,17 @@ class TestRetirerEnfant {
 	@Test
 	@DisplayName("test 5 : succès retrait enfant")
 	void TestRetirerEnfant5() throws OperationImpossible {
+		// avant le retrait : enf1 a réservé 1 exemplaire de c1 (nbInitial=10), donc nbDisponible=9
+		Assertions.assertEquals(9, facade.getNbDisponibleCadeau("c1"));
+
 		facade.retirerUnEnfant("FAM", "enf1");
-		
-		//2e test : vérification de ré incrémentation du nombre de cadeaux disponibles
-		
-		facade.ajouterUnEnfantAUneFamille("FAM", "nouveau", "enfant", "enf2");
-		facade.ajouterUneReservation("FAM", "enf2", "c1", 2);
-		
-		
+
+		// postconditions:
+		Assertions.assertEquals(0, facade.listerLesEnfantsDUneFamille("FAM").size());
+
+		Assertions.assertEquals(0, facade.listerLesReservationsDUneFamille("FAM").size());
+
+		Assertions.assertEquals(10, facade.getNbDisponibleCadeau("c1"));
 	}
 	
 

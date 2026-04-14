@@ -55,10 +55,13 @@ public class TestRetirerCadeau {
 	}
 	
 	@Test
-	@DisplayName("test 4: le cadeau est retiré")
-	void TestRetirerFamille4() throws OperationImpossible {
+	@DisplayName("test 4: le cadeau est retiré du catalogue")
+	void TestRetirerCadeau4() throws OperationImpossible {
+
+		Assertions.assertEquals(2, facade.listerLesCadeaux().size());
 		facade.retirerUnCadeau("c2");
-		// A FAIRE : quand on aura une fonction lister les RES
+		Assertions.assertEquals(1, facade.listerLesCadeaux().size());
+
 	}
 	
 }

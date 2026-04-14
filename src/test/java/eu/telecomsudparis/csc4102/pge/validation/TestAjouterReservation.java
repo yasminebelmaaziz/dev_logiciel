@@ -104,16 +104,29 @@ class TestAjouterReservation {
 	@Test
 	@DisplayName("test 10 : succès création d'une nouvelle réservation")
 	void ajouterReservationTest10() throws OperationImpossible {
+		
 		facade.ajouterUneReservation("f1", "e1", "c1", 1);
 		
+		//nbDisponible et solde points bien décrémentés
+		Assertions.assertEquals(9, facade.getNbDisponibleCadeau("c1"));
+		Assertions.assertEquals(15, facade.getNbPointsRestantsEnfant("f1", "e1"));
+		
+		// on a bien une seule réservation (donc on a une maj, pas création)
+		Assertions.assertEquals(1, facade.listerLesReservationsDUneFamille("f1").size());
 	}
+	
+	
 
 	@Test
-	@DisplayName("test 11 : succès mise à jour d'une réservation existante ")
+	@DisplayName("test 11 : succès mise à jour d'une réservation existante")
 	void ajouterReservationTest11() throws OperationImpossible {
-		
+		// réservation initiale puis on la màj
 		facade.ajouterUneReservation("f1", "e1", "c1", 1);
-		facade.ajouterUneReservation("f1", "e1", "c1", 2);
+		facade.ajouterUneReservation("f1", "e1", "c1", 2) ;
 		
+		//post conditions 
+		Assertions.assertEquals(7, facade.getNbDisponibleCadeau("c1"));
+		Assertions.assertEquals(5, facade.getNbPointsRestantsEnfant("f1", "e1"));
+		Assertions.assertEquals(1, facade.listerLesReservationsDUneFamille("f1").size());
 	}
 }

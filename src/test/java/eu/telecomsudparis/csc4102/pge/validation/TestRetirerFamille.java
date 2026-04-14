@@ -56,24 +56,26 @@ class TestRetirerFamille {
 	@DisplayName("test 3: la famille a bien été supprimée")
 	void TestRetirerFamille3() throws OperationImpossible {
 		facade.retirerUneFamille("FAM");
-		
-		//on essaye d'ajouter un enfant à famille après l'avoir supp pour vérifier que la famille n'existe plus 
-		Assertions.assertThrows(OperationImpossible.class, () -> facade.ajouterUnEnfantAUneFamille("FAM", "nouveau", "enfant", "enf2"));
+		Assertions.assertEquals(0, facade.listerLesFamilles().size());
 	}
-	
+
 	@Test
 	@DisplayName("test 4: les enfants de la famille ont bien étés supprimés")
 	void TestRetirerFamille4() throws OperationImpossible {
 		facade.retirerUneFamille("FAM");
-		// A FAIRE : quand on aura une fonction lister les enfants
+		Assertions.assertEquals(0, facade.listerLesEnfants().size());
 	}
-	
-	
+
 	@Test
-	@DisplayName("test 5: les réservations de la famille ont bien étés supprimées")
+	@DisplayName("test 5: le nbDisponible des cadeaux réservés a bien été ré-incrémenté")
 	void TestRetirerFamille5() throws OperationImpossible {
+		
+		//enf1 a réservé 1 exemplaire de c1
+		Assertions.assertEquals(9, facade.getNbDisponibleCadeau("c1"));
+		
 		facade.retirerUneFamille("FAM");
-		// A FAIRE : quand on aura une fonction lister les RES
+		//toutes les réservations de enf1 sont annulées donc nbDisponible revient à 10
+		Assertions.assertEquals(10, facade.getNbDisponibleCadeau("c1"));
 	}
 	
 	

@@ -84,9 +84,12 @@ class TestAjouterEnfant {
 	@DisplayName("test 7 : tout est ok")
 	void ajouterEnfantTest7() throws OperationImpossible {
 		
-		facade.ajouterUnEnfantAUneFamille("FAM" , "oui", "non", "e1") ;
+		facade.ajouterUnEnfantAUneFamille("FAM", "oui", "non", "e1");
 		
 		
+		// postconditions : l enfant est present dans la famille puis que le solde de points est initialisé au max
+		Assertions.assertEquals(1 , facade.listerLesEnfantsDUneFamille("FAM").size());
+		Assertions.assertEquals(20 , facade.getNbPointsRestantsEnfant("FAM", "e1")) ;
 	}
 
 }
