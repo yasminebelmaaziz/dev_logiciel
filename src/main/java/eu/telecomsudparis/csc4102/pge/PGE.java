@@ -246,6 +246,25 @@ public class PGE {
 	}
 
 	/**
+	 * retourne le nombre initial d'un cadeau.
+	 * on en a besoin pour les tests de la méthode réassortir
+	 *
+	 * @param idCadeau l'identifiant du cadeau
+	 * @return le nombre initial
+	 * @throws OperationImpossible problème détecté par la logique métier.
+	 */
+	public int getNbInitialCadeau(final String idCadeau) throws OperationImpossible {
+		if (idCadeau == null || idCadeau.isBlank()) {
+			throw new OperationImpossible("idCadeau ne peut pas être null ou vide");
+		}
+		Cadeau cadeau = cadeaux.get(idCadeau);
+		if (cadeau == null) {
+			throw new OperationImpossible("le cadeau n'existe pas avec id=" + idCadeau);
+		}
+		return cadeau.getNbInitial();
+	}
+
+	/**
 	 * cette méthode va enregistrer un membre du CE pour recevoir les notifications de stock épuisé.
 	 *
 	 * @param consommateur le consommateur de notifications du membre du CE.
@@ -504,6 +523,9 @@ public class PGE {
 		Cadeau cadeau = cadeaux.get(idCadeau);
 		if (cadeau == null) {
 			throw new OperationImpossible("le cadeau n'existe pas avec id=" + idCadeau);
+		}
+		if (cadeau.getNbDisponible() != 0) {
+			throw new OperationImpossible("le cadeau est encore disponible, impossible de demander une notification de disponibilité");
 		}
 		famille.ajouterCadeauSuivi(idCadeau);
 		assert invariant();

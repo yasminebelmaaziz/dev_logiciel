@@ -102,6 +102,16 @@ public class Cadeau {
 	}
 
 	/**
+	 * obtient le nombre de cadeau inital.
+	 * on en a besoin pour les tests de la méthode réassortir
+	 * 
+	 * @return le nombre de cadeau initial.
+	 */
+	public int getNbInitial() {
+		return nbInitial;
+	}
+
+	/**
 	 * obtient le coût.
 	 * 
 	 * @return le coût.
@@ -140,7 +150,7 @@ public class Cadeau {
 	}
 	
 	/**
-	 * incrémente le nombre initial de cadeau de "[quantite] cadeaux" (utile pour le réassort)
+	 * incrémente le nombre initial de cadeau de "[quantite] cadeaux" (utile pour le réassort).
 	 * 
 	 * @param quantite
 	 */
