@@ -138,6 +138,19 @@ public class Cadeau {
 		this.nbDisponible += quantite;
 		assert invariant();
 	}
+	
+	/**
+	 * incrémente le nombre initial de cadeau de "[quantite] cadeaux" (utile pour le réassort)
+	 * 
+	 * @param quantite
+	 */
+	public void incrementerNbInitial(final int quantite) {
+		if (quantite <= 0) {
+			throw new IllegalArgumentException("la quantité à ajouter doit être strictement positive");
+		}
+		this.nbInitial += quantite;
+		assert invariant();
+	}
 
 	@Override
 	public String toString() {

@@ -531,6 +531,7 @@ public class PGE {
 		
 		boolean estEpuise = cadeau.getNbDisponible() == 0;
 
+		cadeau.incrementerNbInitial(quantite);
 		cadeau.incrementerNbDisponible(quantite);
 
 		if (estEpuise) {
