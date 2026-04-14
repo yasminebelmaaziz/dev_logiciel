@@ -129,7 +129,7 @@ public class Cadeau {
 	/**
 	 * incrémente le nombre de cadeau disponible de "[quantite] cadeaux".
 	 * 
-	 * @param quantite
+	 * @param quantite	la quantite.
 	 */
 	public void incrementerNbDisponible(final int quantite) {
 		if (quantite <= 0) {
@@ -140,9 +140,9 @@ public class Cadeau {
 	}
 	
 	/**
-	 * incrémente le nombre initial de cadeau de "[quantite] cadeaux" (utile pour le réassort)
+	 * incrémente le nombre initial de cadeau de "[quantite] cadeaux" (utile pour le réassort).
 	 * 
-	 * @param quantite
+	 * @param quantite	la quantite.
 	 */
 	public void incrementerNbInitial(final int quantite) {
 		if (quantite <= 0) {
