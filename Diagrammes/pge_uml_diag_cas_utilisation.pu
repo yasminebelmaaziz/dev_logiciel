@@ -33,5 +33,10 @@ rectangle "PGE" {
 :Famille: --(retirer une réservation)
 :Famille: --(lister le nombre de cadeaux disponibles)
 :Famille: --(lister les réservation de la famille)
+
+:Famille: <--(notifier de la disponibilité d'un cadeau)
+:Famille: --(demander à être notifié de la disponibilité d'un cadeau)
+
+
 }
 @enduml

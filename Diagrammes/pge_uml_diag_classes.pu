@@ -10,12 +10,25 @@ skinparam groupInheritance 3
 
 class PGE {
   - nBPointsMaxParEnfant: int
+  - notificationsAttendues: Map<String, List<String>>
 }
 
 class Famille {
   - id: string
   - description: string
+  - producteur: SubmissionPublisher<String>
+  
 }
+
+class ConsommateurNotification {
+    - id: String
+    - souscription: Subscription
+    + onSubscribe(souscription: Subscription)
+    + onNext(message: String)
+    + onError(throwable: Throwable)
+    + onComplete()
+}
+
 
 class Enfant {
   - id: string
