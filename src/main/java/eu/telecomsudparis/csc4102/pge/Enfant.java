@@ -62,6 +62,10 @@ public class Enfant {
 		return id;
 	}
 
+	public int getNbPointsRestants() {
+		return nbPointsRestants;
+	}
+
 	public boolean invariant() {
 		return id != null && !id.isBlank() && nom != null && !nom.isBlank() && prenom != null && !prenom.isBlank();
 	}

@@ -199,6 +199,46 @@ public class PGE {
 		return famille.listerLesReservations();
 	}
 
+	/**
+	 * retourne le nombre de points restants d'un enfant d'une famille.
+	 *
+	 * @param idFamille l'identifiant de la famille.
+	 * @param idEnfant  l'identifiant de l'enfant.
+	 * @return le nombre de points restants.
+	 * @throws OperationImpossible problème détecté par la logique métier.
+	 */
+	public int getNbPointsRestantsEnfant(final String idFamille, final String idEnfant) throws OperationImpossible {
+		if (idFamille == null || idFamille.isBlank()) {
+			throw new OperationImpossible("idFamille ne peut pas être null ou vide");
+		}
+		if (idEnfant == null || idEnfant.isBlank()) {
+			throw new OperationImpossible("idEnfant ne peut pas être null ou vide");
+		}
+		Famille famille = familles.get(idFamille);
+		if (famille == null) {
+			throw new OperationImpossible("la famille n'existe pas avec id=" + idFamille);
+		}
+		return famille.getNbPointsRestantsEnfant(idEnfant);
+	}
+
+	/**
+	 * retourne le nombre disponible d'un cadeau.
+	 *
+	 * @param idCadeau l'identifiant du cadeau.
+	 * @return le nombre disponible.
+	 * @throws OperationImpossible problème détecté par la logique métier.
+	 */
+	public int getNbDisponibleCadeau(final String idCadeau) throws OperationImpossible {
+		if (idCadeau == null || idCadeau.isBlank()) {
+			throw new OperationImpossible("idCadeau ne peut pas être null ou vide");
+		}
+		Cadeau cadeau = cadeaux.get(idCadeau);
+		if (cadeau == null) {
+			throw new OperationImpossible("le cadeau n'existe pas avec id=" + idCadeau);
+		}
+		return cadeau.getNbDisponible();
+	}
+
 	@Override
 	public String toString() {
 		return "PGE [familles=" + familles + ", cadeaux=" + cadeaux + "]";

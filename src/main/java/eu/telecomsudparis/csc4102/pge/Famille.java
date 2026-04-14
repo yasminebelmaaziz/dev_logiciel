@@ -164,6 +164,14 @@ public class Famille {
 		return enfants.stream().map(Enfant::toString).toList();
 	}
 
+	public int getNbPointsRestantsEnfant(final String idEnfant) throws OperationImpossible {
+		Enfant enfant = chercherEnfant(idEnfant);
+		if (enfant == null) {
+			throw new OperationImpossible("enfant non trouvé avec id=" + idEnfant);
+		}
+		return enfant.getNbPointsRestants();
+	}
+
 
 	public List<String> listerLesReservations() {
 		return enfants.stream()
