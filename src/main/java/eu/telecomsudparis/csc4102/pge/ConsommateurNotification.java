@@ -2,13 +2,16 @@
 
 package eu.telecomsudparis.csc4102.pge;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Flow;
 import java.util.concurrent.Flow.Subscription;
 
 public class ConsommateurNotification implements Flow.Subscriber<String> {
-	
+
 	private String id;
 	private Subscription souscription;
+	private List<String> messagesRecus = new ArrayList<>();
 
 	public ConsommateurNotification(final String id) {
 		this.id = id;
@@ -23,7 +26,12 @@ public class ConsommateurNotification implements Flow.Subscriber<String> {
 	@Override
 	public void onNext(final String message) {
 		System.out.println("Notification pour " + id + " : " + message);
+		messagesRecus.add(message);
 		souscription.request(1);
+	}
+
+	public List<String> getMessagesRecus() {
+		return messagesRecus;
 	}
 
 	@Override

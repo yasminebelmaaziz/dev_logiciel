@@ -3,6 +3,7 @@ package eu.telecomsudparis.csc4102.pge;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.SubmissionPublisher;
 
 import eu.telecomsudparis.csc4102.util.OperationImpossible;
 
@@ -25,6 +26,10 @@ public class PGE {
 	 * la collection des cadeaux.
 	 */
 	private Map<String, Cadeau> cadeaux;
+	/**
+	 * le producteur de notifications pour les membres du CE (stock épuisé).
+	 */
+	private SubmissionPublisher<String> producteurCE;
 
 	/**
 	 * construit la facade.
@@ -38,6 +43,7 @@ public class PGE {
 		setNBPointsMaxParEnfant(nbPtsMaxParEnfant);
 		familles = new HashMap<>();
 		cadeaux = new HashMap<>();
+		producteurCE = new SubmissionPublisher<>();
 	}
 
 	/**
@@ -46,7 +52,7 @@ public class PGE {
 	 * @return vrai lorsqu'il est vérifié.
 	 */
 	public boolean invariant() {
-		return nBPointsMaxParEnfant >= 0 && familles != null && cadeaux != null;
+		return nBPointsMaxParEnfant >= 0 && familles != null && cadeaux != null && producteurCE != null;
 	}
 
 	/**
@@ -239,6 +245,20 @@ public class PGE {
 		return cadeau.getNbDisponible();
 	}
 
+	/**
+	 * cette méthode va enregistrer un membre du CE pour recevoir les notifications de stock épuisé.
+	 *
+	 * @param consommateur le consommateur de notifications du membre du CE.
+	 * @throws OperationImpossible si le consommateur est null.
+	 */
+	public void enregistrerMembreCE(final ConsommateurNotification consommateur) throws OperationImpossible {
+		if (consommateur == null) {
+			throw new OperationImpossible("le consommateur ne peut pas être null");
+		}
+		producteurCE.subscribe(consommateur);
+		assert invariant();
+	}
+
 	@Override
 	public String toString() {
 		return "PGE [familles=" + familles + ", cadeaux=" + cadeaux + "]";
@@ -316,6 +336,10 @@ public class PGE {
 		}
 
 		famille.ajouterReservation(idEnfant, cadeau, quantite);
+
+		if (cadeau.getNbDisponible() == 0) {
+			producteurCE.submit("Stock épuisé pour le cadeau : " + cadeau.toString());
+		}
 
 		assert invariant();
 	}

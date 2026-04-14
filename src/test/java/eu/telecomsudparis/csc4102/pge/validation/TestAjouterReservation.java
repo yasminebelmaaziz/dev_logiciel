@@ -123,10 +123,44 @@ class TestAjouterReservation {
 		// réservation initiale puis on la màj
 		facade.ajouterUneReservation("f1", "e1", "c1", 1);
 		facade.ajouterUneReservation("f1", "e1", "c1", 2) ;
-		
-		//post conditions 
+
+		//post conditions
 		Assertions.assertEquals(7, facade.getNbDisponibleCadeau("c1"));
 		Assertions.assertEquals(5, facade.getNbPointsRestantsEnfant("f1", "e1"));
 		Assertions.assertEquals(1, facade.listerLesReservationsDUneFamille("f1").size());
+	}
+
+	
+	
+// ajout d'un test en plus lié à l'ajout des notifi
+
+	@Test
+	@DisplayName("test 12 : notification CE envoyée quand le stock atteint 0")
+	void ajouterReservationTest12() throws OperationImpossible, InterruptedException {
+		
+		ConsommateurNotification consommateurCE = new ConsommateurNotification("CE");
+		facade.enregistrerMembreCE(consommateurCE);
+
+		facade.ajouterUnCadeau("cCE", "cadeau test notification CE", 1, 3);
+		facade.ajouterUneReservation("f1", "e1", "cCE", 3) ;
+
+		Thread.sleep(100);
+
+		//donc on vérif que le CE a reçu exactement 1 notification mentionnant le cadeau épuisé
+		Assertions.assertEquals(1, consommateurCE.getMessagesRecus().size());
+		Assertions.assertTrue(consommateurCE.getMessagesRecus().get(0).contains("cCE"));
+	}
+
+	@Test
+	@DisplayName("test 13 : pas de notification CE si le stock ne tombe pas à 0")
+	void ajouterReservationTest13() throws OperationImpossible, InterruptedException {
+		ConsommateurNotification consommateurCE = new ConsommateurNotification("CE");
+		facade.enregistrerMembreCE(consommateurCE);
+
+		facade.ajouterUneReservation("f1", "e1", "c1", 1);
+
+		Thread.sleep(100);
+
+		Assertions.assertTrue(consommateurCE.getMessagesRecus().isEmpty());
 	}
 }
