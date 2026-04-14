@@ -37,7 +37,7 @@ public class TestRetirerCadeau {
 	
 	@ParameterizedTest
 	@NullAndEmptySource
-	@DisplayName("test 1: id cadeau vide")
+	@DisplayName("test 1: id cadeau null ou vide")
 	void TestRetirerCadeau1(String input) {
 		Assertions.assertThrows(OperationImpossible.class, () -> facade.retirerUnCadeau(input));
 	}

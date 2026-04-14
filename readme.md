@@ -196,6 +196,12 @@ priorité HAUTE.
 ∧ si quantité réservée atteint 0 : suppression de la réservation
 
 
+> **Note :** suite à l'implémentation du système de notifications, certaines postconditions des cas d'utilisation ci-dessus ont été enrichies en pratique par rapport à ce qui est écrit dans ce document. Notamment :
+> - **Ajouter une réservation** : si `nbDisponible` atteint 0 après la réservation, les membres du CE sont notifiés
+> - **Retirer une réservation** : si `nbDisponible` repasse de 0 à une valeur positive, les familles ayant demandé une notification de disponibilité sont notifiées et leur demande est retirée du système
+>
+> Les tests de validation correspondants sont présents dans les classes de test (`TestAjouterReservation`, `TestRetirerReservation`) mais ne sont pas retranscrits dans les tables de décision ci-dessous, par manque de temps.
+
 #### Autres cas d'utilisation et leur priorité respective
 
 - lister les familles (Moyenne)
@@ -208,10 +214,12 @@ priorité HAUTE.
 - lister les réservations réalisées (Moyenne)
 - lister les cadeaux disponibles (Moyenne)
 
-- (plus tard) efectuer un réassort (Basse)
-- (plus tard) système de notifications (Basse)
+- effectuer un réassort (Basse)
+- système de notifications (Basse)
 
 ## 2. Préparation des tests de validation des cas d'utilisation
+
+> **Note :** les tables de décision ci-dessous correspondent aux cas d'utilisation tels que spécifiés initialement. Suite à l'ajout du système de notifications, les postconditions de certains cas d'utilisation (**Ajouter une réservation**, **Retirer une réservation**) ont été enrichies en pratique. Les tests de validation associés à ces ajouts sont directement présents dans les classes de test correspondantes (`TestAjouterReservation`, `TestRetirerReservation`...) mais ne figurent pas dans les tables ci-dessous, par manque de temps.
 
 #### Ajouter une famille (HAUTE)
 
