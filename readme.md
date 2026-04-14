@@ -1,3 +1,7 @@
+Membres du projet : 
+- BELMAAZIZ Yasmine
+- TAS Ozgur
+
 
 # Petits cadeaux pour Grands Effets
 
@@ -29,7 +33,8 @@ d'utilisation les plus importants puis un second diagramme de cas
 d'utilisation avec des cas d'utilisation moins importants, et donc que
 nous ne développerons pas dans le cadre du temps imparti.
 
-![diagrammecasutilisation](./Diagrammes/pge_uml_diag_cas_utilisation.svg)
+![diagrammecasutilisation](./Diagrammes/pge_uml_diag_cas_utilisation.svg) \
+Figure 1 : Diagrammes des cas d'utilisation
 
 ### 1.2. Priorités, préconditions et postconditions des cas d'utilisation
 
@@ -51,9 +56,9 @@ règles de gestion, sans les retraits ou les listages ;
 * la possibilité de lister aide au déverminage de l'application
 pendant l'exécution des tests de validation ;
 
-Par conséquent, les cas d'utilisation d'ajout sont *a priori* de
-priorité « HAUTE », ceux de listage de priorité « Moyenne», et ceux de
-retrait de priorité « basse ».
+Par conséquent, les cas d'utilisation d'ajout et de retrait sont *a priori* de
+priorité « HAUTE », ceux de listage de priorité « Moyenne », et ceux de
+notification de priorité « basse ».
 
 Voici les précondition et postcondition des cas d'utilisation de
 priorité HAUTE.
@@ -71,10 +76,140 @@ priorité HAUTE.
 - postcondition : \
 ∧ ajout de la famille effectué
 
+#### Retirer une famille (HAUTE)
+
+- en entrée : identificateur de la famille
+- en sortie : /
+
+- précondition : \
+∧ identificateur bien formé (non null ∧ non vide) \
+∧ il existe une famille avec cet identificateur
+
+- postcondition : \
+∧ retrait de la famille effectué \
+∧ retrait des enfants de la famille effectué
+
+#### Ajouter un enfant (HAUTE)
+
+- en entrée : identificateur de la famille, prénom de l'enfant, nom de l'enfant, id enfant
+- en sortie : /
+
+- précondition : \
+∧ identificateur famille bien formé (non null ∧ non vide) \
+∧ identificateur enfant bien formé (non null ∧ non vide) \
+∧ prénom enfant bien formé (non null ∧ non vide) \
+∧ nom enfant bien formé (non null ∧ non vide) \
+∧ il existe une famille avec cet identificateur \
+∧ l'enfant n'existe pas
+
+- postcondition :\
+∧ ajout de l'enfant dans la famille \
+∧ le solde de points de l'enfant est initialisé
+
+#### Retirer un enfant (HAUTE)
+
+- en entrée : id famille, id enfant
+- en sortie : /
+
+- précondition : \
+∧ id famille bien formé (non null ∧ non vide) \
+∧ id enfant bien formé (non null ∧ non vide) \
+∧ la famille existe
+∧ l'enfant existe
+
+- postcondition :\
+∧ retrait de l'enfant dans la famille \
+∧ toutes les réservations de cadeaux associées à cet enfant sont retirées \
+∧ le nombre disponibles des cadeaux concernés est ré-incrémenté
+
+#### Ajouter un cadeau (HAUTE)
+
+- en entrée : id cadeau, description, nombre de points, nombre initial
+- en sortie : /
+
+- précondition : \
+∧ id cadeau bien formé (non null ∧ non vide) \
+∧ description bien formée (non null ∧ non vide) \
+∧ le cadeau n'existe pas\
+∧ nombre de points bien formée (non null ∧ non vide ∧ > 0) \
+∧ nombre initial bien formée (non null ∧ non vide ∧ >= 0)
+
+- postcondition : \
+∧ ajout du cadeau au catalogue effectué \
+∧ le nombre disponible est initialisé à la valeur du nombre initial
+
+#### Retirer un cadeau (HAUTE)
+
+- en entrée : id cadeau
+- en sortie : /
+`
+- précondition : \
+∧ id cadeau bien formé (non null ∧ non vide) \
+∧ le cadeau existe \
+∧ aucune réservation en cours (nbDisponible = nbInitial)
+
+- postcondition :\
+∧ retrait du cadeau au catalogue effectué 
+
+#### Ajouter une réservation d'un cadeau (HAUTE)
+
+- en entrée : id enfant, id cadeau, quantitée voulue
+- en sortie : /
+
+- précondition : \
+∧ identificateur famille bien formé (non null ∧ non vide) \
+∧ identifacteur enfant bien formé (non null ∧ non vide) \
+∧ identifacteur cadeau bien formé (non null ∧ non vide)\
+∧ quantitée bien formée (non null ∧ non vide ∧ >0)\
+∧ la famille existe\
+∧ l'enfant existe\
+∧ le cadeau existe\
+∧ le nombre disponible pour ce cadeau >= la quantitée voulue\
+∧ l'enfant possède un solde de points suffisant >= quantité*coût en points du cadeau
+
+- postcondition : \
+∧ le nombre disponible du cadeau est décrémenté par la quantité réservée \
+∧ le solde de points de l'enfant est décrémenté du nombre de points correspondant \
+∧ si réservation existante : quantité mise à jour \
+∧ si aucune réservation pour ce couple (enfant , cadeau) : création de la réservation
+
+#### Retirer une réservation d'un cadeau (HAUTE)
+
+- en entrée : id famille, id enfant, id cadeau, quantitée à retirer
+- en sortie : /
+
+- précondition : \
+∧ identificateur famille bien formé (non null ∧ non vide) \
+∧ identificateur enfant bien formé (non null ∧ non vide) \
+∧ identificateur cadeau bien formé (non null ∧ non vide) \
+∧ quantitée bien formée (non null ∧ non vide ∧ >0) \
+∧ la famille existe\
+∧ l'enfant existe\
+∧ le cadeau existe \
+∧ la réservation pour ce couple (enfant, cadeau) existe \
+∧ quantité déjà réservée >= quantité à retirer
+
+- postcondition : \
+∧ solde de points de l'enfant recrédité \
+∧ nombre disponible du cadeau incrémenté \
+∧ quantité réservée décrémentée \
+∧ si quantité réservée atteint 0 : suppression de la réservation
+
+
 #### Autres cas d'utilisation et leur priorité respective
 
-- retirer une famille (Moyenne)
 - lister les familles (Moyenne)
+- lister les enfants d'une famille (Moyenne)
+- lister tous les enfants (Moyenne)
+
+- lister le nombre de cadeaux disponibles (Moyenne)
+- lister le nombre de points restants d'un enfant (Moyenne)
+
+- lister les réservations réalisées (Moyenne)
+- lister les cadeaux disponibles (Moyenne)
+
+- (plus tard) efectuer un réassort (Basse)
+- (plus tard) système de notifications (Basse)
 
 ## 2. Préparation des tests de validation des cas d'utilisation
 
@@ -89,6 +224,125 @@ priorité HAUTE.
 | ajout de la famille effectué                    | F | F | F | T |
 |                                                 |   |   |   |   |
 | nombre de tests dans le jeu de tests            | 2 | 2 | 1 | 1 |
+
+
+#### Retirer une famille (HAUTE)
+
+|                                                 | 1 | 2 | 3 |
+|:------------------------------------------------|:--|:--|:--|
+| identificateur bien formé (non null ∧ non vide) | F | T | T |
+| il existe une famille avec cet identificateur   |   | F | T |
+|                                                 |   |   |   |
+| retrait de la famille effectué                  | F | F | T |
+| retrait des enfants de la famille effectué      |   |   | T |
+|                                                 |   |   |   |
+| nombre de tests dans le jeu de tests            | 2 | 2 | 1 |
+
+
+#### Ajouter un enfant (HAUTE)
+
+|                                                                   | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
+|-------------------------------------------------------------------|---|---|---|---|---|---|---|
+| identificateur famille bien formé (non null ∧ non vide)           | F | T | T | T | T | T | T |
+| identificateur enfant bien formé (non null ∧ non vide)            |   | F | T | T | T | T | T |
+| prénom enfant bien formé (non null ∧ non vide)                    |   |   | F | T | T | T | T |
+| nom enfant bien formé (non null ∧ non vide)                       |   |   |   | F | T | T | T |
+| il existe une famille avec cet identificateur                     |   |   |   |   | F | T | T |
+| l'enfant n'existe pas                                             |   |   |   |   |   | F | T |
+|                                                                   |   |   |   |   |   |   |   |
+| ajout de l'enfant dans la famille                                 | F | F | F | F | F | F | T |
+| le solde de points de l'enfant est initialisé                     | F | F | F | F | F | F | T |
+|                                                                   |   |   |   |   |   |   |   |
+| nombre de tests dans le jeu de tests                              | 2 | 2 | 2 | 2 | 1 | 1 | 1 |
+
+
+#### Retirer un enfant (HAUTE)
+|                                                                         | 1 | 2 | 3 | 4 | 5 |
+|-------------------------------------------------------------------------|---|---|---|---|---|
+| id famille bien formé (non null ∧ non vide)                             | F | T | T | T | T |
+| id enfant bien formé (non null ∧ non vide)                              |   | F | T | T | T |
+| la famille existe                                                       |   |   | F | T | T |
+| l'enfant existe                                                         |   |   |   | F | T |
+|                                                                         |   |   |   |   |   |
+| retrait de l'enfant dans la famille                                     | F | F | F | F | T |
+| toutes les réservations de cadeaux associées à cet enfant sont retirées | F | F | F | F | T |
+| le nombre dispo des cadeaux concernés est ré-incrémenté                 | F | F | F | F | T |
+|                                                                         |   |   |   |   |   |
+| nombre de tests dans le jeu de tests                                    | 2 | 2 | 1 | 1 | 1 |
+
+
+#### Ajouter un cadeau (HAUTE)
+
+|                                                                   | 1 | 2 | 3 | 4 | 5 | 6 |
+|-------------------------------------------------------------------|---|---|---|---|---|---|
+| id cadeau bien formé (non null ∧ non vide)                        | F | T | T | T | T | T |
+| description bien formée (non null ∧ non vide)                     |   | F | T | T | T | T |
+| pas de cadeau avec cette description                              |   |   | F | T | T | T |
+| nombre de points bien formé ( >0 )                                |   |   |   | F | T | T |
+| nombre initial bien formé (>=0)                                   |   |   |   |   | F | T |
+|                                                                   |   |   |   |   |   |   |
+| ajout du cadeau effectué                                          | F | F | F | F | F | T |
+| le nombre disponible est initialisé à la valeur du nombre initial | F | F | F | F | F | T |
+|                                                                   |   |   |   |   |   |   |
+| nombre de tests dans le jeu de tests                              | 2 | 2 | 1 | 1 | 1 | 1 |
+
+#### Retirer un cadeau (HAUTE)
+
+|                                                        | 1 | 2 | 3 | 4 |
+|--------------------------------------------------------|---|---|---|---|
+| id cadeau bien formé (non null ∧ non vide)             | F | T | T | T |
+| le cadeau existe                                       |   | F | T | T |
+| aucune réservation en cours (nbDisponible = nbInitial) |   |   | F | T |
+|                                                        |   |   |   |   |
+| retrait du cadeau au catalogue effectué                | F | F | F | T |
+|                                                        |   |   |   |   |
+| nombre de tests dans le jeu de tests                   | 2 | 1 | 1 | 1 |
+
+
+#### Ajouter une réservation d'un cadeau (HAUTE)
+
+|                                                         | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 |
+|---------------------------------------------------------|---|---|---|---|---|---|---|---|---|----|----|
+| identificateur famille bien formé (non null ∧ non vide) | F | T | T | T | T | T | T | T | T | T  | T  |
+| identificateur enfant bien formé (non null ∧ non vide)  |   | F | T | T | T | T | T | T | T | T  | T  |
+| identificateur cadeau bien formé (non null ∧ non vide)  |   |   | F | T | T | T | T | T | T | T  | T  |
+| quantité bien formée ( >0)                              |   |   |   | F | T | T | T | T | T | T  | T  |
+| la famille existe                                       |   |   |   |   | F | T | T | T | T | T  | T  |
+| l'enfant existe                                         |   |   |   |   |   | F | T | T | T | T  | T  |
+| le cadeau existe                                        |   |   |   |   |   |   | F | T | T | T  | T  |
+| nombre disponible >= quantité voulue                    |   |   |   |   |   |   |   | F | T | T  | T  |
+| solde de points suffisant                               |   |   |   |   |   |   |   |   | F | T  | T  |
+| réservation déjà existante ? (condition scénario)       |   |   |   |   |   |   |   |   |   | F  | T  |
+|                                                         |   |   |   |   |   |   |   |   |   |    |    |
+| nombre disponible cadeau décrémenté                     | F | F | F | F | F | F | F | F | F | T  | T  |
+| solde points décrémenté                                 | F | F | F | F | F | F | F | F | F | T  | T  |
+| création nouvelle réservation                           | F | F | F | F | F | F | F | F | F | T  | F  |
+| mise à jour réservation existante                       | F | F | F | F | F | F | F | F | F | F  | T  |
+|                                                         |   |   |   |   |   |   |   |   |   |    |    |
+| nombre de tests dans le jeu de tests                    | 2 | 2 | 2 | 1 | 1 | 1 | 1 | 1 | 1 | 1  | 1  |
+
+
+#### Retirer une réservation d'un cadeau (HAUTE)
+
+|                                                         | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 |
+|---------------------------------------------------------|---|---|---|---|---|---|---|---|---|----|----|
+| identificateur famille bien formé (non null ∧ non vide) | F | T | T | T | T | T | T | T | T | T  | T  |
+| identificateur enfant bien formé (non null ∧ non vide)  |   | F | T | T | T | T | T | T | T | T  | T  |
+| identificateur cadeau bien formé (non null ∧ non vide)  |   |   | F | T | T | T | T | T | T | T  | T  |
+| quantité bien formée (>0)                               |   |   |   | F | T | T | T | T | T | T  | T  |
+| la famille existe                                       |   |   |   |   | F | T | T | T | T | T  | T  |
+| l'enfant existe                                         |   |   |   |   |   | F | T | T | T | T  | T  |
+| le cadeau existe                                        |   |   |   |   |   |   | F | T | T | T  | T  |
+| la réservation pour ce couple existe                    |   |   |   |   |   |   |   | F | T | T  | T  |
+| quantité déjà réservée >= quantité à retirer            |   |   |   |   |   |   |   |   | F | T  | T  |
+| quantité restante > 0 ? (condition scénario)            |   |   |   |   |   |   |   |   |   | T  | F  |
+|                                                         |   |   |   |   |   |   |   |   |   |    |    |
+| solde de points de l'enfant recrédité                   | F | F | F | F | F | F | F | F | F | T  | T  |
+| nombre disponible du cadeau incrémenté                  | F | F | F | F | F | F | F | F | F | T  | T  |
+| quantité réservée décrémentée                           | F | F | F | F | F | F | F | F | F | T  | F  |
+| suppression de la réservation                           | F | F | F | F | F | F | F | F | F | F  | T  |
+|                                                         |   |   |   |   |   |   |   |   |   |    |    |
+| nombre de tests dans le jeu de tests                    | 2 | 2 | 2 | 1 | 1 | 1 | 1 | 1 | 1 | 1  | 1  |
 
 # 3. Conception
 
@@ -108,10 +362,15 @@ conception Façade, toutes les opérations des cas d'utilisation sont
 dans la Façade.
 
 Donc, dans la classe `PGE`, voici les premières opérations (en
-ignorant celles de priorité « basse ») :
+ignorant celles de priorité « moyenne et basse ») :
 - `ajouterUneFamille`
 - `retirerUneFamille`
-- `listerLesFamilles`
+- `ajouterUnEnfant`
+- `retirerUnEnfant`
+- `ajouterUnCadeau`
+- `retirerUnCadeau`
+- `ajouterUneReservation`
+- `retirerUneReservation`
 
 ## 3.3. Diagramme de classes (version conception détaillée)
 
@@ -130,11 +389,58 @@ Version sans les notifications :
 
 #### Ajouter une famille (HAUTE)
 
-Le premier diagramme a notre préférence.
 
 ![diagrammeséquenceajouterunefamille](./Diagrammes/pge_uml_diag_seq_ajouter_famille.svg)
 
-![diagrammeséquenceajouterunefamillealternative](./Diagrammes/pge_uml_diag_seq_ajouter_famille_alternative.svg)
+#### Ajouter un cadeau (HAUTE)
+
+![diagrammeséquenceajouteruncadeau](./Diagrammes/pge_uml_diag_seq_ajouter_un_cadeau.svg)
+
+#### Ajouter un enfant à une famille (HAUTE)
+
+Description textuelle de la séquence :
+
+1. Vérifier que la famille existe
+2. Vérifier que l'enfant n'existe pas
+3. Création de l'enfant
+4. Ajouter l'enfant à la famille
+
+![diagrammeséquenceajouterunenfant](./Diagrammes/pge_uml_diag_seq_ajouter_un_enfant_V2.svg)
+
+#### Ajouter une réservation de cadeau pour un enfant (HAUTE)
+
+Description textuelle de la séquence :
+
+1. Vérifier que l'enfant existe
+2. Vérifier que le cadeau existe
+3. Création d'une réservation
+
+![diagrammeséquenceajouterunereservationdecadeauaunenfant](./Diagrammes/pge_uml_diag_seq_ajouter_reservation.svg)
+
+# 7. Diagrammes de machine à états et invariants, et fiche des classes
+
+Dans les diagrammes de machine à états, nous faisons le choix de faire
+apparaître les états de création et de destruction. Ces états sont
+transitoires, il est vrai, mais ils méritent cependant une attention
+particulière.  L'état de création, en particulier, donne lieu, lors de
+la réalisation dans un langage de programmation orienté objet, à
+l'écriture d'une opération « constructeur » qui garantit que
+tous les attributs sont initialisés correctement dès la création d'une
+instance. Nous savons également qu'en JAVA la destruction se réalise
+en « oubliant » l'objet : un mécanisme de ramasse
+miettes détruit automatiquement les objets lorsqu'ils ne sont plus
+référencés. Il n'en est pas de même dans tous les langages, et par
+exemple en C++ qui ne possède pas de mécanisme de ramasse miettes, la
+destruction des objets peut s'avérer un casse tête ardu.
+
+Les actions provoquées par des appels en provenance d'autres objets
+apparaissent sur les transitions. Nous avons gardé comme action
+interne uniquement les actions correspondant à des appels que l'objet
+fait seul ou fait de manière répétitive.  Les constructeurs et
+destructeurs sont des exceptions (ils apparaissent en interne bien
+qu'étant déclenchés par un autre objet).
+
+
 
 # 7. Diagrammes de machine à états et invariants, et fiche des classes
 
@@ -163,14 +469,22 @@ qu'étant déclenchés par un autre objet).
 
 ### 7.1.1. Diagramme de machine à états
 
-Trivial et non dessiné pour l'instant.
 
 ### 7.1.2. Fiche de la classe Famille
 
-Voici tous les attributs de la classe :
+Voici tous les attributs et opérations de la classe :
+
 ```
-— id: String
-— description: String
+  - id : String
+  - description : String
+  - enfants : Collection~Enfant~
+
+  + getId() : String
+  + getDescription() : String
+  + chercherEnfant(idEnfant : String) : Enfant
+  + ajouterEnfant(e : Enfant) : void
+  + retirerEnfant(idEnfant : String) : void
+
 ```
 
 N.B. : la liste est à compléter.
@@ -178,11 +492,57 @@ N.B. : la liste est à compléter.
 ### 7.1.3. Invariant de la classe Famille
 
 ```
-  id != null ∧ !id.isBlank()
-∧ description != null ∧ !description.isBlank()
+id ≠ null
+∧ ¬id.isBlank()
+∧ description ≠ null
+∧ ¬description.isBlank()
+∧ enfants ≠ null
+
 ```
 
 N.B. : l'invariant est à compléter
+
+
+## 7.2. Classe Cadeau
+
+### 7.2.1. Diagramme de machine à états
+
+![diagrammemachineàétats](./Diagrammes/pge_uml_diag_machine_test.svg)\
+Figure : Diagramme de machine à états correspondant à la classe Cadeau 
+
+
+### 7.2.2. Fiche de la classe Cadeau
+
+Voici tous les attributs et les opérations de la classe :
+
+![diagrammeclassecadeau](./Diagrammes/pge_uml_diag_classe_cadeau.svg)
+
+### 7.2.3. Invariant de la classe Cadeau
+
+```
+id != null
+∧ !id.isBlank()
+∧ description != null
+∧ !description.isBlank()
+∧ cout > 0
+∧ nbInitial >= 0
+∧ nbDisponible >= 0
+∧ nbDisponible <= nbInitial
+
+```
+
+### 7.2.4. Formule logique
+
+N.B : à vérifier
+
+Invariant : "NbDisponible"
+```
+(nbDisponible > 0) ∨ (nbDisponible = 0)
+≡ ⟨ définition des entiers naturels ⟩
+nbDisponible ≥ 0
+≡ ⟨ cohérence du stock ⟩
+0 ≤ nbDisponible ≤ nbInitial
+```
 
 # 8 Préparation des tests unitaires
 
@@ -203,4 +563,67 @@ N.B. : l'invariant est à compléter
 | nombre de tests dans le jeu de tests            | 2   | 2   | 1   |
 
 ---
+
+
+
+## 8.2. Opérations de la classe Cadeau
+
+### Opération constructeur
+
+|                                                 | 1   | 2   | 3   | 4   | 5   |
+|:------------------------------------------------|:----|:----|:----|:----|:----|
+| identificateur bien formé (non null ∧ non vide) | F   | T   | T   | T   | T   |
+| description bien formée (non null ∧ non vide)   | T   | F   | T   | T   | T   |
+| nbInitial ≥ 0                                   | T   | T   | F   | T   | T   |
+| cout > 0                                        | T   | T   | T   | F   | T   |
+|                                                 |     |     |     |     |     |
+| id' = id                                        | F   | F   | F   | F   | T   |
+| description' = description                      | F   | F   | F   | F   | T   |
+| nbInitial' = nbInitial                          | F   | F   | F   | F   | T   |
+| nbDisponible' = nbInitial                       | F   | F   | F   | F   | T   |
+| cout' = cout                                    | F   | F   | F   | F   | T   |
+|                                                 |     |     |     |     |     |
+| levée d’une exception                           | oui | oui | oui | oui | non |
+|                                                 |     |     |     |     |     |
+| nombre de tests dans le jeu de tests            | 2   | 2   | 1   | 1   | 1   |
+
+
+
+### Opération réserver
+
+|                                            | 1   | 2   | 3   |
+|--------------------------------------------|:----|:----|:----|
+| quantité bien formée (non null ∧ non vide) | F   | T   | T   |
+| quantité réservable ( ≤ nbDisponible)      | T   | F   | T   |
+|                                            |     |     |     |
+| nbDisponible' = nbDisponible               | T   | T   | F   |
+| nbDisponible' = nbDisponible - qte         | F   | F   | T   |
+|                                            |     |     |     |
+| levée d’une exception                      | oui | oui | non |
+|                                            |     |     |     |
+| nombre de tests dans le jeu de tests       | 2   | 1   | 1   |
+
+
+## 8.3. Opérations de la classe Enfant
+
+### Opération constructeur
+
+|                                                 | 1   | 2   | 3   | 4   |
+|:------------------------------------------------|:----|:----|:----|:----|
+| identificateur bien formé (non null ∧ non vide) | F   | T   | T   | T   |
+| nom bien formé (non null ∧ non vide)            |     | F   | T   | T   |
+| prénom bien formé (non null ∧ non vide)         |     |     | F   | T   |
+|                                                 |     |     |     |     |
+| identificateur' = identificateur                | F   | F   | F   | T   |
+| nom' = nom                                      | F   | F   | F   | T   |
+| prénom' = prénom                                | F   | F   | F   | T   |
+| nbPointsRestants' = nbPointsRestants            | F   | F   | F   | T   |
+|                                                 |     |     |     |     |
+| levée d’une exception                           | oui | oui | oui | non |
+|                                                 |     |     |     |     |
+| nombre de tests dans le jeu de tests            | 2   | 2   | 2   | 1    |
+
+
+
+
 FIN DU DOCUMENT

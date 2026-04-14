@@ -1,0 +1,17 @@
+@startuml
+
+class Cadeau {
+  - id : String
+  - nbDisponible : int
+  - nbInitial : int
+  - cout : int
+  - description : String
+
+  + getId() : String
+  + getNbDisponible() : int
+  + getCout() : int
+  + decrementerNbDisponible(qte : int) : void
+  + reassort(qte : int) : void
+}
+
+@enduml

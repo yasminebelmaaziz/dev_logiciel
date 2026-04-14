@@ -1,0 +1,76 @@
+@startuml
+hide footbox
+skinparam sequenceParticipantBackgroundColor White
+skinparam sequenceActorBackgroundColor White
+
+actor "__:FAMILLE__" as famille
+participant "__pge:PGE__" as pge
+participant "__f:Famille__" as f
+participant "__e:Enfant__" as e
+participant "__c:Cadeau__" as c
+participant "__r:Réservation__" as r
+
+activate famille
+famille -> pge ++ : ajouterReservation(idFamille, idEnfant, idCadeau, quantite)
+
+opt idFamille, idEnfant, idCadeau, quantite non null ∧ non vide ∧ quantite > 0
+
+  pge -> pge ++ : f = chercherFamille(idFamille) : Famille
+  return
+
+  pge -> pge ++ : c = chercherCadeau(idCadeau) : Cadeau
+  return
+
+  opt f != null ∧ c != null
+
+    pge -> f ++ : ajouterReservation(idEnfant, c, quantite)
+    
+    f -> f ++ : e = chercherEnfant(idEnfant) : Enfant
+    return
+    
+    opt e != null
+
+      f -> e ++ : ajouterReservation(c, quantite)
+
+      e -> c ++ : cout = getCout() : int
+      return
+      
+      e -> c ++ : nbDisponible = getNbDisponible() : int
+      return
+
+      opt nbDisponible >= quantite ∧ nbPointsRestants >= quantite *cout
+        
+        e -> e ++ : r = chercherReservation(c) : Réservation
+        return
+        
+        alt r != null
+          
+          e -> r ++ : incrementerQuantite(quantite)
+          return
+        else r == null
+          
+          create "__r:Réservation__" as r
+          e -> r ++ : <<create>>(quantite , c)
+          return
+          
+          e -> e ++ : ajouterReservation(r)
+          return
+        end
+        
+        
+        e -> e ++ : decrementerPoints(quantite* cout)
+        return
+        
+        e -> c ++ : decrementerNbDisponible(quantite)
+        return
+        
+      end
+      return
+    end
+    return
+  end
+end
+
+return
+deactivate famille
+@enduml

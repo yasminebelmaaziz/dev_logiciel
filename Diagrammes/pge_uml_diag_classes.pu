@@ -10,13 +10,55 @@ skinparam groupInheritance 3
 
 class PGE {
   - nBPointsMaxParEnfant: int
+  - notificationsAttendues: Map<String, List<String>>
 }
 
 class Famille {
   - id: string
   - description: string
+  - producteur: SubmissionPublisher<String>
+  
 }
 
-PGE --> "*" Famille
+class ConsommateurNotification {
+    - id: String
+    - souscription: Subscription
+    + onSubscribe(souscription: Subscription)
+    + onNext(message: String)
+    + onError(throwable: Throwable)
+    + onComplete()
+}
+
+
+class Enfant {
+  - id: string
+  - nom: string
+  - prenom: string
+  - nbPointsRestants: int
+}
+
+class Cadeau {
+  - id: string
+  - nbDisponible: int
+  - nbInitial: int
+  - cout: int
+  - description: string
+}
+
+class Réservation {
+  - quantitee: int
+}
+
+
+
+PGE *--> "*" Famille
+PGE *--> "*" Cadeau
+
+Enfant *-->"*" Réservation
+Réservation "*"--> "1  " Cadeau
+
+
+Famille *--> "*" Enfant
+
 
 @enduml

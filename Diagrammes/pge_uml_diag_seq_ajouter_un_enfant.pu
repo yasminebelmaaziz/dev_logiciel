@@ -1,0 +1,38 @@
+@startuml
+hide footbox
+skinparam sequenceParticipantBackgroundColor White
+skinparam sequenceActorBackgroundColor White
+
+actor "__:SRH__" as srh
+participant "__pge:PGE__" as pge
+participant "__f:Famille__" as f
+
+activate srh
+srh -> pge ++ : ajouterUnEnfant(idFamille, prenom, nom, idEnfant)
+
+opt idFamille, idEnfant, prenom, nom non null ∧ non vide
+  pge -> pge ++ : f = chercherFamille(idFamille) : Famille
+  return
+
+  opt f != null
+    pge -> f ++ : e = ajouterEnfant(prenom, nom, idEnfant, nBPointsMaxParEnfant) : Enfant
+    
+    f -> f ++ : e = chercherEnfant(idEnfant) : Enfant
+    return
+
+    opt e == null
+      create "__e:Enfant__" as e
+      f -> e ++ : <<create(idEnfant, nom, prenom, nBPointsMaxParEnfant)>>
+      return
+
+      f -> f ++ : ajouterEnfant(e)
+      return
+    end
+
+    return
+  end
+end
+
+return
+deactivate srh
+@enduml
