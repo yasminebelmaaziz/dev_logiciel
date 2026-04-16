@@ -52,7 +52,7 @@ public class PGE {
 	 * @return vrai lorsqu'il est vérifié.
 	 */
 	public boolean invariant() {
-		return nBPointsMaxParEnfant >= 0 && familles != null && cadeaux != null && producteurCE != null;
+		return nBPointsMaxParEnfant > 0 && familles != null && cadeaux != null && producteurCE != null;
 	}
 
 	/**
