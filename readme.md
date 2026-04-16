@@ -505,10 +505,10 @@ id ≠ null
 ∧ description ≠ null
 ∧ ¬description.isBlank()
 ∧ enfants ≠ null
+∧ cadeauxSuivis ≠ null
+∧ producteur ≠ null
 
 ```
-
-N.B. : l'invariant est à compléter
 
 
 ## 7.2. Classe Cadeau

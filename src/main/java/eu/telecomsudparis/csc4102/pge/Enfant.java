@@ -6,6 +6,9 @@ import java.util.Objects;
 
 import eu.telecomsudparis.csc4102.util.OperationImpossible;
 
+/**
+ * Cette classe modélise le concept métier d'enfant d'une famille.
+ */
 public class Enfant {
 
 	@Override
@@ -103,7 +106,7 @@ public class Enfant {
 	 * @return	vrai lorsqu'il est vérifié.
 	 */
 	public boolean invariant() {
-		return id != null && !id.isBlank() && nom != null && !nom.isBlank() && prenom != null && !prenom.isBlank();
+		return id != null && !id.isBlank() && nom != null && !nom.isBlank() && prenom != null && !prenom.isBlank() && nbPointsRestants >= 0;
 	}
 
 	/**

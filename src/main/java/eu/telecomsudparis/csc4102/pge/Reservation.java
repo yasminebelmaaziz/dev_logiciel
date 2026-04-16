@@ -1,5 +1,8 @@
 package eu.telecomsudparis.csc4102.pge;
 
+/**
+ * Cette classe modélise le concept métier de réservation d'un cadeau pour un enfant.
+ */
 public class Reservation {
 	@Override
 	public String toString() {
@@ -31,7 +34,7 @@ public class Reservation {
 	 * @return	vrai lorsqu'il est vérifié.
 	 */
 	public boolean invariant() {
-		return quantite > 0;
+		return quantite > 0 && cadeau != null;
 	}
 
 	/**

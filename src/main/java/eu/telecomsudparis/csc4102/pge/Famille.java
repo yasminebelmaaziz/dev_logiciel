@@ -90,7 +90,7 @@ public class Famille {
 	 * @param idEnfant	l'identifiant de l'enfant.
 	 * @return			renvoie l'enfant avec l'identifiant idEnfant.
 	 */
-	public Enfant chercherEnfant(final String idEnfant) {
+	private Enfant chercherEnfant(final String idEnfant) {
 		for (Enfant enfant : enfants) {
 			if (idEnfant.equals(enfant.getId())) {
 				return enfant;
@@ -123,7 +123,7 @@ public class Famille {
 	 * @return vrai lorsqu'il est vérifié.
 	 */
 	public boolean invariant() {
-		return id != null && !id.isBlank() && description != null && !description.isBlank();
+		return id != null && !id.isBlank() && description != null && !description.isBlank() && enfants != null && cadeauxSuivis != null && producteur != null;
 	}
 
 	/**
@@ -216,9 +216,19 @@ public class Famille {
 	}
 
 	/**
+	 * liste les enfants de la famille avec leur nombre de points restant.
+	 *
+	 * @return collection de strings
+	 */
+	public List<String> listerLesEnfantsAvecPoints() {
+		return enfants.stream().map(e -> e.getId() + " : " + e.getNbPointsRestants() + " points restants").toList();
+	}
+
+	/**
+	 * renvoie le nombre de pts restants pour un enfant.
 	 * @param idEnfant				l'identifiant de l'enfant.
 	 * @return						recupère le nombre de points restants de l'enfant.
-	 * @throws OperationImpossible	le problème détecté par la logique métier.
+	 * @throws OperationImpossible	le problème détecté par la logique métier
 	 */
 	public int getNbPointsRestantsEnfant(final String idEnfant) throws OperationImpossible {
 		Enfant enfant = chercherEnfant(idEnfant);

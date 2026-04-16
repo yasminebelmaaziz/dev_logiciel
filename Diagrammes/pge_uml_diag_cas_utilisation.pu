@@ -27,15 +27,21 @@ rectangle "PGE" {
 
 :CE: -- (ajouter un cadeau)
 :CE: -- (retirer un cadeau)
+:CE: -- (réassortir un cadeau)
 :CE: -- (lister le nombre de points restants d'un enfant)
+:CE: -- (lister les points restants de tous les enfants)
 :CE: -- (lister le nombre de cadeaux disponibles)
-:Famille: --(ajouter une réservation de cadeaux pour un enfant)
-:Famille: --(retirer une réservation)
-:Famille: --(lister le nombre de cadeaux disponibles)
-:Famille: --(lister les réservation de la famille)
+:CE: <-- (notifier les membres du CE du stock épuisé)
 
-:Famille: <--(notifier de la disponibilité d'un cadeau)
-:Famille: --(demander à être notifié de la disponibilité d'un cadeau)
+:Famille: -- (ajouter une réservation de cadeaux pour un enfant)
+:Famille: -- (retirer une réservation)
+:Famille: -- (lister le nombre de cadeaux disponibles)
+:Famille: -- (lister les réservations de la famille)
+:Famille: -- (lister le nombre de points restants d'un enfant)
+:Famille: -- (lister les points restants de tous les enfants)
+
+:Famille: <-- (notifier de la disponibilité d'un cadeau)
+:Famille: -- (demander à être notifié de la disponibilité d'un cadeau)
 
 
 }

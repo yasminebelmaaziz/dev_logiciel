@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.concurrent.Flow;
 import java.util.concurrent.Flow.Subscription;
 
+/**
+ * Cette classe implémente un consommateur de notifications.
+ */
 public class ConsommateurNotification implements Flow.Subscriber<String> {
 
 	/**

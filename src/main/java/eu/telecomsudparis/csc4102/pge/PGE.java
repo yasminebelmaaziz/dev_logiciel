@@ -157,7 +157,26 @@ public class PGE {
 		return cadeaux.values().stream().map(Cadeau::toString).toList();
 	}
 
-		
+	/**
+	 * liste le nb de réservations encore possibles pour chaque cadeau.
+	 *
+	 * @return collection de strings, donc une par cadeau.
+	 */
+	public List<String> listerNbReservationsPossiblesCadeaux() {
+		return cadeaux.values().stream().map(c -> c.toString() + " : " + c.getNbDisponible()).toList();
+	}
+
+
+
+	/**
+	 * liste le nombre de points restant de tous les enfants du système.
+	 *
+	 * @return une collection de strings, une par enfant.
+	 */
+	public List<String> listerLesPointsRestantsDeTousLesEnfants() {
+		return familles.values().stream().flatMap(f -> f.listerLesEnfantsAvecPoints().stream()).toList();
+	}
+
 	/**
 	 * liste tous les enfants du système, toutes familles confondues.
 	 *
@@ -228,7 +247,7 @@ public class PGE {
 	}
 
 	/**
-	 * retourne le nombre disponible d'un cadeau.
+	 * retourne le nb dispo d'un cadeau.
 	 *
 	 * @param idCadeau l'identifiant du cadeau.
 	 * @return le nombre disponible.
@@ -308,7 +327,7 @@ public class PGE {
 			throw new OperationImpossible("le coût du cadeau ne peut pas être négatif ou nul");
 		}
 		if (nbInitial < 0) {
-			throw new OperationImpossible("le coût du cadeau ne peut pas être négatif");
+			throw new OperationImpossible("le nombre initial de cadeaux ne peut pas être négatif");
 		}
 		var cadeau = new Cadeau(idCadeau, description, nbInitial, cout);
 		cadeaux.put(idCadeau, cadeau);
@@ -386,7 +405,8 @@ public class PGE {
 		}
 
 		famille.retirerUnEnfant(idEnfant);
-
+		notifierSiCadeauxRedevenusDisponibles();
+		assert invariant();
 	}
 
 	/**
@@ -407,9 +427,9 @@ public class PGE {
 		}
 
 		famille.nettoyageAvantSupr();
-
 		familles.remove(idFamille);
-
+		notifierSiCadeauxRedevenusDisponibles();
+		assert invariant();
 	}
 	
 	/**
@@ -431,11 +451,13 @@ public class PGE {
 
 		if (cadeau.verifierReservation()) {
 			cadeaux.remove(idCadeau);
+			for (Famille famille : familles.values()) {
+				famille.retirerCadeauSuivi(idCadeau);
+			}
+			assert invariant();
 		} else {
 			throw new OperationImpossible("ce cadeau ne peut pas être retiré car il est déjà réservé");
 		}
-
-
 	}
 	
 	/**
@@ -500,6 +522,24 @@ public class PGE {
 			}
 		}
 	}
+	
+
+	/**
+	 * notifie les familles en attente pour tous les cadeaux redevenus disponibles.
+	 * 
+	 * meme si la méthode parcourt tous les cadeaux du système, pas de risque de fausse notif car notifierFamillesDisponibilite 
+	 * ne notifie une famille que si elle a ce cadeau dans sa liste de toute façon..
+	 * 
+	 * utile quand on retire un enfant ou une famille de pge
+	 */
+	private void notifierSiCadeauxRedevenusDisponibles() {
+		for (String idCadeau : cadeaux.keySet()) {
+			Cadeau cadeau = cadeaux.get(idCadeau);
+			if (cadeau.getNbDisponible() > 0) {
+				notifierFamillesDisponibilite(cadeau, idCadeau);
+			}
+		}
+	}
 
 	/**
 	 * eneregistre qu'une famille veut être notifiée de la disponibilité d'un cadeau.
@@ -528,8 +568,31 @@ public class PGE {
 			throw new OperationImpossible("le cadeau est encore disponible, impossible de demander une notification de disponibilité");
 		}
 		famille.ajouterCadeauSuivi(idCadeau);
+		
 		assert invariant();
 	}
+
+	
+	
+	
+	/**
+	 * verifie si une famille suit un cadeau pour une notification dedisponibilité.
+	 * 
+	 * @param idFamille l'identifiant de la famille.
+	 * @param idCadeau l'identifiant du cadeau.
+	 * @return vrai si la famille suit le cadeau.
+	 */
+	
+	public boolean familleSuitCadeau(final String idFamille, final String idCadeau) {
+		Famille famille = familles.get(idFamille);
+		if (famille == null) {
+			return false;
+		}
+		return famille.suitCeCadeau(idCadeau);
+	}
+	
+	
+	
 
 	/**
 	 * réassortit un cadeau et notifie les familles qui attendaient sa disponibilité.
