@@ -389,9 +389,11 @@ les opérations ne sont pas mentionnées par souci de simplification.
 **Important: même dans les diagrammes de la conception détaillée, on
 ne montre pas les attributs traduisant des associations.**
 
-Version sans les notifications :
+Version avec les notifications :
 
 ![diagrammeclasses](./Diagrammes/pge_uml_diag_classes.svg)
+
+Figure 2 : Diagramme de classes
 
 ## 3.4. Diagrammes de séquence
 
@@ -400,9 +402,13 @@ Version sans les notifications :
 
 ![diagrammeséquenceajouterunefamille](./Diagrammes/pge_uml_diag_seq_ajouter_famille.svg)
 
+Figure 3 : Diagramme de sequence "Ajouter une famille"
+
 #### Ajouter un cadeau (HAUTE)
 
 ![diagrammeséquenceajouteruncadeau](./Diagrammes/pge_uml_diag_seq_ajouter_un_cadeau.svg)
+
+Figure 4 : Diagramme de sequence "Ajouter un cadeau"
 
 #### Ajouter un enfant à une famille (HAUTE)
 
@@ -415,6 +421,8 @@ Description textuelle de la séquence :
 
 ![diagrammeséquenceajouterunenfant](./Diagrammes/pge_uml_diag_seq_ajouter_un_enfant_V2.svg)
 
+Figure 5 : Diagramme de sequence "Ajouter un enfant à une famille"
+
 #### Ajouter une réservation de cadeau pour un enfant (HAUTE)
 
 Description textuelle de la séquence :
@@ -425,30 +433,7 @@ Description textuelle de la séquence :
 
 ![diagrammeséquenceajouterunereservationdecadeauaunenfant](./Diagrammes/pge_uml_diag_seq_ajouter_reservation.svg)
 
-# 7. Diagrammes de machine à états et invariants, et fiche des classes
-
-Dans les diagrammes de machine à états, nous faisons le choix de faire
-apparaître les états de création et de destruction. Ces états sont
-transitoires, il est vrai, mais ils méritent cependant une attention
-particulière.  L'état de création, en particulier, donne lieu, lors de
-la réalisation dans un langage de programmation orienté objet, à
-l'écriture d'une opération « constructeur » qui garantit que
-tous les attributs sont initialisés correctement dès la création d'une
-instance. Nous savons également qu'en JAVA la destruction se réalise
-en « oubliant » l'objet : un mécanisme de ramasse
-miettes détruit automatiquement les objets lorsqu'ils ne sont plus
-référencés. Il n'en est pas de même dans tous les langages, et par
-exemple en C++ qui ne possède pas de mécanisme de ramasse miettes, la
-destruction des objets peut s'avérer un casse tête ardu.
-
-Les actions provoquées par des appels en provenance d'autres objets
-apparaissent sur les transitions. Nous avons gardé comme action
-interne uniquement les actions correspondant à des appels que l'objet
-fait seul ou fait de manière répétitive.  Les constructeurs et
-destructeurs sont des exceptions (ils apparaissent en interne bien
-qu'étant déclenchés par un autre objet).
-
-
+Figure 6 : Diagramme de sequence "Ajouter une reservation de cadeau pour un enfant"
 
 # 7. Diagrammes de machine à états et invariants, et fiche des classes
 
@@ -472,6 +457,8 @@ interne uniquement les actions correspondant à des appels que l'objet
 fait seul ou fait de manière répétitive.  Les constructeurs et
 destructeurs sont des exceptions (ils apparaissent en interne bien
 qu'étant déclenchés par un autre objet).
+
+
 
 ## 7.1. Classe Famille
 
@@ -516,7 +503,7 @@ N.B. : l'invariant est à compléter
 ### 7.2.1. Diagramme de machine à états
 
 ![diagrammemachineàétats](./Diagrammes/pge_uml_diag_machine_test.svg)\
-Figure : Diagramme de machine à états correspondant à la classe Cadeau 
+Figure 7: Diagramme de machine à états correspondant à la classe Cadeau 
 
 
 ### 7.2.2. Fiche de la classe Cadeau
@@ -524,6 +511,8 @@ Figure : Diagramme de machine à états correspondant à la classe Cadeau
 Voici tous les attributs et les opérations de la classe :
 
 ![diagrammeclassecadeau](./Diagrammes/pge_uml_diag_classe_cadeau.svg)
+
+Figure 8: Diagramme de classe Cadeau 
 
 ### 7.2.3. Invariant de la classe Cadeau
 
