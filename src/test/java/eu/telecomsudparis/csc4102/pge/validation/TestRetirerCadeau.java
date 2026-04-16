@@ -64,4 +64,27 @@ public class TestRetirerCadeau {
 
 	}
 	
+	
+	//test ajouté pour la complétude
+	// cahier des charges dit : "une demande de disponibilité disparaît aussi lorsque le cadeau est retiré du système"
+
+	@Test
+	@DisplayName("test  : la demande de notif est supp quand le cadeau est retiré du système")
+	void TestRetirerCadeau5() throws OperationImpossible {
+		facade.ajouterUnCadeau("c3", "cadeau vide" , 5, 0);
+
+		
+		ConsommateurNotification consommateurFAM2 = new ConsommateurNotification("FAM2");
+		facade.ajouterUneFamille("FAM2", "laFamille", consommateurFAM2);
+		facade.ajouterUnEnfantAUneFamille("FAM2", "lafamille", "ouioui", "enf2");
+		facade.demanderUneNotificationDisponibilite("FAM2", "c3");
+
+		Assertions.assertTrue(facade.familleSuitCadeau("FAM2", "c3"));
+		
+		facade.retirerUnCadeau("c3");
+		
+		Assertions.assertFalse(facade.familleSuitCadeau("FAM2", "c3"));
+
+	}
+
 }

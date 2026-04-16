@@ -66,7 +66,6 @@ class TestRetirerEnfant {
 	@Test
 	@DisplayName("test 5 : succès retrait enfant")
 	void TestRetirerEnfant5() throws OperationImpossible {
-		// avant le retrait : enf1 a réservé 1 exemplaire de c1 (nbInitial=10), donc nbDisponible=9
 		Assertions.assertEquals(9, facade.getNbDisponibleCadeau("c1"));
 
 		facade.retirerUnEnfant("FAM", "enf1");
@@ -79,5 +78,31 @@ class TestRetirerEnfant {
 		Assertions.assertEquals(10, facade.getNbDisponibleCadeau("c1"));
 	}
 	
+	
+	
+//test ajouté pour les notifications : 
+	@Test
+	@DisplayName("test 6: notiif famille quand retrait d'un enfant libère un cadeau qui était épuisé et demandé")
+	void TestRetirerEnfant6() throws OperationImpossible, InterruptedException {
+		
+		facade.ajouterUnEnfantAUneFamille("FAM", "Jackson", "M", "enf2");
+		facade.ajouterUneReservation("FAM", "enf2", "c1", 9);
+		Assertions.assertEquals(0, facade.getNbDisponibleCadeau("c1")); //cadeau épuiséé
+
+		
+		ConsommateurNotification consommateurFAM2 = new ConsommateurNotification("FAM2"); //autre fam demande une notif pour c1
+		
+		facade.ajouterUneFamille("FAM2", "Bibimbap", consommateurFAM2);
+		facade.demanderUneNotificationDisponibilite("FAM2", "c1");
+
+		// on retire enf1 qui avait réservé 1 C1
+		facade.retirerUnEnfant("FAM", "enf1");
+		
+		Thread.sleep(100);
+
+		//verif notif de la famille 2
+		Assertions.assertEquals(1, consommateurFAM2.getMessagesRecus().size());
+		Assertions.assertTrue(consommateurFAM2.getMessagesRecus().get(0).contains("c1"));
+	}
 
 }
