@@ -285,7 +285,7 @@ priorité HAUTE.
 |-------------------------------------------------------------------|---|---|---|---|---|---|
 | id cadeau bien formé (non null ∧ non vide)                        | F | T | T | T | T | T |
 | description bien formée (non null ∧ non vide)                     |   | F | T | T | T | T |
-| pas de cadeau avec cette description                              |   |   | F | T | T | T |
+| pas de cadeau avec cet id                                         |   |   | F | T | T | T |
 | nombre de points bien formé ( >0 )                                |   |   |   | F | T | T |
 | nombre initial bien formé (>=0)                                   |   |   |   |   | F | T |
 |                                                                   |   |   |   |   |   |   |
@@ -472,17 +472,38 @@ Voici tous les attributs et opérations de la classe :
 ```
   - id : String
   - description : String
-  - enfants : Collection~Enfant~
+  - enfants : ArrayList<Enfant>
+  - producteur : SubmissionPublisher<String>
+  - cadeauxSuivis : List<String>
 
+  + Famille(id : String, description : String, consommateur :
+  ConsommateurNotification)                                                     
+  + ajouterUnEnfant(idEnfant : String, nom : String, prenom : String,
+  nBPointsMaxParEnfant : int) : void                                            
+  - chercherEnfant(idEnfant : String) : Enfant
+  + retirerUnEnfant(idEnfant : String) : void                                   
+  + ajouterReservation(idEnfant : String, cadeau : Cadeau, quantitee : int) :
+  void                                                                          
+  + retirerReservation(idEnfant : String, cadeau : Cadeau, quantitee : int) :
+  void                                                                          
+  + nettoyageAvantSupr() : void
+  + listerLesEnfants() : List<String>                                           
+  + listerLesEnfantsAvecPoints() : List<String>
+  + listerLesReservations() : List<String>                                      
+  + getNbPointsRestantsEnfant(idEnfant : String) : int
+  + ajouterCadeauSuivi(idCadeau : String) : void                                
+  + retirerCadeauSuivi(idCadeau : String) : void                                
+  + suitCeCadeau(idCadeau : String) : boolean
+  + notifierDisponibilite(cadeau : Cadeau) : void                               
   + getId() : String
-  + getDescription() : String
-  + chercherEnfant(idEnfant : String) : Enfant
-  + ajouterEnfant(e : Enfant) : void
-  + retirerEnfant(idEnfant : String) : void
+  + invariant() : boolean                                                       
+  + hashCode() : int
+  + equals(obj : Object) : boolean                                              
+  + toString() : String
+
 
 ```
 
-N.B. : la liste est à compléter.
 
 ### 7.1.3. Invariant de la classe Famille
 
@@ -492,10 +513,9 @@ id ≠ null
 ∧ description ≠ null
 ∧ ¬description.isBlank()
 ∧ enfants ≠ null
-∧ cadeauxSuivis ≠ null
-∧ producteur ≠ null
 
 ```
+
 
 
 ## 7.2. Classe Cadeau
@@ -530,7 +550,6 @@ id != null
 
 ### 7.2.4. Formule logique
 
-N.B : à vérifier
 
 Invariant : "NbDisponible"
 ```
