@@ -476,16 +476,12 @@ Voici tous les attributs et opérations de la classe :
   - producteur : SubmissionPublisher<String>
   - cadeauxSuivis : List<String>
 
-  + Famille(id : String, description : String, consommateur :
-  ConsommateurNotification)                                                     
-  + ajouterUnEnfant(idEnfant : String, nom : String, prenom : String,
-  nBPointsMaxParEnfant : int) : void                                            
+  + Famille(id : String, description : String, consommateur : ConsommateurNotification)                                                     
+  + ajouterUnEnfant(idEnfant : String, nom : String, prenom : String, nBPointsMaxParEnfant : int) : void                                            
   - chercherEnfant(idEnfant : String) : Enfant
   + retirerUnEnfant(idEnfant : String) : void                                   
-  + ajouterReservation(idEnfant : String, cadeau : Cadeau, quantitee : int) :
-  void                                                                          
-  + retirerReservation(idEnfant : String, cadeau : Cadeau, quantitee : int) :
-  void                                                                          
+  + ajouterReservation(idEnfant : String, cadeau : Cadeau, quantitee : int) : void                                                                          
+  + retirerReservation(idEnfant : String, cadeau : Cadeau, quantitee : int) : void                                                                          
   + nettoyageAvantSupr() : void
   + listerLesEnfants() : List<String>                                           
   + listerLesEnfantsAvecPoints() : List<String>

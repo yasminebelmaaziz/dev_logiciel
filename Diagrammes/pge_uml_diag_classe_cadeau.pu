@@ -9,9 +9,11 @@ class Cadeau {
 
   + getId() : String
   + getNbDisponible() : int
+  + getNbInitial() : int
   + getCout() : int
   + decrementerNbDisponible(quantite : int) : void
   + incrementerNbInitial(quantite : int) : void
+  + incrementerNbDisponible(quantite : int) : void
   + verifierReservation() : boolean
   + invariant() : boolean
 }
