@@ -10,11 +10,12 @@ skinparam groupInheritance 3
 
 class PGE {
   - nBPointsMaxParEnfant: int
+  - producteurCE : SubmissionPublisher<String>
 }
 
 class Famille {
-  - id: string
-  - description: string
+  - id: String
+  - description: String
   - producteur: SubmissionPublisher<String>
   
 }
@@ -26,18 +27,18 @@ class ConsommateurNotification {
 
 
 class Enfant {
-  - id: string
-  - nom: string
+  - id: String
+  - nom: String
   - prenom: string
   - nbPointsRestants: int
 }
 
 class Cadeau {
-  - id: string
+  - id: String
   - nbDisponible: int
   - nbInitial: int
   - cout: int
-  - description: string
+  - description: String
 }
 
 class Réservation {

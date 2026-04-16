@@ -10,8 +10,10 @@ class Cadeau {
   + getId() : String
   + getNbDisponible() : int
   + getCout() : int
-  + decrementerNbDisponible(qte : int) : void
-  + reassort(qte : int) : void
+  + decrementerNbDisponible(quantite : int) : void
+  + incrementerNbInitial(quantite : int) : void
+  + verifierReservation() : boolean
+  + invariant() : boolean
 }
 
 @enduml
