@@ -142,7 +142,7 @@ priorité HAUTE.
 
 - en entrée : id cadeau
 - en sortie : /
-`
+
 - précondition : \
 ∧ id cadeau bien formé (non null ∧ non vide) \
 ∧ le cadeau existe \
@@ -153,7 +153,7 @@ priorité HAUTE.
 
 #### Ajouter une réservation d'un cadeau (HAUTE)
 
-- en entrée : id enfant, id cadeau, quantitée voulue
+- en entrée : id famille, id enfant, id cadeau, quantitée voulue
 - en sortie : /
 
 - précondition : \
@@ -196,11 +196,10 @@ priorité HAUTE.
 ∧ si quantité réservée atteint 0 : suppression de la réservation
 
 
-> **Note :** suite à l'implémentation du système de notifications, certaines postconditions des cas d'utilisation ci-dessus ont été enrichies en pratique par rapport à ce qui est écrit dans ce document. Notamment :
+> **Note :** suite à l'implémentation du système de notifications, certaines postconditions des cas d'utilisation ci-dessus ont été enrichies en pratique par rapport à ce qui est écrit dans ce document. Parmi elles, par exemple :
 > - **Ajouter une réservation** : si `nbDisponible` atteint 0 après la réservation, les membres du CE sont notifiés
 > - **Retirer une réservation** : si `nbDisponible` repasse de 0 à une valeur positive, les familles ayant demandé une notification de disponibilité sont notifiées et leur demande est retirée du système
 >
-> Les tests de validation correspondants sont présents dans les classes de test (`TestAjouterReservation`, `TestRetirerReservation`) mais ne sont pas retranscrits dans les tables de décision ci-dessous, par manque de temps.
 
 #### Autres cas d'utilisation et leur priorité respective
 
@@ -219,7 +218,7 @@ priorité HAUTE.
 
 ## 2. Préparation des tests de validation des cas d'utilisation
 
-> **Note :** les tables de décision ci-dessous correspondent aux cas d'utilisation tels que spécifiés initialement. Suite à l'ajout du système de notifications, les postconditions de certains cas d'utilisation (**Ajouter une réservation**, **Retirer une réservation**) ont été enrichies en pratique. Les tests de validation associés à ces ajouts sont directement présents dans les classes de test correspondantes (`TestAjouterReservation`, `TestRetirerReservation`...) mais ne figurent pas dans les tables ci-dessous, par manque de temps.
+> **Note :** les tables de décision ci-dessous correspondent aux cas d'utilisation tels que spécifiés initialement. Suite à l'ajout du système de notifications, les postconditions de certains cas d'utilisation ont été enrichies en pratique. Les tests de validation associés à ces ajouts sont directement présents dans les classes de test correspondantes (`TestAjouterReservation`, `TestRetirerReservation`...) mais ne figurent pas dans les tables ci-dessous, par manque de temps. (Ces nouveaux tests figurent à la fin des fichiers de tests de validation.)
 
 #### Ajouter une famille (HAUTE)
 
@@ -386,8 +385,6 @@ Le diagramme de classes obtenu lors d'une analyse à partir de l'énoncé
 du problème est donné dans la figure qui suit. Dans ces diagrammes,
 les opérations ne sont pas mentionnées par souci de simplification.
 
-**Important: même dans les diagrammes de la conception détaillée, on
-ne montre pas les attributs traduisant des associations.**
 
 Version avec les notifications :
 
@@ -425,11 +422,7 @@ Figure 5 : Diagramme de sequence "Ajouter un enfant à une famille"
 
 #### Ajouter une réservation de cadeau pour un enfant (HAUTE)
 
-Description textuelle de la séquence :
-
-1. Vérifier que l'enfant existe
-2. Vérifier que le cadeau existe
-3. Création d'une réservation
+Ce diagramme de séquence est le diagramme qui a servi pour l'implémentation initiale, il ne prend donc pas en compte le système de notification final.
 
 ![diagrammeséquenceajouterunereservationdecadeauaunenfant](./Diagrammes/pge_uml_diag_seq_ajouter_reservation.svg)
 
@@ -493,9 +486,6 @@ Voici tous les attributs et opérations de la classe :
   + notifierDisponibilite(cadeau : Cadeau) : void                               
   + getId() : String
   + invariant() : boolean                                                       
-  + hashCode() : int
-  + equals(obj : Object) : boolean                                              
-  + toString() : String
 
 
 ```
@@ -509,6 +499,8 @@ id ≠ null
 ∧ description ≠ null
 ∧ ¬description.isBlank()
 ∧ enfants ≠ null
+∧ cadeauxSuivis ≠ null
+∧ producteur ≠ null 
 
 ```
 
