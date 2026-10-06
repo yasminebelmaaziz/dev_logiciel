@@ -53,8 +53,35 @@ cours (voir `pom.xml`). Si ce dépôt n'est plus accessible, la compilation éch
 
 ## Ma contribution
 
-> À COMPLÉTER : décris ici, en quelques lignes, ce que tu as réalisé toi-même
-> (par ex. quelles classes, quels diagrammes, quels tests, quelles parties de la conception).
+Projet mené en binôme, avec un travail réparti sur toutes les phases (spécification, conception,
+implémentation, tests). Mes contributions principales, visibles dans l'historique git (72 commits) :
+
+**Spécification et conception**
+- rédaction des préconditions et postconditions et des tables de décision pour la préparation des tests de validation ;
+- diagramme de classes (relations, navigabilité `Cadeau`/`Réservation`, composition `Enfant`/`Réservation`) ;
+- diagrammes de séquence : ajout d'une réservation, ajout d'un enfant, ajout d'un cadeau ;
+- machines à états, invariants et fiches des classes `Famille` et `Cadeau`, et préparation des tests unitaires associés ;
+- prise en compte des remarques de suivi des enseignants (révision des diagrammes, des conditions et du modèle,
+  par ex. ajout de l'attribut `nbInitial` en plus de `nbDisponible` pour détecter les réservations en cours).
+
+**Implémentation (Java)**
+- classe `Cadeau` et classe `Reservation` ;
+- l'essentiel de la façade `PGE` : ajout et retrait de cadeaux, de familles et de réservations, opérations de listage,
+  réassort des cadeaux ;
+- système de **notifications** : abonnement des familles à la disponibilité d'un cadeau, notification des membres du CE
+  et des familles lors d'un retrait ou d'un retour en stock (`ConsommateurNotification`, `SubmissionPublisher`) ;
+- participation aux classes `Famille` et `Enfant`, avec mon binôme.
+
+**Tests**
+- tests unitaires de `Cadeau` ;
+- la grande majorité des tests de validation, un par cas d'utilisation : ajout d'un enfant, d'un cadeau, d'une réservation ;
+  retrait d'une famille, d'un enfant, d'un cadeau, d'une réservation ; listage des enfants ; demande de notification ;
+  réassort, y compris les tests des notifications et des postconditions ;
+- les tests unitaires de `Famille` et `Enfant` ont été écrits par mon binôme.
+
+**Démarche collaborative**
+Travail en binôme sur GitLab avec branches (`develop`, branches de tâches par sprint), fusions et résolution de conflits,
+et intégration continue.
 
 ## Crédits et licence
 
